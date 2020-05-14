@@ -7,8 +7,8 @@ namespace crowdFunding.Services
 {
     public interface IProjectCreatorService
     {
-        ProjectCreator CreateProjectCreator(CreateProjectCreatorOptions options);
-        IQueryable<ProjectCreator> SearchProjectCreator(SearchProjectCreatorOptions options);
-        ProjectCreator UpdateProjectCreator(UpdateProjectCreatorOptions options);
+        //ProjectCreator CreateProjectCreator(CreateProjectCreatorOptions options);
+        //IQueryable<ProjectCreator> SearchProjectCreator(SearchProjectCreatorOptions options);
+        //ProjectCreator UpdateProjectCreator(UpdateProjectCreatorOptions options);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using crowdFunding.Services;
+using System;
 using System.Linq;
 
 namespace crowdFunding
@@ -7,44 +8,35 @@ namespace crowdFunding
     {
         static void Main(string[] args)
         {
-            var crowdDb = new CrowdFundingDbContext();
-
-            var backer = new Backer()
+            using (var context = new CrowdFundingDbContext())
             {
-                FirstName = "mema",
-                Amount = 300m
-            };
-            crowdDb.Add(backer);
+                IBackerService backerService = new BackerService(context);
+                //ICustomerService customerService = new CustomerService(context);
+                //IOrderService orderService = new OrderService(context, customerService, productService);
 
-            var reward = new Reward()
-            {
-                Name = "1st reward",
-            };
 
-            var rewardPackage = new RewardPackage()
-            {
-                Ammount = 50,
-            };
-            rewardPackage.Reward.Add(reward);
+                //var backer = backerService.CreateBacker(new CreateBackerOptions()
+                //{
+                //    FirstName = "Odysseas",
+                //    LastName = "Platsakis",
+                //    Country = "Greece",
+                //    Email = "odyplat@mail.com"
+                //});
 
-            var backRewPack = new BackerRewardPackage()
-            {
-                Backer = backer,
-                RewardPackage = rewardPackage
-            };
-            crowdDb.Add(backRewPack);
+                //var backerList = backerService.SearchBacker(new SearchBackerOptions()
+                //{
+                //    LastName = "Platsakis"
+                //}).ToList();
 
-            var p1 = crowdDb.Set<Project>().Where(p => p.ProjectId == 1).SingleOrDefault();
-            p1.Rewards.Add(rewardPackage);
+                //Console.WriteLine(backerList[0].FirstName);
 
-            var proBack = new ProjectBacker()
-            {
-                Backer = backer,
-                Project = p1,
-            };
-            crowdDb.Add(proBack);
+                var backer = backerService.UpdateBacker(new UpdateBackerOptions()
+                {
+                    BackerId = 6,
+                    FirstName = "Odysseas"
+                });
 
-            crowdDb.SaveChanges();
+            }
         }
     }
 }
