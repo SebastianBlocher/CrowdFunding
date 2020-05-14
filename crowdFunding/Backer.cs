@@ -13,6 +13,7 @@ namespace crowdFunding
         public string Country { get; set; }
         public DateTimeOffset CreatedOn { get; set; }
         public decimal Amount { get; set; }
+        public bool IsActive { get; set; }
 
         public Backer()
         {

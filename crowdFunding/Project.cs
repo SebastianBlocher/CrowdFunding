@@ -12,6 +12,7 @@ namespace crowdFunding
         public string Description { get; set; }
         public List<ProjectBacker> ProjectBackers { get; set; }
         public List<RewardPackage> Rewards { get; set; }
+        public Category Category { get; set; }
         public Project()
         {
             CreatedOn = DateTimeOffset.Now;
