@@ -25,40 +25,24 @@ namespace crowdFunding
             base.OnModelCreating(modelBuilder);
 
             modelBuilder
-                .Entity<ProjectCreator>()
-                .ToTable("ProjectCreator");
+                .Entity<User>()
+                .ToTable("User");
 
             modelBuilder
                 .Entity<Project>()
                 .ToTable("Project");
 
             modelBuilder
-                .Entity<Backer>()
-                .ToTable("Backer");
+                .Entity<BackedProjects>()
+                .ToTable("BackedProjects");
 
             modelBuilder
-                .Entity<ProjectBacker>()
-                .ToTable("ProjectBacker");
-
-            modelBuilder
-                .Entity<ProjectBacker>()
-                .HasKey(pb => new { pb.BackerId, pb.ProjectId });
-
-            modelBuilder
-               .Entity<Reward>()
-               .ToTable("Reward");
+                .Entity<Reward>()
+                .ToTable("Reward");
 
             modelBuilder
                .Entity<RewardPackage>()
                .ToTable("RewardPackage");
-
-            modelBuilder
-               .Entity<BackerRewardPackage>()
-               .ToTable("BackerRewardPackage");
-
-            modelBuilder
-                .Entity<BackerRewardPackage>()
-                .HasKey(br => new { br.BackerId, br.RewardPackageId });
         }
     }
 }
