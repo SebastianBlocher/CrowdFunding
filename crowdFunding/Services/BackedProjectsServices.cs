@@ -14,9 +14,16 @@ namespace crowdFunding.Services
             context_ = context;
         }
 
-        public BackedProjects CreateBackedProject(CreateBackedProjectOptions options)
+        public BackedProjects CreateBackedProject(CreateBackedProjectOptions options, int userId)
         {
             if (options == null)
+            {
+                return null;
+            }
+
+            var user = new UserService(context_).GetById(userId).SingleOrDefault();
+
+            if (user == null)
             {
                 return null;
             }
@@ -34,9 +41,11 @@ namespace crowdFunding.Services
 
             };
 
+            user.BackedProjectsList.Add(backedProject);
+
             //------------------add backedProject to User's BackedProjectsList
 
-            context_.Add(backedProject);
+            context_.SaveChanges();
 
             if (context_.SaveChanges() > 0)
             {
@@ -53,26 +62,52 @@ namespace crowdFunding.Services
             //    return null;
             //}
 
-            var query = context_
-                .Set<User>()
-                .AsQueryable();
+            var user = new UserService(context_).GetById(userId).SingleOrDefault();
 
-            //if (userId != null)
-            //{
-            query = query
-            .Where(u => u.UserId == userId)
-            .Where(u => u.BackedProjectsList.Count() > 0);
-            //}
-
-            if ()
+            if (user == null)
             {
+                return null;
+            }
 
+            var backedProjects = user.BackedProjectsList.AsQueryable();
+
+            if (options.Name != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.Name == options.Name);
+            }
+            if (options.Description != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.Description == options.Description);
+            }
+            if (options.Category != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.Category == options.Category);
+            }
+            if (options.ProjectId != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.ProjectId == options.ProjectId);
+            }
+            if (options.BackedFrom != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.BackedOn >= options.BackedFrom);
+            }
+            if (options.BackedTo != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.BackedOn <= options.BackedTo);
+            }
+            if (options.AmountFrom != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.Amount >= options.AmountFrom);
+            }
+            if (options.AmountTo != null)
+            {
+                backedProjects = backedProjects.Where(bp => bp.Amount <= options.AmountTo);
             }
 
 
+            //Console.WriteLine(user.FirstName);
 
-
-            return null;
+            return backedProjects;
         }
     }
 }
