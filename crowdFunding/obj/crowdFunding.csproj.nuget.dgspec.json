@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj": {}
+    "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\crowdFunding.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj": {
+    "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\crowdFunding.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj",
+        "projectUniqueName": "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\crowdFunding.csproj",
         "projectName": "crowdFunding",
-        "projectPath": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj",
-        "packagesPath": "C:\\Users\\ody_s\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\obj\\",
+        "projectPath": "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\crowdFunding.csproj",
+        "packagesPath": "C:\\Users\\gefre\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ody_s\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gefre\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
