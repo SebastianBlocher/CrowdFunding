@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace crowdFunding
+﻿namespace crowdFunding
 {
     public class Reward
     {

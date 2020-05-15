@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using crowdFunding.Options;
+using System.Linq;
 
 namespace crowdFunding.Services
 {
-    interface IRewardPackageService
+    public interface IRewardPackageService
     {
+        RewardPackage CreateRewardPackage(CreateRewardPackageOptions options);
+        IQueryable<RewardPackage> SearchRewardPackage(SearchRewardPackageOptions options);
+        RewardPackage UpdateRewardPackage(UpdateRewardPackageOptions options);
+        RewardPackage GetRewardPackageById(int? rewardPackageId);
+        bool RemoveRewardPackage(int? rewardPackageId);
     }
 }

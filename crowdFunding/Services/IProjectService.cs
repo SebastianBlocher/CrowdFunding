@@ -4,7 +4,7 @@ using System.Text;
 
 namespace crowdFunding.Services
 {
-    interface IProjectService
+    public interface IProjectService
     {
     }
 }

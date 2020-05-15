@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj": {}
+    "C:\\Users\\sebab\\source\\repos\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj": {
+    "C:\\Users\\sebab\\source\\repos\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj",
+        "projectUniqueName": "C:\\Users\\sebab\\source\\repos\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj",
         "projectName": "crowdFunding",
-        "projectPath": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj",
-        "packagesPath": "C:\\Users\\ody_s\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\obj\\",
+        "projectPath": "C:\\Users\\sebab\\source\\repos\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj",
+        "packagesPath": "C:\\Users\\sebab\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sebab\\source\\repos\\athens-pf-team5\\crowdFunding\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ody_s\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sebab\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -70,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
