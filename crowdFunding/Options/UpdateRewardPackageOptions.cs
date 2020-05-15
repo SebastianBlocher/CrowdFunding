@@ -4,15 +4,14 @@ namespace crowdFunding.Options
 {
     public class UpdateRewardPackageOptions
     {
-        public List<Reward> Reward { get; set; }
+        public List<CreateRewardOptions> Rewards { get; set; }
         public int RewardPackageId { get; set; }
-        public decimal? Amount { get; set; }
-        public List<int?> RewardIds { get; set; }
+        public decimal? Amount { get; set; }        
         public string Description { get; set; }
 
         public UpdateRewardPackageOptions()
         {
-            RewardIds = new List<int?>();
+            Rewards = new List<CreateRewardOptions>();
         }
     }
 }

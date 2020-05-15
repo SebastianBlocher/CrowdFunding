@@ -145,23 +145,31 @@ namespace crowdFunding.Services
                 rewardPackage.Description = options.Description;
             }
 
-            if (options.RewardIds == null || !options.RewardIds.Any())
+            if (options.Rewards == null || !options.Rewards.Any())
             {
                 return null;
             }
 
-            rewardPackage.Rewards.Clear();
+            //rewardPackage.Rewards.Clear();
 
-            foreach (var id in options.RewardIds)
-            {
-                var reward = rewardService_.GetRewardById(id);
+            foreach (var reward in options.Rewards)
+            {               
 
                 if (reward == null)
                 {
                     return null;
                 }
 
-                rewardPackage.Rewards.Add(reward);             
+                var createdReward = rewardService_.CreateReward(reward);
+            
+                rewardPackage.Rewards.Add(createdReward);
+
+                var deleteReward = rewardService_.RemoveReward(reward.RewardId);
+
+                if (deleteReward == false)
+                {
+                    return null;
+                }
             }
 
             if (context_.SaveChanges() > 0)
