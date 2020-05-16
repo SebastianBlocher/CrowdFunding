@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-using crowdFunding.Services.Options;
+//using crowdFunding.Services.Options;
 
 namespace crowdFunding
 {
@@ -14,39 +14,44 @@ namespace crowdFunding
         {
             using (var context = new CrowdFundingDbContext())
             {
-<<<<<<< HEAD
-                var user = new UserService(context)
-                    .CreateUser(new CreateUserOptions()
+                IUserService userservice = new UserService(context);
+                IBackedProjectsService backedProjectService = new BackedProjectsServices(context);
+                IProjectService projectservice = new ProjectService(context);
+
+                //var user = userservice
+                //    .CreateUser(new CreateUserOptions()
+                //    {
+                //        FirstName = "giannis",
+                //        LastName = "poulopoulos",
+                //        Country = "tk"
+                //    });
+
+
+                var backedProject = backedProjectService
+                    .CreateBackedProject(new CreateBackedProjectOptions()
                     {
-                        FirstName = "giannis",
-                        LastName = "poulopoulos",
-                        Country = "tk"
+                        ProjectId = 2,
+                        Amount = 15m,
+                        UserId = 2
                     });
 
+                var user = userservice.GetById(2).ToList();
 
-                var backedProject = new BackedProjectsServices(context)
-                    .SearchBackedProjects(new SearchBackedProjectsOptions()
-                    {
+                Console.WriteLine(user[0].BackedProjectsList.Count());
 
-                    }, 1);
-=======
-                
-                
-                    IProjectService projectservice = new ProjectService(context);
-                   
-                    var proj = projectservice.CreateProject(new crowdFunding.Services.Options.CreateProjectOption()
-                    { 
-                        Name = "Project 10",
-                        Description = "Testtest",
-                        Category = (Category)3
-                    }
-                    );
 
-                var project = projectservice.SearchProject( new SearchProjectOption
-                {
-                    ProjectId=1,
-                }).FirstOrDefault();
->>>>>>> master_project_services
+                //var proj = projectservice.CreateProject(new crowdFunding.Services.Options.CreateProjectOption()
+                //{
+                //    Name = "Project 10",
+                //    Description = "Testtest",
+                //    Category = (Category)3
+                //}
+                //);
+
+                //var project = projectservice.SearchProject(new SearchProjectOption
+                //{
+                //    ProjectId = 1,
+                //}).FirstOrDefault();
             }
         }
     }

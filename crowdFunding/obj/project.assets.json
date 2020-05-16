@@ -5001,19 +5001,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MemaStamataki\\.nuget\\packages\\": {}
+    "C:\\Users\\ody_s\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MemaStamataki\\devel\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj",
+      "projectUniqueName": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj",
       "projectName": "crowdFunding",
-      "projectPath": "C:\\Users\\MemaStamataki\\devel\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj",
-      "packagesPath": "C:\\Users\\MemaStamataki\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MemaStamataki\\devel\\athens-pf-team5\\crowdFunding\\obj\\",
+      "projectPath": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\crowdFunding.csproj",
+      "packagesPath": "C:\\Users\\ody_s\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ody_s\\devel\\pf-team5\\crowdFunding\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\MemaStamataki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ody_s\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

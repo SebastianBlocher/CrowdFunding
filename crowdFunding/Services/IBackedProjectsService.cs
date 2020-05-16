@@ -7,7 +7,7 @@ namespace crowdFunding.Services
 {
     public interface IBackedProjectsService
     {
-        BackedProjects CreateBackedProject(CreateBackedProjectOptions options, int userId);
-        IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options, int userId);
+        BackedProjects CreateBackedProject(CreateBackedProjectOptions options);
+        IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options);
     }
 }

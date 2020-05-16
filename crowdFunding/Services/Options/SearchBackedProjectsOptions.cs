@@ -14,5 +14,6 @@ namespace crowdFunding.Services
         public decimal? AmountTo { get; set; }
         public string Description { get; set; }
         public Category? Category { get; set; }
+        public int userId { get; set; }
     }
 }

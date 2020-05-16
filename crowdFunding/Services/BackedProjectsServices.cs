@@ -1,4 +1,5 @@
-﻿using System;
+﻿using crowdFunding.Services.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,55 +15,54 @@ namespace crowdFunding.Services
             context_ = context;
         }
 
-        public BackedProjects CreateBackedProject(CreateBackedProjectOptions options, int userId)
+        public BackedProjects CreateBackedProject(CreateBackedProjectOptions options)
         {
             if (options == null)
             {
                 return null;
             }
+            IUserService userService = new UserService(context_);
+            IProjectService projectService = new ProjectService(context_);
 
-            var user = new UserService(context_).GetById(userId).SingleOrDefault();
+            var user = userService
+                .GetById(options.UserId)
+                .SingleOrDefault();
 
             if (user == null)
             {
                 return null;
             }
 
-            //------------------check if the project exists through its ID------------------------------------------
-            //var project = SearchProjects(new SearchProjectsOptions()
-            //{
+            var project = projectService
+                .SearchProject(new SearchProjectOption()
+                {
+                    ProjectId = options.ProjectId
+                })
+                .SingleOrDefault();
 
-            //})
-
-            var backedProject = new BackedProjects()
+            if (project == null)
             {
-                Amount = options.Amount,
-                ProjectId = options.ProjectId,
-
-            };
-
-            user.BackedProjectsList.Add(backedProject);
-
-            //------------------add backedProject to User's BackedProjectsList
-
-            context_.SaveChanges();
-
-            if (context_.SaveChanges() > 0)
-            {
-                return backedProject;
+                return null;
             }
+
+            userService.UpdateUser(new UpdateUserOptions()
+            {
+                UserId = options.UserId,
+                NewBackedProjectId = options.ProjectId,
+                BackedProjectAmount = options.Amount
+            });
 
             return null;
         }
 
-        public IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options, int userId)
+        public IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options)
         {
             //if (options == null)
             //{
             //    return null;
             //}
 
-            var user = new UserService(context_).GetById(userId).SingleOrDefault();
+            var user = new UserService(context_).GetById(options.userId).SingleOrDefault();
 
             if (user == null)
             {

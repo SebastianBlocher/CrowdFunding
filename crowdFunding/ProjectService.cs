@@ -80,7 +80,7 @@ namespace crowdFunding
         }
         
 
-        public Project GetProjectByCategory(Category Category)
+        public Project GetProjectByCategory(Category? Category)
         {
 
             if (Category == null)

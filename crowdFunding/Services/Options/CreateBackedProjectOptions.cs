@@ -8,5 +8,6 @@ namespace crowdFunding.Services
     {
         public int ProjectId { get; set; }
         public decimal Amount { get; set; }
+        public int UserId { get; set; }
     }
 }
