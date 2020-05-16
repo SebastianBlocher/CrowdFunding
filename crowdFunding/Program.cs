@@ -27,18 +27,24 @@ namespace crowdFunding
                 //    });
 
 
-                var backedProject = backedProjectService
-                    .CreateBackedProject(new CreateBackedProjectOptions()
+                //var backedProject = backedProjectService
+                //    .CreateBackedProject(new CreateBackedProjectOptions()
+                //    {
+                //        ProjectId = 6,
+                //        Amount = 15m,
+                //        UserId = 2
+                //    });
+
+                var backedProjectList = backedProjectService
+                    .SearchBackedProjects(new SearchBackedProjectsOptions()
                     {
-                        ProjectId = 2,
-                        Amount = 15m,
-                        UserId = 2
-                    });
+                        UserId = 2,
+                        ProjectId = 6,
+                    }).ToList();
 
                 var user = userservice.GetById(2).ToList();
 
                 Console.WriteLine(user[0].BackedProjectsList.Count());
-
 
                 //var proj = projectservice.CreateProject(new crowdFunding.Services.Options.CreateProjectOption()
                 //{

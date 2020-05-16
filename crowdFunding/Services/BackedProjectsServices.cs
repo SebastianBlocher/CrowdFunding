@@ -57,12 +57,12 @@ namespace crowdFunding.Services
 
         public IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options)
         {
-            //if (options == null)
-            //{
-            //    return null;
-            //}
+            if (options == null)
+            {
+                return null;
+            }
 
-            var user = new UserService(context_).GetById(options.userId).SingleOrDefault();
+            var user = new UserService(context_).GetById(options.UserId).SingleOrDefault();
 
             if (user == null)
             {
@@ -71,38 +71,44 @@ namespace crowdFunding.Services
 
             var backedProjects = user.BackedProjectsList.AsQueryable();
 
-            if (options.Name != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Name == options.Name);
-            }
-            if (options.Description != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Description == options.Description);
-            }
-            if (options.Category != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Category == options.Category);
-            }
-            if (options.ProjectId != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.ProjectId == options.ProjectId);
-            }
-            if (options.BackedFrom != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.BackedOn >= options.BackedFrom);
-            }
-            if (options.BackedTo != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.BackedOn <= options.BackedTo);
-            }
-            if (options.AmountFrom != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Amount >= options.AmountFrom);
-            }
-            if (options.AmountTo != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Amount <= options.AmountTo);
-            }
+            //Console.WriteLine(user.BackedProjectsList.Count());
+
+
+
+            //var query = context_.Set<BackedProjects>().Where(v=>v.)
+
+            //if (options.Name != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.Name == options.Name);
+            //}
+            //if (options.Description != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.Description == options.Description);
+            //}
+            //if (options.Category != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.Category == options.Category);
+            //}
+            //if (options.ProjectId != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.ProjectId == options.ProjectId);
+            //}
+            //if (options.BackedFrom != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.BackedOn >= options.BackedFrom);
+            //}
+            //if (options.BackedTo != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.BackedOn <= options.BackedTo);
+            //}
+            //if (options.AmountFrom != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.Amount >= options.AmountFrom);
+            //}
+            //if (options.AmountTo != null)
+            //{
+            //    backedProjects = backedProjects.Where(bp => bp.Amount <= options.AmountTo);
+            //}
 
 
             //Console.WriteLine(user.FirstName);
