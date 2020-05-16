@@ -16,6 +16,7 @@ namespace crowdFunding
 
         public BackedProjects()
         {
+
             BackedOn = DateTimeOffset.Now;
         }
     }

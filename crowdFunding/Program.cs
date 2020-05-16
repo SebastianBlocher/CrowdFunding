@@ -2,6 +2,9 @@
 using crowdFunding.Services.Options;
 using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.IO;
+using crowdFunding.Services.Options;
 
 namespace crowdFunding
 {
@@ -11,6 +14,7 @@ namespace crowdFunding
         {
             using (var context = new CrowdFundingDbContext())
             {
+<<<<<<< HEAD
                 var user = new UserService(context)
                     .CreateUser(new CreateUserOptions()
                     {
@@ -25,6 +29,24 @@ namespace crowdFunding
                     {
 
                     }, 1);
+=======
+                
+                
+                    IProjectService projectservice = new ProjectService(context);
+                   
+                    var proj = projectservice.CreateProject(new crowdFunding.Services.Options.CreateProjectOption()
+                    { 
+                        Name = "Project 10",
+                        Description = "Testtest",
+                        Category = (Category)3
+                    }
+                    );
+
+                var project = projectservice.SearchProject( new SearchProjectOption
+                {
+                    ProjectId=1,
+                }).FirstOrDefault();
+>>>>>>> master_project_services
             }
         }
     }
