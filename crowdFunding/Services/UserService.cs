@@ -31,21 +31,6 @@ namespace crowdFunding.Services
                 Country = options.Country,
             };
 
-            if (options.NewProject != null)
-            {
-                user.CreatedProjectsList.Add(options.NewProject);
-            }
-
-            if (options.NewBackedProjectId != null && options.BackedProjectAmount != null)
-            {
-                var backedProject = new BackedProjects()
-                {
-                    ProjectId = (int)options.NewBackedProjectId,
-                    Amount = (decimal)options.BackedProjectAmount,
-                };
-                user.BackedProjectsList.Add(backedProject);
-            }
-
             context.Add(user);
 
             return context.SaveChanges() > 0 ? user : null;
