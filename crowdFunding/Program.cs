@@ -1,6 +1,10 @@
 ﻿using crowdFunding.Services;
+using crowdFunding.Services.Options;
 using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.IO;
+//using crowdFunding.Services.Options;
 
 namespace crowdFunding
 {
@@ -10,6 +14,7 @@ namespace crowdFunding
         {
             using (var context = new CrowdFundingDbContext())
             {
+
             }
         }
     }

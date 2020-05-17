@@ -11,9 +11,6 @@ namespace crowdFunding.Services.Options
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Country { get; set; }
-        public Project NewProject { get; set; }
-        public int? NewBackedProjectId { get; set; }
         public string Description { get; set; }
-        public decimal? BackedProjectAmount { get; set; }
     }
 }

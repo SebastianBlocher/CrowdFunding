@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace crowdFunding.Services
+namespace crowdFunding.Services.Options
 {
-    public interface IProjectService
+    public class UpdateProjectOption
     {
     }
 }

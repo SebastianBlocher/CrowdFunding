@@ -1,5 +1,8 @@
 ﻿using crowdFunding.Options;
+using crowdFunding.Services.Options;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace crowdFunding.Services
 {
@@ -30,9 +33,9 @@ namespace crowdFunding.Services
                 return null;
             }
 
-            var project = projectService_.SearchProject(new SearchProjectOptions()
+            var project = projectService_.SearchProject(new SearchProjectOption()
             {
-                projectId = options.ProjectId
+                ProjectId = options.ProjectId
 
             }).SingleOrDefault();
 
@@ -108,16 +111,16 @@ namespace crowdFunding.Services
                 query = query.Where(rp => rp.Name == options.Name);
             }
             //----------------------
-            var project = projectService_.SearchProject(new SearchProjectOptions()
+            var project = projectService_.SearchProject(new SearchProjectOption()
             {
-                projectId = options.ProjectId
+                ProjectId = options.ProjectId
 
             }).SingleOrDefault();
 
-            if (project != null)
-            {                
-                query = query.Where(rp => rp.projectId == options.ProjectId);
-            }
+            //if (project != null)
+            //{
+            //    query = query.Where(rp => rp.ProjectId == options.ProjectId);
+            //}
             //-----------------------
             query = query.Take(500);
 
@@ -161,8 +164,6 @@ namespace crowdFunding.Services
                 return null;
             }
 
-            //rewardPackage.Rewards.Clear();
-
             foreach (var reward in options.Rewards)
             {               
 
@@ -197,7 +198,7 @@ namespace crowdFunding.Services
             {
                 return null;
             }
-
+            
             var rewardPackage = SearchRewardPackage(new SearchRewardPackageOptions()
             {
                 RewardPackageId = rewardPackageId
