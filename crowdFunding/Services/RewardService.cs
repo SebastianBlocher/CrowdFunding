@@ -14,7 +14,7 @@ namespace crowdFunding.Services
         public Reward CreateReward(
             CreateRewardOptions options)
         {
-            if (options == null)
+            if (options == null || string.IsNullOrWhiteSpace(options.Name))                 
             {
                 return null;
             }

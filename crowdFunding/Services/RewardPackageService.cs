@@ -1,8 +1,5 @@
 ﻿using crowdFunding.Options;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace crowdFunding.Services
 {
@@ -25,7 +22,10 @@ namespace crowdFunding.Services
         public RewardPackage CreateRewardPackage(
             CreateRewardPackageOptions options)
         {
-            if (options == null)
+            if (options == null 
+                || options.Amount == null 
+                || string.IsNullOrWhiteSpace(options.Description) 
+                || string.IsNullOrWhiteSpace(options.Name))
             {
                 return null;
             }
@@ -44,7 +44,8 @@ namespace crowdFunding.Services
             var rewardPackage = new RewardPackage()
             {
                 Amount = options.Amount,
-                Description = options.Description
+                Description = options.Description,
+                Name = options.Name
             };
 
             foreach (var option in options.RewardOptions)
@@ -101,6 +102,11 @@ namespace crowdFunding.Services
             {
                 query = query.Where(rp => rp.Description == options.Description);
             }
+
+            if (!string.IsNullOrWhiteSpace(options.Name))
+            {
+                query = query.Where(rp => rp.Name == options.Name);
+            }
             //----------------------
             var project = projectService_.SearchProject(new SearchProjectOptions()
             {
@@ -143,6 +149,11 @@ namespace crowdFunding.Services
             if (!string.IsNullOrWhiteSpace(options.Description))
             {
                 rewardPackage.Description = options.Description;
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.Name))
+            {
+                rewardPackage.Name = options.Name;
             }
 
             if (options.Rewards == null || !options.Rewards.Any())
