@@ -134,7 +134,6 @@ D:\Users\Admin\Devel\Crowdfund\crowdFunding\bin\Debug\netcoreapp3.1\runtimes\win
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.csprojAssemblyReference.cache
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.csproj.CoreCompileInputs.cache
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.AssemblyInfoInputs.cache
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.AssemblyInfo.cs
@@ -142,3 +141,4 @@ D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.dll
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.pdb
 D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.genruntimeconfig.cache
+D:\Users\Admin\Devel\Crowdfund\crowdFunding\obj\Debug\netcoreapp3.1\crowdFunding.csprojAssemblyReference.cache

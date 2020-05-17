@@ -10,10 +10,14 @@ namespace crowdFunding.Services
     public class BackedProjectsServices : IBackedProjectsService
     {
         private CrowdFundingDbContext context_;
+        private IProjectService projectService_;
+        private IUserService userService_;
 
-        public BackedProjectsServices(CrowdFundingDbContext context)
+        public BackedProjectsServices(CrowdFundingDbContext context, IUserService userService, IProjectService projectService)
         {
             context_ = context;
+            userService_ = userService;
+            projectService_ = projectService;
         }
 
         public BackedProjects CreateBackedProject(CreateBackedProjectOptions options)
@@ -22,11 +26,10 @@ namespace crowdFunding.Services
             {
                 return null;
             }
-            IUserService userService = new UserService(context_);
-            IProjectService projectService = new ProjectService(context_);
 
-            var user = userService
+            var user = userService_
                 .GetById(options.UserId)
+                .Include(x => x.BackedProjectsList)
                 .SingleOrDefault();
 
             if (user == null)
@@ -34,7 +37,7 @@ namespace crowdFunding.Services
                 return null;
             }
 
-            var project = projectService
+            var project = projectService_
                 .SearchProject(new SearchProjectOption()
                 {
                     ProjectId = options.ProjectId
@@ -46,24 +49,25 @@ namespace crowdFunding.Services
                 return null;
             }
 
-            userService.UpdateUser(new UpdateUserOptions()
+            var backedProject = new BackedProjects()
             {
-                UserId = options.UserId,
-                NewBackedProjectId = options.ProjectId,
-                BackedProjectAmount = options.Amount
-            });
+                Amount = options.Amount,
+                ProjectId = options.ProjectId,
+            };
 
-            return null;
+            user.BackedProjectsList.Add(backedProject);
+
+            return context_.SaveChanges() > 0 ? backedProject : null;
         }
 
         public IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options)
         {
-            if (options == null)
+            if (options == null || options.UserId == null)
             {
                 return null;
             }
 
-            var user = new UserService(context_)
+            var user = userService_
                 .GetById(options.UserId)
                 .Include(c => c.BackedProjectsList)
                 .SingleOrDefault();

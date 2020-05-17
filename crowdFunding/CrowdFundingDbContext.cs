@@ -9,7 +9,7 @@ namespace crowdFunding
     {
         private readonly string ConnectionString =
             "Server =localhost; " +
-            "Database =CrowdFunding; " +
+            "Database = CrowdFunding; " +
             "User Id =sa; " +
             "Password =admin!@#123;";
 

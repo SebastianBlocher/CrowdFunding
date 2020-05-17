@@ -18,7 +18,7 @@ namespace crowdFunding.Services
 
         public User CreateUser(CreateUserOptions options)
         {
-            if (options == null || options.FirstName == null)
+            if (options == null || options.FirstName == null || options.LastName == null || options.Email == null)
             {
                 return null;
             }
@@ -175,20 +175,6 @@ namespace crowdFunding.Services
                 user.LastName = options.LastName;
             }
 
-            if (options.NewBackedProjectId != null && options.BackedProjectAmount != null)
-            {
-                var backedProject = new BackedProjects()
-                {
-                    ProjectId = (int)options.NewBackedProjectId,
-                    Amount = (decimal)options.BackedProjectAmount,
-                };
-                user.BackedProjectsList.Add(backedProject);
-            }
-
-            if(options.NewProject != null)
-            {
-                user.CreatedProjectsList.Add(options.NewProject);
-            }
             context.SaveChanges();
             return user;
         }
