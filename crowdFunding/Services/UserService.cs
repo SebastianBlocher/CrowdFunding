@@ -189,7 +189,7 @@ namespace crowdFunding.Services
             {
                 user.CreatedProjectsList.Add(options.NewProject);
             }
-
+            context.SaveChanges();
             return user;
         }
     }
