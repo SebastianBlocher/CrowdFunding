@@ -11,7 +11,7 @@ namespace crowdFunding.Services
       Project CreateProject(CreateProjectOption options);
       IQueryable<Project> SearchProject(SearchProjectOption options);
       Project UpdateProject(UpdateProjectOption options);
-      Project GetProjectByCategory(Category Category);
+     IQueryable<Project> GetProjectByCategory(Category Category);
      Project GetProjectByName(string Name);
     }
 }

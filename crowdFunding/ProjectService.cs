@@ -28,7 +28,7 @@ namespace crowdFunding
             };
 
             context_.Add(project);
-            return context_.SaveChanges() > 0 ? project : null; // auto to kanoyme gia na vrei an yparxoyn allages kai na tis apothikeysei allios na min kanei tpt?
+            return context_.SaveChanges() > 0 ? project : null; 
         }
 
        
@@ -80,7 +80,7 @@ namespace crowdFunding
         }
         
 
-        public Project GetProjectByCategory(Category Category)
+        public IQueryable<Project> GetProjectByCategory(Category Category)
         {
 
             if (Category == null)
@@ -90,8 +90,8 @@ namespace crowdFunding
 
             return context_
                 .Set<Project>()
-                .Where(c => c.Category == Category)
-                .SingleOrDefault();
+                .Where(c => c.Category == Category);
+                
         }
     }
 
