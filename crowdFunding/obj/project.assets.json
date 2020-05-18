@@ -4995,25 +4995,30 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Microsoft.EntityFrameworkCore.Analyzers >= 3.1.4",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.4",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.4",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MemaStamataki\\.nuget\\packages\\": {}
+    "C:\\Users\\gefre\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MemaStamataki\\devel\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj",
+      "projectUniqueName": "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\crowdFunding.csproj",
       "projectName": "crowdFunding",
-      "projectPath": "C:\\Users\\MemaStamataki\\devel\\athens-pf-team5\\crowdFunding\\crowdFunding.csproj",
-      "packagesPath": "C:\\Users\\MemaStamataki\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MemaStamataki\\devel\\athens-pf-team5\\crowdFunding\\obj\\",
+      "projectPath": "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\crowdFunding.csproj",
+      "packagesPath": "C:\\Users\\gefre\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\Admin\\Devel\\Crowdfund\\crowdFunding\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\MemaStamataki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gefre\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5037,6 +5042,10 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.Analyzers": {
+            "target": "Package",
+            "version": "[3.1.4, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",

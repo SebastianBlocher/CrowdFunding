@@ -10,8 +10,8 @@ using crowdFunding;
 namespace crowdFunding.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    [Migration("20200515084020_crowmigr")]
-    partial class crowmigr
+    [Migration("20200517090528_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,15 @@ namespace crowdFunding.Migrations
 
                     b.Property<DateTimeOffset>("BackedOn")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -106,8 +115,14 @@ namespace crowdFunding.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Ammount")
+                    b.Property<decimal?>("Amount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
@@ -172,7 +187,7 @@ namespace crowdFunding.Migrations
             modelBuilder.Entity("crowdFunding.Reward", b =>
                 {
                     b.HasOne("crowdFunding.RewardPackage", null)
-                        .WithMany("Reward")
+                        .WithMany("Rewards")
                         .HasForeignKey("RewardPackageId");
                 });
 

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace crowdFunding
 {
     public class RewardPackage
     {
-        public List<Reward> Reward { get; set; }
+        public List<Reward> Rewards { get; set; }
+        public string Name { get; set; }
         public int RewardPackageId { get; set; }
-        public decimal Ammount { get; set; }
-
+        public decimal? Amount { get; set; }
+        public string Description { get; set; }
         public RewardPackage()
         {
-            Reward = new List<Reward>();
+            Rewards = new List<Reward>();
         }
     }
 }
