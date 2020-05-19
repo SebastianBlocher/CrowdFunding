@@ -10,9 +10,8 @@ namespace crowdFunding.Services.Options
         public int? UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTimeOffset CreatedOn { get; set; }
         public Category? Category { get; set; }
-        public List<Reward> Rewards  { get; set; } 
+        public List<Reward> RewardPackages { get; set; }
 
         public CreateProjectOptions()
         {

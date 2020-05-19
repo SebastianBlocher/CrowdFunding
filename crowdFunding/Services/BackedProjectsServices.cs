@@ -53,6 +53,9 @@ namespace crowdFunding.Services
             {
                 Amount = options.Amount,
                 ProjectId = options.ProjectId,
+                Name = project.Name,
+                Category = project.Category,
+                Description = project.Description
             };
 
             user.BackedProjectsList.Add(backedProject);

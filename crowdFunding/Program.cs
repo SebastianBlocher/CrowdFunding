@@ -15,13 +15,38 @@ namespace crowdFunding
             using (var context = new CrowdFundingDbContext())
             {
                 IUserService userService = new UserService(context);
+                IProjectService projectService = new ProjectService(context, userService);
+                IBackedProjectsService backedProjectService = new BackedProjectsServices(context, userService, projectService);
 
-                var user = userService.CreateUser(new CreateUserOptions()
+                var user1 = userService.CreateUser(new CreateUserOptions()
                 {
-                    FirstName = "Dimitris",
-                    LastName = "Pnevmatikos",
-                    Country = "greece"
+                    FirstName = "seb",
+                    LastName = "seb",
+                    Country = "greece",
+                    Email = "seb@mail.com"
                 });
+
+                //var user2 = userService.UpdateUser(new UpdateUserOptions()
+                //{
+                //    UserId = 1,
+                //    Country = "trwrter"
+                //});
+
+                var project1 = projectService.CreateProject(new CreateProjectOptions()
+                {
+                    UserId = 1,
+                    Name = "sec proj",
+                    Description = "sec proj description",
+                    Category = (Category)3
+                });
+
+                var proj = backedProjectService.SearchBackedProjects(new SearchBackedProjectsOptions()
+                {
+                    UserId = 2,
+                    BackedTo = DateTimeOffset.Now
+                }).ToList();
+
+                Console.WriteLine(proj.Count());
             }
         }
     }

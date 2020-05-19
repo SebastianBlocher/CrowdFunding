@@ -8,11 +8,11 @@ namespace crowdFunding
     public class ProjectService : IProjectService
     {
         private CrowdFundingDbContext context_;
-        private IUserService userService;
-        public ProjectService(CrowdFundingDbContext context, IUserService userService_)
+        private IUserService userService_;
+        public ProjectService(CrowdFundingDbContext context, IUserService userService)
         {
             context_ = context;
-            userService = userService_;
+            userService_ = userService;
         }
         public Project CreateProject(CreateProjectOptions options)
         {
@@ -28,10 +28,9 @@ namespace crowdFunding
                 Name = options.Name,
                 Description = options.Description,
                 Category = (Category)options.Category,
-                CreatedOn = options.CreatedOn,
             };
 
-            var user = userService
+            var user = userService_
                 .GetById(options.UserId)
                 .Include(x => x.CreatedProjectsList)
                 .SingleOrDefault();
@@ -74,68 +73,56 @@ namespace crowdFunding
             return query;
         }
 
-        public IQueryable<Project> GetProjectByName(string Name)
+        public IQueryable<Project> GetProjectById(int? id)
         {
-            if (Name == null)
+            if (id == null)
             {
                 return null;
             }
 
             return context_
                 .Set<Project>()
-                .Where(p => p.Name == Name);
+                .Where(p => p.ProjectId == id);
         }
 
         public Project UpdateProject(UpdateProjectOptions options)
         {
-           if (options == null || options.ProjectId == null)
-                {
-                    return null;
-                }
-
-                var project = context_
-                    .Set<Project>()
-                    .Where(x => x.ProjectId == options.ProjectId)
-                    .SingleOrDefault();
-
-                if (project == null)
-                {
-                    return null;
-                }
-
-                if (options.Category != null)
-                {
-                    project.Category = (Category)options.Category;
-                }
-
-                if (options.Description != null)
-                {
-                    project.Description = options.Description;
-                }
-
-                if (options.Name != null)
-                {
-                    project.Name = options.Name;
-                }
-
-                if (options.Amount != null)
-                {
-                    project.Amount = (decimal)options.Amount;
-                }
-
-                return context_.SaveChanges() > 0 ? project : null;
-            }
-
-        public IQueryable<Project> GetProjectByCategory(Category? Category)
-        {
-            if (Category == null)
+            if (options == null || options.ProjectId == null)
             {
                 return null;
             }
 
-            return context_
+            var project = context_
                 .Set<Project>()
-                .Where(p => p.Category == Category);
+                .Where(x => x.ProjectId == options.ProjectId)
+                .SingleOrDefault();
+
+            if (project == null)
+            {
+                return null;
+            }
+
+            if (options.Category != null)
+            {
+                project.Category = (Category)options.Category;
+            }
+
+            if (options.Description != null)
+            {
+                project.Description = options.Description;
+            }
+
+            if (options.Name != null)
+            {
+                project.Name = options.Name;
+            }
+
+            if (options.Amount != null)
+            {
+                project.Amount = (decimal)options.Amount;
+            }
+
+            return context_.SaveChanges() > 0 ? project : null;
         }
     }
 }

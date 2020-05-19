@@ -68,7 +68,7 @@ namespace crowdFunding.Services
                 }
             }
 
-            project.Rewards.Add(rewardPackage);
+            project.RewardPackages.Add(rewardPackage);
             context_.Add(rewardPackage);
             if (context_.SaveChanges() > 0)
             {

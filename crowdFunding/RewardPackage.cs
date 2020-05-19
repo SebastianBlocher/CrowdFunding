@@ -16,9 +16,9 @@ namespace crowdFunding
             Rewards = new List<Reward>();
         }
 
-        public static implicit operator RewardPackage(CreateRewardOptions v)
-        {
-            throw new NotImplementedException();
-        }
+        //public static implicit operator RewardPackage(CreateRewardOptions v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

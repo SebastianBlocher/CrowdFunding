@@ -13,14 +13,13 @@ namespace crowdFunding.Services.Options
         public string Description { get; set; }
         public Category? Category { get; set; } // isos na min mas xreiazetai, giati na allaksei katigoria px.
         public decimal? Amount { get; set; }
-        public RewardPackage Rewards { get; set; }
+        public List<RewardPackage> RewardPackages { get; set; }
 
         public UpdateProjectOptions()
-            {
-             Rewards = new CreateRewardOptions();
-             UpdatedOn = DateTimeOffset.Now;
-
-            }
+        {
+            RewardPackages = new List<RewardPackage>();
+            UpdatedOn = DateTimeOffset.Now;
+        }
 
     }
 }
