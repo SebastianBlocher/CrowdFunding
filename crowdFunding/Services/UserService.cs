@@ -14,7 +14,10 @@ namespace crowdFunding.Services
 
         public User CreateUser(CreateUserOptions options)
         {
-            if (options == null || options.FirstName == null || options.LastName == null || options.Email == null)
+            if (options == null 
+                || string.IsNullOrWhiteSpace(options.FirstName) 
+                || string.IsNullOrWhiteSpace(options.LastName) 
+                || string.IsNullOrWhiteSpace(options.Email))
             {
                 return null;
             }
@@ -91,7 +94,7 @@ namespace crowdFunding.Services
                 query = query.Where(x => x.Amount <= options.AmountTo);
             }
 
-            if (options.Country != null)
+            if (string.IsNullOrWhiteSpace(options.Country))
             {
                 query = query.Where(x => x.Country == options.Country);
             }
@@ -106,17 +109,17 @@ namespace crowdFunding.Services
                 query = query.Where(x => x.CreatedOn >= options.CreateOnTo);
             }
 
-            if (options.Email != null)
+            if (string.IsNullOrWhiteSpace(options.Email))
             {
                 query = query.Where(x => x.Email == options.Email);
             }
 
-            if (options.FirstName != null)
+            if (string.IsNullOrWhiteSpace(options.FirstName))
             {
                 query = query.Where(x => x.FirstName == options.FirstName);
             }
 
-            if (options.LastName != null)
+            if (string.IsNullOrWhiteSpace(options.LastName))
             {
                 query = query.Where(x => x.LastName == options.LastName);
             }
@@ -146,27 +149,27 @@ namespace crowdFunding.Services
                 return null;
             }
 
-            if (options.FirstName != null)
+            if (string.IsNullOrWhiteSpace(options.FirstName))
             {
                 user.FirstName = options.FirstName;
             }
 
-            if (options.Country != null)
+            if (string.IsNullOrWhiteSpace(options.Country))
             {
                 user.Country = options.Country;
             }
 
-            if (options.Description != null)
+            if (string.IsNullOrWhiteSpace(options.Description))
             {
                 user.Description = options.Description;
             }
 
-            if (options.Email != null)
+            if (string.IsNullOrWhiteSpace(options.Email))
             {
                 user.Email = options.Email;
             }
 
-            if (options.LastName != null)
+            if (string.IsNullOrWhiteSpace(options.LastName))
             {
                 user.LastName = options.LastName;
             }
