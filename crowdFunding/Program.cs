@@ -14,7 +14,14 @@ namespace crowdFunding
         {
             using (var context = new CrowdFundingDbContext())
             {
+                IUserService userService = new UserService(context);
 
+                var user = userService.CreateUser(new CreateUserOptions()
+                {
+                    FirstName = "Dimitris",
+                    LastName = "Pnevmatikos",
+                    Country = "greece"
+                });
             }
         }
     }
