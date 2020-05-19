@@ -14,7 +14,7 @@ namespace crowdFunding
             context_ = context;
             userService = userService_;
         }
-        public Project CreateProject(CreateProjectOption options)
+        public Project CreateProject(CreateProjectOptions options)
         {
             if (options == null || options.UserId == null ||
                 options.Name == null || options.Description == null ||
@@ -38,10 +38,10 @@ namespace crowdFunding
 
             user.CreatedProjectsList.Add(project);
 
-            return context_.SaveChanges() > 0 ? project : null; // auto to kanoyme gia na vrei an yparxoyn allages kai na tis apothikeysei allios na min kanei tpt?
+            return context_.SaveChanges() > 0 ? project : null;
         }
 
-        public IQueryable<Project> SearchProject(SearchProjectOption options)
+        public IQueryable<Project> SearchProject(SearchProjectOptions options)
         {
             if (options == null) return null;
 
@@ -51,23 +51,28 @@ namespace crowdFunding
 
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
-                query = query.Where(c => c.Name == options.Name);
+                query = query.Where(p => p.Name == options.Name);
 
             }
 
             if (!string.IsNullOrWhiteSpace(options.Description))
             {
-                query = query.Where(c => c.Description == options.Description);
+                query = query.Where(p => p.Description == options.Description);
             }
 
             if (options.ProjectId != null)
             {
-                query = query.Where(c => c.ProjectId == options.ProjectId);
+                query = query.Where(p => p.ProjectId == options.ProjectId);
+            }
+
+            if (options.Category != null)
+            {
+                query = query.Where(p => p.Category == options.Category);
+
             }
 
             return query;
         }
-
 
         public IQueryable<Project> GetProjectByName(string Name)
         {
@@ -78,10 +83,10 @@ namespace crowdFunding
 
             return context_
                 .Set<Project>()
-                .Where(c => c.Name == Name);
+                .Where(p => p.Name == Name);
         }
 
-        public Project UpdateProject(UpdateProjectOption options)
+        public Project UpdateProject(UpdateProjectOptions options)
         {
            if (options == null || options.ProjectId == null)
                 {
@@ -121,9 +126,6 @@ namespace crowdFunding
                 return context_.SaveChanges() > 0 ? project : null;
             }
 
-        
-
-
         public IQueryable<Project> GetProjectByCategory(Category? Category)
         {
             if (Category == null)
@@ -133,10 +135,9 @@ namespace crowdFunding
 
             return context_
                 .Set<Project>()
-                .Where(c => c.Category == Category);
+                .Where(p => p.Category == Category);
         }
     }
-
 }
 
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace crowdFunding.Services.Options
 {
-    public class CreateProjectOption
+    public class CreateProjectOptions
     {
         public int ProjectId { get; set; }
         public int? UserId { get; set; }
@@ -14,7 +14,7 @@ namespace crowdFunding.Services.Options
         public Category? Category { get; set; }
         public List<Reward> Rewards  { get; set; } 
 
-        public CreateProjectOption()
+        public CreateProjectOptions()
         {
         }
     }

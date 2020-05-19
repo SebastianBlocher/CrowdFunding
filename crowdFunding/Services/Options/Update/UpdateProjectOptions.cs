@@ -5,7 +5,7 @@ using System.Text;
 
 namespace crowdFunding.Services.Options
 {
-    public class UpdateProjectOption
+    public class UpdateProjectOptions
     {
         public int? ProjectId { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,7 @@ namespace crowdFunding.Services.Options
         public decimal? Amount { get; set; }
         public RewardPackage Rewards { get; set; }
 
-        public UpdateProjectOption()
+        public UpdateProjectOptions()
             {
              Rewards = new CreateRewardOptions();
              UpdatedOn = DateTimeOffset.Now;

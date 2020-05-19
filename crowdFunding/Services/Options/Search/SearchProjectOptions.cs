@@ -4,12 +4,12 @@ using System.Text;
 
 namespace crowdFunding.Services.Options
 {
-    public class SearchProjectOption
+    public class SearchProjectOptions
     {
         public int? ProjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
     }
 
 }

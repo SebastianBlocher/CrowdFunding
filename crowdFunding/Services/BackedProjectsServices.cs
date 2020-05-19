@@ -38,7 +38,7 @@ namespace crowdFunding.Services
             }
 
             var project = projectService_
-                .SearchProject(new SearchProjectOption()
+                .SearchProject(new SearchProjectOptions()
                 {
                     ProjectId = options.ProjectId
                 })
