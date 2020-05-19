@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace crowdFunding
 {
@@ -9,7 +6,7 @@ namespace crowdFunding
     {
         private readonly string ConnectionString =
             "Server =localhost; " +
-            "Database =CrowdFunding; " +
+            "Database = CrowdFunding; " +
             "User Id =sa; " +
             "Password =admin!@#123;";
 

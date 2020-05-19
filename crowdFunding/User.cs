@@ -17,11 +17,11 @@ namespace crowdFunding
         public int UserId { get; set; }
         public decimal Amount { get; set; }
         public bool IsActive { get; set; }
-
         
         public User()
         {
             CreatedOn = DateTimeOffset.Now;
+            IsActive = true;
             CreatedProjectsList = new List<Project>();
             BackedProjectsList = new List<BackedProjects>();
         }
