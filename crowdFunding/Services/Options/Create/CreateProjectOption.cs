@@ -12,7 +12,7 @@ namespace crowdFunding.Services.Options
         public string Description { get; set; }
         public DateTimeOffset CreatedOn { get; set; }
         public Category? Category { get; set; }
-        public List<Reward> Rewards  { get; set; } // edo thelo na pairnei tis plirofories gia ta rewards poy yparxoun, to xasa.
+        public List<Reward> Rewards  { get; set; } 
 
         public CreateProjectOption()
         {
