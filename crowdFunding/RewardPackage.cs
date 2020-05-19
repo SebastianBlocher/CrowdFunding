@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using crowdFunding.Options;
+using System;
+using System.Collections.Generic;
 
 namespace crowdFunding
 {
@@ -12,6 +14,11 @@ namespace crowdFunding
         public RewardPackage()
         {
             Rewards = new List<Reward>();
+        }
+
+        public static implicit operator RewardPackage(CreateRewardOptions v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

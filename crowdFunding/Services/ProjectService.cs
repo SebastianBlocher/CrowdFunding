@@ -86,9 +86,46 @@ namespace crowdFunding
 
         public Project UpdateProject(UpdateProjectOption options)
         {
-            throw new NotImplementedException();
-        }
+           if (options == null || options.ProjectId == null)
+                {
+                    return null;
+                }
+
+                var project = context_
+                    .Set<Project>()
+                    .Where(x => x.ProjectId == options.ProjectId)
+                    .SingleOrDefault();
+
+                if (project == null)
+                {
+                    return null;
+                }
+
+                if (options.Category != null)
+                {
+                    project.Category = (Category)options.Category;
+                }
+
+                if (options.Description != null)
+                {
+                    project.Description = options.Description;
+                }
+
+                if (options.Name != null)
+                {
+                    project.Name = options.Name;
+                }
+
+                if (options.Amount != null)
+                {
+                    project.Amount = (decimal)options.Amount;
+                }
+
+                return context_.SaveChanges() > 0 ? project : null;
+            }
+
         
+
 
         public IQueryable<Project> GetProjectByCategory(Category? Category)
         {
