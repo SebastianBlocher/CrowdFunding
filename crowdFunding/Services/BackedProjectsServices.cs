@@ -80,11 +80,11 @@ namespace crowdFunding.Services
 
             var backedProjects = user.BackedProjectsList.AsQueryable();
 
-            if (options.Name != null)
+            if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 backedProjects = backedProjects.Where(bp => bp.Name == options.Name);
             }
-            if (options.Description != null)
+            if (!string.IsNullOrWhiteSpace(options.Description))
             {
                 backedProjects = backedProjects.Where(bp => bp.Description == options.Description);
             }
