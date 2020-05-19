@@ -1,6 +1,5 @@
 ﻿using crowdFunding.Options;
 using crowdFunding.Services.Options;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace crowdFunding.Services
