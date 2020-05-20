@@ -1,10 +1,10 @@
-﻿using crowdFunding.Services;
-using crowdFunding.Services.Options;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-//using crowdFunding.Services.Options;
+using crowdFunding.Core.Data;
+using crowdFunding.Core.Services.Interfaces;
+using crowdFunding.Core.Services;
 
 namespace crowdFunding
 {
@@ -20,7 +20,6 @@ namespace crowdFunding
                 IRewardService rewardService = new RewardService(context);
                 IRewardPackageService rewardPackageService = new RewardPackageService(context, rewardService, projectService);
 
-                projectService.CreateProject(new CreateProjectOptions());
             }
         }
     }
