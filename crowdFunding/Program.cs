@@ -17,36 +17,10 @@ namespace crowdFunding
                 IUserService userService = new UserService(context);
                 IProjectService projectService = new ProjectService(context, userService);
                 IBackedProjectsService backedProjectService = new BackedProjectsServices(context, userService, projectService);
+                IRewardService rewardService = new RewardService(context);
+                IRewardPackageService rewardPackageService = new RewardPackageService(context, rewardService, projectService);
 
-                var user1 = userService.CreateUser(new CreateUserOptions()
-                {
-                    FirstName = "seb",
-                    LastName = "seb",
-                    Country = "greece",
-                    Email = "seb@mail.com"
-                });
-
-                //var user2 = userService.UpdateUser(new UpdateUserOptions()
-                //{
-                //    UserId = 1,
-                //    Country = "trwrter"
-                //});
-
-                var project1 = projectService.CreateProject(new CreateProjectOptions()
-                {
-                    UserId = 1,
-                    Name = "sec proj",
-                    Description = "sec proj description",
-                    Category = (Category)3
-                });
-
-                var proj = backedProjectService.SearchBackedProjects(new SearchBackedProjectsOptions()
-                {
-                    UserId = 2,
-                    BackedTo = DateTimeOffset.Now
-                }).ToList();
-
-                Console.WriteLine(proj.Count());
+                projectService.CreateProject(new CreateProjectOptions());
             }
         }
     }

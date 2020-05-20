@@ -1,6 +1,7 @@
 ﻿using crowdFunding.Services;
 using crowdFunding.Services.Options;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace crowdFunding
@@ -18,7 +19,7 @@ namespace crowdFunding
         {
             if (options == null || options.UserId == null ||
                 options.Name == null || options.Description == null ||
-                options.Category == null)
+                options.Category == null || options.Category == 0 || options.AmountRequiered == null)
             {
                 return null;
             }
@@ -51,7 +52,6 @@ namespace crowdFunding
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 query = query.Where(p => p.Name == options.Name);
-
             }
 
             if (!string.IsNullOrWhiteSpace(options.Description))
@@ -64,10 +64,9 @@ namespace crowdFunding
                 query = query.Where(p => p.ProjectId == options.ProjectId);
             }
 
-            if (options.Category != null)
+            if (options.Category != null && options.Category != 0)
             {
                 query = query.Where(p => p.Category == options.Category);
-
             }
 
             return query;
@@ -102,27 +101,51 @@ namespace crowdFunding
                 return null;
             }
 
-            if (options.Category != null)
+            if (options.Category != null && options.Category != 0)
             {
                 project.Category = (Category)options.Category;
             }
 
-            if (options.Description != null)
+            if (string.IsNullOrWhiteSpace(options.Description))
             {
                 project.Description = options.Description;
             }
 
-            if (options.Name != null)
+            if (string.IsNullOrWhiteSpace(options.Name))
             {
                 project.Name = options.Name;
             }
 
-            if (options.Amount != null)
+            if (options.AmountRequired != null)
             {
-                project.Amount = (decimal)options.Amount;
+                project.AmountRequired = (decimal)options.AmountRequired;
+            }
+
+            if (options.AmountGathered != null)
+            {
+                project.AmountGathered += (decimal)options.AmountGathered;
             }
 
             return context_.SaveChanges() > 0 ? project : null;
+        }
+
+        public List<int?> TrendingProjects()
+        {
+            var project = SearchProject(new SearchProjectOptions()).ToList();
+
+            List<Project> SortedList = project.OrderByDescending(p => p.NumberOfBackers).ToList();
+
+            var trendingProjetcs = new List<int?>();
+
+            for (var i = 0; i <= 4; i++)
+            {
+                if (SortedList.Count > i)
+                {
+                    trendingProjetcs.Add(SortedList.ElementAt(i).ProjectId);
+                }
+            }
+
+            return trendingProjetcs;
         }
     }
 }
