@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace crowdFunding.Migrations
 {
-    public partial class initial : Migration
+    public partial class newMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,6 +62,7 @@ namespace crowdFunding.Migrations
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Category = table.Column<int>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
                     UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

@@ -1,27 +1,25 @@
 ﻿using crowdFunding.Services;
 using crowdFunding.Services.Options;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace crowdFunding
 {
     public class ProjectService : IProjectService
     {
         private CrowdFundingDbContext context_;
-        private IUserService userService;
-        public ProjectService(CrowdFundingDbContext context, IUserService userService_)
+        private IUserService userService_;
+        public ProjectService(CrowdFundingDbContext context, IUserService userService)
         {
             context_ = context;
-            userService = userService_;
+            userService_ = userService;
         }
-        public Project CreateProject(CreateProjectOption options)
+        public Project CreateProject(CreateProjectOptions options)
         {
             if (options == null || options.UserId == null ||
                 options.Name == null || options.Description == null ||
-                options.Category == null)
+                options.Category == null || options.Category == 0 || options.AmountRequiered == null)
             {
                 return null;
             }
@@ -31,20 +29,19 @@ namespace crowdFunding
                 Name = options.Name,
                 Description = options.Description,
                 Category = (Category)options.Category,
-                CreatedOn = options.CreatedOn,
             };
 
-            var user = userService
+            var user = userService_
                 .GetById(options.UserId)
                 .Include(x => x.CreatedProjectsList)
                 .SingleOrDefault();
 
             user.CreatedProjectsList.Add(project);
 
-            return context_.SaveChanges() > 0 ? project : null; // auto to kanoyme gia na vrei an yparxoyn allages kai na tis apothikeysei allios na min kanei tpt?
+            return context_.SaveChanges() > 0 ? project : null;
         }
 
-        public IQueryable<Project> SearchProject(SearchProjectOption options)
+        public IQueryable<Project> SearchProject(SearchProjectOptions options)
         {
             if (options == null) return null;
 
@@ -54,55 +51,103 @@ namespace crowdFunding
 
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
-                query = query.Where(c => c.Name == options.Name);
-
+                query = query.Where(p => p.Name == options.Name);
             }
 
             if (!string.IsNullOrWhiteSpace(options.Description))
             {
-                query = query.Where(c => c.Description == options.Description);
+                query = query.Where(p => p.Description == options.Description);
             }
 
             if (options.ProjectId != null)
             {
-                query = query.Where(c => c.ProjectId == options.ProjectId);
+                query = query.Where(p => p.ProjectId == options.ProjectId);
+            }
+
+            if (options.Category != null && options.Category != 0)
+            {
+                query = query.Where(p => p.Category == options.Category);
             }
 
             return query;
         }
 
-
-        public IQueryable<Project> GetProjectByName(string Name)
+        public IQueryable<Project> GetProjectById(int? id)
         {
-            if (Name == null)
+            if (id == null)
             {
                 return null;
             }
 
             return context_
                 .Set<Project>()
-                .Where(c => c.Name == Name);
+                .Where(p => p.ProjectId == id);
         }
 
-        public Project UpdateProject(UpdateProjectOption options)
+        public Project UpdateProject(UpdateProjectOptions options)
         {
-            throw new NotImplementedException();
-        }
-        
-
-        public IQueryable<Project> GetProjectByCategory(Category? Category)
-        {
-            if (Category == null)
+            if (options == null || options.ProjectId == null)
             {
                 return null;
             }
 
-            return context_
+            var project = context_
                 .Set<Project>()
-                .Where(c => c.Category == Category);
+                .Where(x => x.ProjectId == options.ProjectId)
+                .SingleOrDefault();
+
+            if (project == null)
+            {
+                return null;
+            }
+
+            if (options.Category != null && options.Category != 0)
+            {
+                project.Category = (Category)options.Category;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Description))
+            {
+                project.Description = options.Description;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Name))
+            {
+                project.Name = options.Name;
+            }
+
+            if (options.AmountRequired != null)
+            {
+                project.AmountRequired = (decimal)options.AmountRequired;
+            }
+
+            if (options.AmountGathered != null)
+            {
+                project.AmountGathered += (decimal)options.AmountGathered;
+            }
+
+            return context_.SaveChanges() > 0 ? project : null;
+        }
+
+        public List<int?> TrendingProjects()
+        {
+            var project = SearchProject(new SearchProjectOptions()).ToList();
+
+            List<Project> SortedList = project.OrderByDescending(p => p.NumberOfBackers).ToList();
+
+            var trendingProjetcs = new List<int?>();
+
+            for (var i = 0; i <= 4; i++)
+            {
+                if (SortedList.Count > i)
+                {
+                    trendingProjetcs.Add(SortedList.ElementAt(i).ProjectId);
+                }
+            }
+
+            return trendingProjetcs;
         }
     }
-
 }
 
 

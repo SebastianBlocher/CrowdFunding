@@ -4,17 +4,17 @@ using System.Text;
 
 namespace crowdFunding.Services.Options
 {
-    public class CreateProjectOption
+    public class CreateProjectOptions
     {
         public int ProjectId { get; set; }
         public int? UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTimeOffset CreatedOn { get; set; }
         public Category? Category { get; set; }
-        public List<Reward> Rewards  { get; set; } // edo thelo na pairnei tis plirofories gia ta rewards poy yparxoun, to xasa.
+        public List<Reward> RewardPackages { get; set; }
+        public decimal? AmountRequiered { get; set; }
 
-        public CreateProjectOption()
+        public CreateProjectOptions()
         {
         }
     }

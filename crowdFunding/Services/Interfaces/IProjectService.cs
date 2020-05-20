@@ -8,10 +8,10 @@ namespace crowdFunding.Services
 {
     public interface IProjectService
     {
-        Project CreateProject(CreateProjectOption options);
-        IQueryable<Project> SearchProject(SearchProjectOption options);
-        Project UpdateProject(UpdateProjectOption options);
-        IQueryable<Project> GetProjectByCategory(Category? Category);
-        IQueryable<Project> GetProjectByName(string Name);
+        Project CreateProject(CreateProjectOptions options);
+        IQueryable<Project> SearchProject(SearchProjectOptions options);
+        Project UpdateProject(UpdateProjectOptions options);
+        IQueryable<Project> GetProjectById(int? Id);
+        List<int?> TrendingProjects();
     }
 }

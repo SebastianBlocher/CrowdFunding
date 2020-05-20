@@ -38,7 +38,7 @@ namespace crowdFunding.Services
             }
 
             var project = projectService_
-                .SearchProject(new SearchProjectOption()
+                .SearchProject(new SearchProjectOptions()
                 {
                     ProjectId = options.ProjectId
                 })
@@ -53,7 +53,12 @@ namespace crowdFunding.Services
             {
                 Amount = options.Amount,
                 ProjectId = options.ProjectId,
+                Name = project.Name,
+                Category = project.Category,
+                Description = project.Description
             };
+
+            project.NumberOfBackers += 1;
 
             user.BackedProjectsList.Add(backedProject);
 
@@ -80,11 +85,11 @@ namespace crowdFunding.Services
 
             var backedProjects = user.BackedProjectsList.AsQueryable();
 
-            if (options.Name != null)
+            if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 backedProjects = backedProjects.Where(bp => bp.Name == options.Name);
             }
-            if (options.Description != null)
+            if (!string.IsNullOrWhiteSpace(options.Description))
             {
                 backedProjects = backedProjects.Where(bp => bp.Description == options.Description);
             }

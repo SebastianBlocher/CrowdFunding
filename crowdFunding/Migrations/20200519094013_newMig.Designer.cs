@@ -10,8 +10,8 @@ using crowdFunding;
 namespace crowdFunding.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    [Migration("20200517090528_initial")]
-    partial class initial
+    [Migration("20200519094013_newMig")]
+    partial class newMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,6 +62,9 @@ namespace crowdFunding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Category")
                         .HasColumnType("int");
