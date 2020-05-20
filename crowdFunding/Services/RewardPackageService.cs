@@ -1,5 +1,6 @@
 ﻿using crowdFunding.Options;
 using crowdFunding.Services.Options;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace crowdFunding.Services
@@ -86,7 +87,8 @@ namespace crowdFunding.Services
             }
 
             var query = context_
-                .Set<RewardPackage>()                
+                .Set<RewardPackage>()  
+                //.Include(x => x.Project)
                 .AsQueryable();
 
             if (options.RewardPackageId != null)
@@ -109,17 +111,20 @@ namespace crowdFunding.Services
                 query = query.Where(rp => rp.Name == options.Name);
             }
             //----------------------
-            //var project = projectService_.SearchProject(new SearchProjectOption()
+            //if (options.ProjectId != null)
             //{
-            //    ProjectId = options.ProjectId
+            //    var project = projectService_.SearchProject(new SearchProjectOptions()
+            //    {
+            //        ProjectId = options.ProjectId
 
-            //}).SingleOrDefault();
+            //    }).SingleOrDefault();
 
-            //if (project != null)
-            //{
-            //    query = query.Where(rp => rp.ProjectId == options.ProjectId);
+            //    if (project != null)
+            //    {
+            //        query = query.Where(rp => rp.ProjectId == options.ProjectId);
+            //    }
             //}
-            //-----------------------
+            ////-----------------------
             query = query.Take(500);
 
             return query;

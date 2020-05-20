@@ -1,6 +1,7 @@
 ﻿using crowdFunding.Services;
 using crowdFunding.Services.Options;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace crowdFunding
@@ -8,17 +9,17 @@ namespace crowdFunding
     public class ProjectService : IProjectService
     {
         private CrowdFundingDbContext context_;
-        private IUserService userService_;
+        private IUserService userService_;        
         public ProjectService(CrowdFundingDbContext context, IUserService userService)
         {
             context_ = context;
-            userService_ = userService;
+            userService_ = userService;            
         }
         public Project CreateProject(CreateProjectOptions options)
         {
             if (options == null || options.UserId == null ||
                 options.Name == null || options.Description == null ||
-                options.Category == null)
+                options.Category == 0)
             {
                 return null;
             }
@@ -123,6 +124,26 @@ namespace crowdFunding
             }
 
             return context_.SaveChanges() > 0 ? project : null;
+        }
+
+        public List<int?> TrendingProjects()
+        {
+            var project = SearchProject(new SearchProjectOptions()).ToList();
+
+            List<Project> SortedList = project.OrderByDescending(p => p.NumberOfBackers).ToList();
+
+            var trendingProjetcs = new List<int?>();
+
+            for (var i = 0; i <= 4; i++)
+            {
+                if (SortedList.Count > i)
+                {
+                    trendingProjetcs.Add(SortedList.ElementAt(i).ProjectId);
+                }                 
+            }
+
+            return trendingProjetcs;
+
         }
     }
 }

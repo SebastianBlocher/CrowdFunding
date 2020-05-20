@@ -13,10 +13,13 @@ namespace crowdFunding
         public List<RewardPackage> RewardPackages { get; set; }
         public Category Category { get; set; }
         public decimal Amount { get; set; }
+        public int NumberOfBackers { get; set; }
+
         public Project()
         {
             CreatedOn = DateTimeOffset.Now;
             RewardPackages = new List<RewardPackage>();
+            NumberOfBackers = 0;
         }
     }
 }

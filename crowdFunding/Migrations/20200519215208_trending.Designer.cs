@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using crowdFunding;
 
 namespace crowdFunding.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    partial class CrowdFundingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200519215208_trending")]
+    partial class trending
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

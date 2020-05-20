@@ -12,5 +12,6 @@ namespace crowdFunding.Services
         IQueryable<Project> SearchProject(SearchProjectOptions options);
         Project UpdateProject(UpdateProjectOptions options);
         IQueryable<Project> GetProjectById(int? Id);
+        List<int?> TrendingProjects();
     }
 }

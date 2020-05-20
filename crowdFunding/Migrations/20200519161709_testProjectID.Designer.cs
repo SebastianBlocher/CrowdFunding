@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using crowdFunding;
 
 namespace crowdFunding.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    partial class CrowdFundingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200519161709_testProjectID")]
+    partial class testProjectID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,9 +77,6 @@ namespace crowdFunding.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfBackers")
-                        .HasColumnType("int");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -197,7 +196,7 @@ namespace crowdFunding.Migrations
 
             modelBuilder.Entity("crowdFunding.RewardPackage", b =>
                 {
-                    b.HasOne("crowdFunding.Project", null)
+                    b.HasOne("crowdFunding.Project", "Project")
                         .WithMany("RewardPackages")
                         .HasForeignKey("ProjectId");
                 });
