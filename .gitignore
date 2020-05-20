@@ -2,3 +2,7 @@
 crowdFunding/.vs/
 crowdFunding/obj/
 crowdFunding/bin/
+crowdFunding.Core/obj/
+crowdFunding.Core/bin/
+crowdFunding.Web/obj/
+crowdFunding.Web/bin/
