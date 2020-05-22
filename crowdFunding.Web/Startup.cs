@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using crowdFunding.Core.Data;
+using crowdFunding.Core.Services;
+using crowdFunding.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +26,20 @@ namespace crowdFunding.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string ConnectionString =
+            "Server =localhost; " +
+            "Database = CrowdFunding; " +
+            "User Id =sa; " +
+            "Password =admin!@#123;";
+
+            services.AddDbContext<CrowdFundingDbContext>(options =>
+                options.UseSqlServer(ConnectionString));
+
+            services.AddScoped<IRewardService, RewardService>();
+            services.AddScoped<IRewardPackageService, RewardPackageService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IBackedProjectsService, BackedProjectsService>();
             services.AddControllersWithViews();
         }
 

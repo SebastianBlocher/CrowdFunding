@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using crowdFunding.Core.Data;
-using crowdFunding.Core.Services;
-using crowdFunding.Core.Services.Interfaces;
+﻿using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class UserController : Controller
     {
         [Route("{user}")]
@@ -20,13 +17,11 @@ namespace crowdFunding.Web.Controllers
             return View();
         }
 
-        private CrowdFundingDbContext context;
         private IUserService userService;
 
-        public UserController()
-        {
-            context = new CrowdFundingDbContext();
-            userService = new UserService(context);
+        public UserController(IUserService userService_)
+        {            
+            userService = userService_;
         }
 
         [HttpPost("{create}")]

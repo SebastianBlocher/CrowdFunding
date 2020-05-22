@@ -5,6 +5,9 @@ namespace crowdFunding.Core.Data
 {
     public class CrowdFundingDbContext : DbContext
     {
+        public CrowdFundingDbContext(DbContextOptions<CrowdFundingDbContext> options)
+            : base(options) { }
+
         private readonly string ConnectionString =
             "Server =localhost; " +
             "Database = CrowdFunding; " +
