@@ -14,11 +14,15 @@ namespace crowdFunding.Core.Services
     {
         private CrowdFundingDbContext context_;
         private IUserService userService_;
+       
+
         public ProjectService(CrowdFundingDbContext context, IUserService userService)
         {
             context_ = context;
             userService_ = userService;
         }
+
+       
         public Project CreateProject(CreateProjectOptions options)
         {
             if (options == null || options.UserId == null ||

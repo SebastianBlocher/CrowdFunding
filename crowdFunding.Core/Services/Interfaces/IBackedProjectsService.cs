@@ -11,6 +11,6 @@ namespace crowdFunding.Core.Services.Interfaces
     public interface IBackedProjectsService
     {
         BackedProjects CreateBackedProject(CreateBackedProjectOptions options);
-        IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options);
+        IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options);        
     }
 }
