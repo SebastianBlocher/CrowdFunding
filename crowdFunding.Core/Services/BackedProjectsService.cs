@@ -11,13 +11,13 @@ using System.Text;
 
 namespace crowdFunding.Core.Services
 {
-    public class BackedProjectsServices : IBackedProjectsService
+    public class BackedProjectsService : IBackedProjectsService
     {
         private CrowdFundingDbContext context_;
         private IProjectService projectService_;
         private IUserService userService_;
 
-        public BackedProjectsServices(CrowdFundingDbContext context, IUserService userService, IProjectService projectService)
+        public BackedProjectsService(CrowdFundingDbContext context, IUserService userService, IProjectService projectService)
         {
             context_ = context;
             userService_ = userService;

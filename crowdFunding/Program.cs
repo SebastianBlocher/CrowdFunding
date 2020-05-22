@@ -12,15 +12,15 @@ namespace crowdFunding
     {
         static void Main(string[] args)
         {
-            using (var context = new CrowdFundingDbContext())
-            {
-                IUserService userService = new UserService(context);
-                IProjectService projectService = new ProjectService(context, userService);
-                IBackedProjectsService backedProjectService = new BackedProjectsServices(context, userService, projectService);
-                IRewardService rewardService = new RewardService(context);
-                IRewardPackageService rewardPackageService = new RewardPackageService(context, rewardService, projectService);
+            //using (var context = new CrowdFundingDbContext())
+            //{
+            //    IUserService userService = new UserService(context);
+            //    IProjectService projectService = new ProjectService(context, userService);
+            //    IBackedProjectsService backedProjectService = new BackedProjectsService(context, userService, projectService);
+            //    IRewardService rewardService = new RewardService(context);
+            //    IRewardPackageService rewardPackageService = new RewardPackageService(context, rewardService, projectService);
 
-            }
+            //}
         }
     }
 }
