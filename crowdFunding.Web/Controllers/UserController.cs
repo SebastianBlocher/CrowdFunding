@@ -49,7 +49,7 @@ namespace crowdFunding.Web.Controllers
 
             if (user == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Json(user);
@@ -62,9 +62,14 @@ namespace crowdFunding.Web.Controllers
                 .SearchUsers(options)
                 .ToList();
 
-            if (users == null || users.Count == 0)
+            if (users == null)
             {
                 return BadRequest();
+            }
+
+            if (users.Count == 0)
+            {
+                return NotFound();
             }
 
             return Json(users);
