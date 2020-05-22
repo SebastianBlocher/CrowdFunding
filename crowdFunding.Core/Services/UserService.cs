@@ -33,6 +33,7 @@ namespace crowdFunding.Core.Services
                 LastName = options.LastName,
                 Email = options.Email,
                 Country = options.Country,
+                Description = options.Description,
             };
 
             context.Add(user);
@@ -75,7 +76,9 @@ namespace crowdFunding.Core.Services
 
             return context
                         .Set<User>()
-                        .Where(x => x.UserId == id);
+                        .Where(x => x.UserId == id)
+                        .Include(x => x.CreatedProjectsList)
+                        .Include(y => y.BackedProjectsList);
         }
 
         public IQueryable<User> SearchUsers(SearchUserOptions options)
@@ -99,7 +102,7 @@ namespace crowdFunding.Core.Services
                 query = query.Where(x => x.Amount <= options.AmountTo);
             }
 
-            if (string.IsNullOrWhiteSpace(options.Country))
+            if (!string.IsNullOrWhiteSpace(options.Country))
             {
                 query = query.Where(x => x.Country == options.Country);
             }
@@ -114,17 +117,17 @@ namespace crowdFunding.Core.Services
                 query = query.Where(x => x.CreatedOn >= options.CreateOnTo);
             }
 
-            if (string.IsNullOrWhiteSpace(options.Email))
+            if (!string.IsNullOrWhiteSpace(options.Email))
             {
                 query = query.Where(x => x.Email == options.Email);
             }
 
-            if (string.IsNullOrWhiteSpace(options.FirstName))
+            if (!string.IsNullOrWhiteSpace(options.FirstName))
             {
                 query = query.Where(x => x.FirstName == options.FirstName);
             }
 
-            if (string.IsNullOrWhiteSpace(options.LastName))
+            if (!string.IsNullOrWhiteSpace(options.LastName))
             {
                 query = query.Where(x => x.LastName == options.LastName);
             }
@@ -134,7 +137,9 @@ namespace crowdFunding.Core.Services
                 query = query.Where(x => x.UserId == options.UserId);
             }
 
-            return query;
+            return query
+                .Include(x => x.BackedProjectsList)
+                .Include(y => y.CreatedProjectsList);
         }
 
         public User UpdateUser(UpdateUserOptions options)
@@ -154,27 +159,27 @@ namespace crowdFunding.Core.Services
                 return null;
             }
 
-            if (string.IsNullOrWhiteSpace(options.FirstName))
+            if (!string.IsNullOrWhiteSpace(options.FirstName))
             {
                 user.FirstName = options.FirstName;
             }
 
-            if (string.IsNullOrWhiteSpace(options.Country))
+            if (!string.IsNullOrWhiteSpace(options.Country))
             {
                 user.Country = options.Country;
             }
 
-            if (string.IsNullOrWhiteSpace(options.Description))
+            if (!string.IsNullOrWhiteSpace(options.Description))
             {
                 user.Description = options.Description;
             }
 
-            if (string.IsNullOrWhiteSpace(options.Email))
+            if (!string.IsNullOrWhiteSpace(options.Email))
             {
                 user.Email = options.Email;
             }
 
-            if (string.IsNullOrWhiteSpace(options.LastName))
+            if (!string.IsNullOrWhiteSpace(options.LastName))
             {
                 user.LastName = options.LastName;
             }

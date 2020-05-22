@@ -4,6 +4,7 @@ using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace crowdFunding.Core.Services
@@ -90,7 +91,7 @@ namespace crowdFunding.Core.Services
             }
 
             var query = context_
-                .Set<RewardPackage>()                
+                .Set<RewardPackage>()               
                 .AsQueryable();
 
             if (options.RewardPackageId != null)
@@ -112,6 +113,7 @@ namespace crowdFunding.Core.Services
             {
                 query = query.Where(rp => rp.Name == options.Name);
             }
+
             //----------------------
             //var project = projectService_.SearchProject(new SearchProjectOption()
             //{
@@ -124,7 +126,9 @@ namespace crowdFunding.Core.Services
             //    query = query.Where(rp => rp.ProjectId == options.ProjectId);
             //}
             //-----------------------
-            query = query.Take(500);
+            query = query
+                .Include(x => x.Rewards)
+                .Take(500);
 
             return query;
         }
@@ -166,9 +170,18 @@ namespace crowdFunding.Core.Services
                 return null;
             }
 
+            foreach (var reward in rewardPackage.Rewards.ToList())
+            {
+                var deleteReward = rewardService_.RemoveReward(reward.RewardId);
+
+                if (deleteReward == false)
+                {
+                    return null;
+                }
+            }
+
             foreach (var reward in options.Rewards)
             {               
-
                 if (reward == null)
                 {
                     return null;
@@ -177,13 +190,6 @@ namespace crowdFunding.Core.Services
                 var createdReward = rewardService_.CreateReward(reward);
             
                 rewardPackage.Rewards.Add(createdReward);
-
-                var deleteReward = rewardService_.RemoveReward(reward.RewardId);
-
-                if (deleteReward == false)
-                {
-                    return null;
-                }
             }
 
             if (context_.SaveChanges() > 0)
@@ -221,6 +227,14 @@ namespace crowdFunding.Core.Services
             if (rewardPackage == null)
             {
                 return false;
+            }
+
+            foreach (var reward in rewardPackage.Rewards.ToList())
+            {
+                if (!rewardService_.RemoveReward(reward.RewardId))
+                {
+                    return false;
+                }
             }
 
             context_.Remove(rewardPackage);

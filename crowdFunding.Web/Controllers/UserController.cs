@@ -7,11 +7,8 @@ using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     public class UserController : Controller
     {
-        [Route("{user}")]
         public IActionResult Index()
         {
             return View();
@@ -24,7 +21,7 @@ namespace crowdFunding.Web.Controllers
             userService = userService_;
         }
 
-        [HttpPost("{create}")]
+        [HttpPost]
         public IActionResult Create([FromBody]CreateUserOptions options)
         {
             var user = userService.CreateUser(options);
@@ -37,11 +34,11 @@ namespace crowdFunding.Web.Controllers
             return Json(user);
         }
 
-        [HttpGet("{getuser}")]
+        [HttpGet]
         public IActionResult GetUser(int? id)
         {
-            var user = userService.GetById(id);
-
+            var user = userService.GetById(id).SingleOrDefault();
+            
             if (user == null)
             {
                 return NotFound();
@@ -50,7 +47,7 @@ namespace crowdFunding.Web.Controllers
             return Json(user);
         }
 
-        [HttpPost("{search}")]
+        [HttpPost]
         public IActionResult Search([FromBody]SearchUserOptions options)
         {
             var users = userService
@@ -70,7 +67,7 @@ namespace crowdFunding.Web.Controllers
             return Json(users);
         }
 
-        [HttpPatch("{update}")]
+        [HttpPatch]
         public IActionResult Update([FromBody]UpdateUserOptions options)
         {
             var user = userService.UpdateUser(options);
@@ -80,10 +77,10 @@ namespace crowdFunding.Web.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return Json(user);
         }
 
-        [HttpDelete("{delete}")]
+        [HttpDelete]
         public IActionResult Disable(int? id)
         {
             if (userService.DisableUser(id))

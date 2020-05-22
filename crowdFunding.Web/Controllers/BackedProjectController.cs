@@ -1,36 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using crowdFunding.Core.Data;
-using crowdFunding.Core.Services;
-using crowdFunding.Core.Services.Interfaces;
+﻿using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
     public class BackedProjectController : Controller
     {
-        [Route("{backedproject}")]
         public IActionResult Index()
         {
             return View();
         }
 
-        private CrowdFundingDbContext context;
         private IBackedProjectsService backedProjectsService;
-        private IUserService userService;
-        private IProjectService projectService;
 
-        public BackedProjectController()
+        public BackedProjectController(IBackedProjectsService backedProjectsService_)
         {
-            context = new CrowdFundingDbContext();
-            backedProjectsService = new BackedProjectsServices(context, userService, projectService);
+            backedProjectsService = backedProjectsService_;
         }
 
-        [HttpPost("{create}")]
+        [HttpPost]
         public IActionResult Create([FromBody]CreateBackedProjectOptions options)
         {
             var backedProject = backedProjectsService.CreateBackedProject(options);
@@ -43,7 +33,7 @@ namespace crowdFunding.Web.Controllers
             return Json(backedProject);
         }
 
-        [HttpPost("{search}")]
+        [HttpPost]
         public IActionResult Search([FromBody]SearchBackedProjectsOptions options)
         {
             var backedProject = backedProjectsService
@@ -57,7 +47,5 @@ namespace crowdFunding.Web.Controllers
 
             return Json(backedProject);
         }
-
-
     }
 }

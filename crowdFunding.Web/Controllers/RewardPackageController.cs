@@ -7,12 +7,9 @@ using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     public class RewardPackageController : Controller
     {
-        [Route("[controller]")]
-        [HttpGet("{Index}")]
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -29,7 +26,7 @@ namespace crowdFunding.Web.Controllers
             rewardPackageService = rewardPackageService_;
         }
 
-        [HttpPost("{Create}")]
+        [HttpPost]
         public IActionResult Create([FromBody]CreateRewardPackageOptions options)
         {
             var rewardPackage = rewardPackageService.CreateRewardPackage(options);
@@ -42,8 +39,8 @@ namespace crowdFunding.Web.Controllers
             return Json(rewardPackage);
         }
 
-        [HttpGet("{GetById}")]
-        public IActionResult GetById([FromBody]int? rewardPackageId)
+        [HttpGet]
+        public IActionResult GetById(int? rewardPackageId)
         {
             var rewardPackage = rewardPackageService.GetRewardPackageById(rewardPackageId);
 
@@ -55,7 +52,7 @@ namespace crowdFunding.Web.Controllers
             return Json(rewardPackage);
         }
 
-        [HttpPatch("{Update}")]
+        [HttpPatch]
         public IActionResult Update([FromBody]UpdateRewardPackageOptions options)
         {
             var rewardPackage = rewardPackageService.UpdateRewardPackage(options);
@@ -68,8 +65,8 @@ namespace crowdFunding.Web.Controllers
             return Json(rewardPackage);
         }
 
-        [HttpDelete("{Remove}")]
-        public IActionResult Remove([FromBody]int? rewardPackageId)
+        [HttpDelete]
+        public IActionResult Remove([FromForm]int? rewardPackageId)
         {
             var isRewardPackageRemoved = rewardPackageService.RemoveRewardPackage(rewardPackageId);
 
@@ -81,7 +78,7 @@ namespace crowdFunding.Web.Controllers
             return Json(isRewardPackageRemoved);
         }
 
-        [HttpGet("{Search}")]
+        [HttpGet]
         public IActionResult Search([FromBody]SearchRewardPackageOptions options)
         {
             var rewardPackages = rewardPackageService
