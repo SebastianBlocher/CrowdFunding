@@ -15,14 +15,10 @@ namespace crowdFunding.Web.Controllers
             return View();
         }
 
-        private IRewardService rewardService;
-        private IProjectService projectService;
         private IRewardPackageService rewardPackageService;
 
-        public RewardPackageController(IRewardPackageService rewardPackageService_, IRewardService rewardService_, IProjectService projectService_)
+        public RewardPackageController(IRewardPackageService rewardPackageService_)
         {
-            projectService = projectService_;
-            rewardService = rewardService_;
             rewardPackageService = rewardPackageService_;
         }
 
