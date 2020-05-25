@@ -7,10 +7,12 @@ using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
+    [Route("project")]
     public class ProjectController : Controller
     {
         private IProjectService projectService;
 
+        [HttpGet("index")]
         public IActionResult Index()
         {
             return View();
@@ -22,18 +24,21 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]CreateProjectOptions options)
+        public IActionResult Create(int userId,
+            [FromBody]CreateProjectOptions options)
         {
-            var project = projectService.CreateProject(options);
+            var result = projectService.CreateProject(userId, options);
 
-            if (project == null)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
-            return Json(project);
+
+            return Json(result.Data);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetProject(int? id)
         {
             var project = projectService.GetProjectById(id);
@@ -44,7 +49,7 @@ namespace crowdFunding.Web.Controllers
             return Json(project);
         }
 
-        [HttpPost]
+        [HttpGet("search")]
         public IActionResult Search(SearchProjectOptions options)
         {
             var project = projectService
@@ -54,18 +59,29 @@ namespace crowdFunding.Web.Controllers
             {
                 return BadRequest();
             }
+
+            if(project.Count == 0)
+            {
+                return NotFound();
+            }
+
             return Json(project);
         }
 
-        [HttpPatch]
-        public IActionResult Update([FromBody]UpdateProjectOptions options)
+        [HttpPatch("{id}")]
+        public IActionResult Update(int projectId,
+            [FromBody]UpdateProjectOptions options)
         {
-            var project = projectService.UpdateProject(options);
-            if (project == null)
-            { 
-                return BadRequest();
+            var result = projectService.UpdateProject(projectId,
+               options);
+
+            if (!result.Success)
+            {
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
-            return Ok();
+
+            return Json(result.Data); ;
         }
         //[HttpDelete("{delete}")]
         //trending

@@ -6,8 +6,10 @@ using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
+    [Route("backedProject")]
     public class BackedProjectController : Controller
     {
+        [HttpGet("index")]
         public IActionResult Index()
         {
             return View();
@@ -21,28 +23,36 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]CreateBackedProjectOptions options)
+        public IActionResult Create(int userId,
+            int projectId,
+            [FromBody]CreateBackedProjectOptions options)
         {
-            var backedProject = backedProjectsService.CreateBackedProject(options);
+            var result = backedProjectsService.CreateBackedProject(userId, projectId, options);
 
-            if (backedProject == null)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
 
-            return Json(backedProject);
+            return Json(result.Data);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Search([FromBody]SearchBackedProjectsOptions options)
         {
             var backedProject = backedProjectsService
                 .SearchBackedProjects(options)
                 .ToList();
 
-            if (backedProject == null || backedProject.Count == 0)
+            if (backedProject == null) 
             {
                 return BadRequest();
+            }
+
+            if(backedProject.Count == 0)
+            {
+                return NotFound();
             }
 
             return Json(backedProject);

@@ -5,9 +5,7 @@ using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace crowdFunding.Core.Services
 {
@@ -17,46 +15,50 @@ namespace crowdFunding.Core.Services
         private IProjectService projectService_;
         private IUserService userService_;
 
-        public BackedProjectsService(CrowdFundingDbContext context, IUserService userService, IProjectService projectService)
+        public BackedProjectsService(CrowdFundingDbContext context,
+            IUserService userService,
+            IProjectService projectService)
         {
             context_ = context;
             userService_ = userService;
             projectService_ = projectService;
         }
 
-        public BackedProjects CreateBackedProject(CreateBackedProjectOptions options)
+        public Result<BackedProjects> CreateBackedProject(int userId,
+            int projectId,
+            CreateBackedProjectOptions options)
         {
             if (options == null)
             {
-                return null;
+                return Result<BackedProjects>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
             }
 
             var user = userService_
-                .GetById(options.UserId)
-                .Include(x => x.BackedProjectsList)
-                .SingleOrDefault();
+            .GetById(userId)
+            .Include(x => x.BackedProjectsList)
+            .SingleOrDefault();
 
             if (user == null)
             {
-                return null;
-            }
+                return Result<BackedProjects>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid UserId");
+            }      
 
             var project = projectService_
-                .SearchProject(new SearchProjectOptions()
-                {
-                    ProjectId = options.ProjectId
-                })
+                .GetProjectById(projectId)               
                 .SingleOrDefault();
 
             if (project == null)
             {
-                return null;
+                return Result<BackedProjects>.ActionFailed(
+                  StatusCode.BadRequest, "Invalid ProjectId");
             }
 
             var backedProject = new BackedProjects()
             {
                 Amount = options.Amount,
-                ProjectId = options.ProjectId,
+                ProjectId = projectId,
                 Name = project.Name,
                 Category = project.Category,
                 Description = project.Description
@@ -66,7 +68,26 @@ namespace crowdFunding.Core.Services
 
             user.BackedProjectsList.Add(backedProject);
 
-            return context_.SaveChanges() > 0 ? backedProject : null;
+            var rows = 0;
+
+            try
+            {
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<BackedProjects>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<BackedProjects>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Backed Project could not be created");
+            }
+
+            return Result<BackedProjects>.ActionSuccessful(backedProject);
         }
 
         public IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options)
@@ -99,27 +120,27 @@ namespace crowdFunding.Core.Services
             }
             if (options.Category != null)
             {
-                backedProjects = backedProjects.Where(bp => bp.Category == options.Category);
+                backedProjects = backedProjects.Where(bp => bp.Category == options.Category.Value);
             }
             if (options.ProjectId != null)
             {
-                backedProjects = backedProjects.Where(bp => bp.ProjectId == options.ProjectId);
+                backedProjects = backedProjects.Where(bp => bp.ProjectId == options.ProjectId.Value);
             }
             if (options.BackedFrom != null)
             {
-                backedProjects = backedProjects.Where(bp => bp.BackedOn >= options.BackedFrom);
+                backedProjects = backedProjects.Where(bp => bp.BackedOn >= options.BackedFrom.Value);
             }
             if (options.BackedTo != null)
             {
-                backedProjects = backedProjects.Where(bp => bp.BackedOn <= options.BackedTo);
+                backedProjects = backedProjects.Where(bp => bp.BackedOn <= options.BackedTo.Value);
             }
             if (options.AmountFrom != null)
             {
-                backedProjects = backedProjects.Where(bp => bp.Amount >= options.AmountFrom);
+                backedProjects = backedProjects.Where(bp => bp.Amount >= options.AmountFrom.Value);
             }
             if (options.AmountTo != null)
             {
-                backedProjects = backedProjects.Where(bp => bp.Amount <= options.AmountTo);
+                backedProjects = backedProjects.Where(bp => bp.Amount <= options.AmountTo.Value);
             }
 
             return backedProjects;

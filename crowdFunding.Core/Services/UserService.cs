@@ -5,6 +5,7 @@ using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace crowdFunding.Core.Services
@@ -17,14 +18,42 @@ namespace crowdFunding.Core.Services
             context = dbcontext;
         }
 
-        public User CreateUser(CreateUserOptions options)
+        public Result<User> CreateUser(CreateUserOptions options)
         {
-            if (options == null 
-                || string.IsNullOrWhiteSpace(options.FirstName) 
-                || string.IsNullOrWhiteSpace(options.LastName) 
-                || string.IsNullOrWhiteSpace(options.Email))
+
+            if (options == null)
             {
-                return null;
+                return Result<User>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+            if (string.IsNullOrWhiteSpace(options.FirstName))
+            {
+                return Result<User>.ActionFailed(
+                    StatusCode.BadRequest, "Null or empty FirstName");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.LastName))
+            {
+                return Result<User>.ActionFailed(
+                    StatusCode.BadRequest, "Null or empty LastName");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Email))
+            {
+                return Result<User>.ActionFailed(
+                     StatusCode.BadRequest, "Null or empty Email");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Description))
+            {
+                return Result<User>.ActionFailed(
+                       StatusCode.BadRequest, "Null or empty Description");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Country))
+            {
+                return Result<User>.ActionFailed(
+                     StatusCode.BadRequest, "Null or empty Country");
             }
 
             var user = new User()
@@ -38,7 +67,26 @@ namespace crowdFunding.Core.Services
 
             context.Add(user);
 
-            return context.SaveChanges() > 0 ? user : null;
+            var rows = 0;
+
+            try
+            {
+                rows = context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<User>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<User>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "User could not be created");
+            }
+
+            return Result<User>.ActionSuccessful(user);
         }
 
         public bool DisableUser(int? id)
@@ -142,21 +190,30 @@ namespace crowdFunding.Core.Services
                 .Include(y => y.CreatedProjectsList);
         }
 
-        public User UpdateUser(UpdateUserOptions options)
+        public Result<User> UpdateUser(int userId,
+            UpdateUserOptions options)
         {
-            if (options == null || options.UserId == null)
+            var result = new Result<User>();
+
+            if (options == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null options";
+
+                return result;
             }
 
-            var user = GetById(options.UserId)
+            var user = GetById(userId)
                         .Include(x => x.CreatedProjectsList)
                         .Include(c => c.BackedProjectsList)
                         .SingleOrDefault();
 
             if (user == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.NotFound;
+                result.ErrorText = $"User with id {userId} was not found";
+
+                return result;
             }
 
             if (!string.IsNullOrWhiteSpace(options.FirstName))
@@ -184,8 +241,26 @@ namespace crowdFunding.Core.Services
                 user.LastName = options.LastName;
             }
 
-            context.SaveChanges();
-            return user;
+            var rows = 0;
+
+            try
+            {
+                rows = context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<User>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<User>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "User could not be updated");
+            }
+
+            return Result<User>.ActionSuccessful(result.Data);
         }
     }
 }

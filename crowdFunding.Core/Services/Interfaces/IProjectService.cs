@@ -11,9 +11,9 @@ namespace crowdFunding.Core.Services.Interfaces
 {
     public interface IProjectService
     {
-        Project CreateProject(CreateProjectOptions options);
+        Result<Project> CreateProject(int userId, CreateProjectOptions options);
         IQueryable<Project> SearchProject(SearchProjectOptions options);
-        Project UpdateProject(UpdateProjectOptions options);
+        Result<Project> UpdateProject(int projectId, UpdateProjectOptions options);
         IQueryable<Project> GetProjectById(int? Id);
         List<int?> TrendingProjects();
     }

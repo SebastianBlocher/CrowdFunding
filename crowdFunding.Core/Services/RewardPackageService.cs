@@ -5,6 +5,7 @@ using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace crowdFunding.Core.Services
@@ -12,39 +13,53 @@ namespace crowdFunding.Core.Services
     public class RewardPackageService : IRewardPackageService
     {
         private CrowdFundingDbContext context_;
-        private IRewardService rewardService_;        
+        private IRewardService rewardService_;
         private IProjectService projectService_;
 
         public RewardPackageService(
             CrowdFundingDbContext context,
-            IRewardService rewardService,            
+            IRewardService rewardService,
             IProjectService projectService)
         {
             context_ = context;
-            rewardService_ = rewardService;            
+            rewardService_ = rewardService;
             projectService_ = projectService;
         }
 
-        public RewardPackage CreateRewardPackage(
+        public Result<RewardPackage> CreateRewardPackage(
+            int projectId,
             CreateRewardPackageOptions options)
         {
-            if (options == null 
-                || options.Amount == null 
-                || string.IsNullOrWhiteSpace(options.Description) 
-                || string.IsNullOrWhiteSpace(options.Name))
+            if (options == null)
             {
-                return null;
+                return Result<RewardPackage>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
             }
 
-            var project = projectService_.SearchProject(new SearchProjectOptions()
+            if (string.IsNullOrWhiteSpace(options.Description))
             {
-                ProjectId = options.ProjectId
+                return Result<RewardPackage>.ActionFailed(
+                  StatusCode.BadRequest, "Null options");
+            }
 
-            }).SingleOrDefault();
+            if (string.IsNullOrWhiteSpace(options.Name))
+            {
+                return Result<RewardPackage>.ActionFailed(
+                  StatusCode.BadRequest, "Null options");
+            }
+
+            if (options.Amount <= 0)
+            {
+                return Result<RewardPackage>.ActionFailed(
+                  StatusCode.BadRequest, "Null options");
+            }           
+
+            var project = projectService_.GetProjectById(projectId).SingleOrDefault();
 
             if (project == null)
             {
-                return null;
+                return Result<RewardPackage>.ActionFailed(
+                  StatusCode.BadRequest, "Null options");
             }
 
             var rewardPackage = new RewardPackage()
@@ -52,35 +67,31 @@ namespace crowdFunding.Core.Services
                 Amount = options.Amount,
                 Description = options.Description,
                 Name = options.Name
-            };
-
-            foreach (var option in options.RewardOptions)
-            {
-                if (option == null)
-                {
-                    continue;
-                }
-
-                var createdReward = rewardService_.CreateReward(option);
-
-                if (createdReward != null)
-                {                 
-                    rewardPackage.Rewards.Add(createdReward);
-                }
-                else
-                {
-                    return null;
-                }
-            }
+            };    
 
             project.RewardPackages.Add(rewardPackage);
             context_.Add(rewardPackage);
-            if (context_.SaveChanges() > 0)
+
+            var rows = 0;
+
+            try
             {
-                return rewardPackage;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<RewardPackage>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return null;
+            if (rows <= 0)
+            {
+                return Result<RewardPackage>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward Package could not be created");
+            }
+
+            return Result<RewardPackage>.ActionSuccessful(rewardPackage);
         }
 
         public IQueryable<RewardPackage> SearchRewardPackage(SearchRewardPackageOptions options)
@@ -91,17 +102,17 @@ namespace crowdFunding.Core.Services
             }
 
             var query = context_
-                .Set<RewardPackage>()               
+                .Set<RewardPackage>()
                 .AsQueryable();
 
             if (options.RewardPackageId != null)
             {
-                query = query.Where(rp => rp.RewardPackageId == options.RewardPackageId);
-            }            
+                query = query.Where(rp => rp.RewardPackageId == options.RewardPackageId.Value);
+            }
 
             if (options.Amount != null)
             {
-                query = query.Where(rp => rp.Amount == options.Amount);
+                query = query.Where(rp => rp.Amount == options.Amount.Value);
             }
 
             if (!string.IsNullOrWhiteSpace(options.Description))
@@ -133,21 +144,28 @@ namespace crowdFunding.Core.Services
             return query;
         }
 
-        public RewardPackage UpdateRewardPackage(UpdateRewardPackageOptions options)
+        public Result<RewardPackage> UpdateRewardPackage(
+            int rewardPackageId,
+            UpdateRewardPackageOptions options)
         {
+            var result = new Result<RewardPackage>();
+
             if (options == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null options";
+
+                return result;
             }
 
-            var rewardPackage = SearchRewardPackage(new SearchRewardPackageOptions()
-            {
-                RewardPackageId = options.RewardPackageId
-            }).SingleOrDefault();
+            var rewardPackage = GetRewardPackageById(rewardPackageId);
 
             if (rewardPackage == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.NotFound;
+                result.ErrorText = $"Reward Package with id {rewardPackageId} was not found";
+
+                return result;
             }
 
             if (options.Amount != null)
@@ -163,41 +181,28 @@ namespace crowdFunding.Core.Services
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 rewardPackage.Name = options.Name;
-            }
-
-            if (options.Rewards == null || !options.Rewards.Any())
-            {
-                return null;
-            }
-
-            foreach (var reward in rewardPackage.Rewards.ToList())
-            {
-                var deleteReward = rewardService_.RemoveReward(reward.RewardId);
-
-                if (deleteReward == false)
-                {
-                    return null;
-                }
-            }
-
-            foreach (var reward in options.Rewards)
-            {               
-                if (reward == null)
-                {
-                    return null;
-                }
-
-                var createdReward = rewardService_.CreateReward(reward);
+            }            
             
-                rewardPackage.Rewards.Add(createdReward);
-            }
+            var rows = 0;
 
-            if (context_.SaveChanges() > 0)
+            try
             {
-                return rewardPackage;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<RewardPackage>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return null;
+            if (rows <= 0)
+            {
+                return Result<RewardPackage>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward Package could not be updated");
+            }
+
+            return Result<RewardPackage>.ActionSuccessful(rewardPackage);
         }
 
         public RewardPackage GetRewardPackageById(int? rewardPackageId)
@@ -206,7 +211,7 @@ namespace crowdFunding.Core.Services
             {
                 return null;
             }
-            
+
             var rewardPackage = SearchRewardPackage(new SearchRewardPackageOptions()
             {
                 RewardPackageId = rewardPackageId

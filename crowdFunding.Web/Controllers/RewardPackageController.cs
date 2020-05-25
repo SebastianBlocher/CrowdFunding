@@ -7,9 +7,10 @@ using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
+    [Route("rewardPackage")]
     public class RewardPackageController : Controller
     {
-        [HttpGet]
+        [HttpGet("index")]
         public IActionResult Index()
         {
             return View();
@@ -23,19 +24,21 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]CreateRewardPackageOptions options)
+        public IActionResult Create(int projectId,
+            [FromBody]CreateRewardPackageOptions options)
         {
-            var rewardPackage = rewardPackageService.CreateRewardPackage(options);
+            var result = rewardPackageService.CreateRewardPackage(projectId, options);
 
-            if (rewardPackage == null)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
 
-            return Json(rewardPackage);
+            return Json(result.Data);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetById(int? rewardPackageId)
         {
             var rewardPackage = rewardPackageService.GetRewardPackageById(rewardPackageId);
@@ -48,20 +51,23 @@ namespace crowdFunding.Web.Controllers
             return Json(rewardPackage);
         }
 
-        [HttpPatch]
-        public IActionResult Update([FromBody]UpdateRewardPackageOptions options)
+        [HttpPatch("{id}")]
+        public IActionResult Update(int id,
+            [FromBody]UpdateRewardPackageOptions options)
         {
-            var rewardPackage = rewardPackageService.UpdateRewardPackage(options);
+            var result = rewardPackageService.UpdateRewardPackage(id,
+                options);
 
-            if (rewardPackage == null)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
 
-            return Json(rewardPackage);
+            return Json(result.Data); ;
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Remove([FromForm]int? rewardPackageId)
         {
             var isRewardPackageRemoved = rewardPackageService.RemoveRewardPackage(rewardPackageId);
@@ -74,7 +80,7 @@ namespace crowdFunding.Web.Controllers
             return Json(isRewardPackageRemoved);
         }
 
-        [HttpGet]
+        [HttpGet("search")]
         public IActionResult Search([FromBody]SearchRewardPackageOptions options)
         {
             var rewardPackages = rewardPackageService

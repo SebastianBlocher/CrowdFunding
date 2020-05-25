@@ -5,6 +5,7 @@ using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,31 +24,82 @@ namespace crowdFunding.Core.Services
         }
 
        
-        public Project CreateProject(CreateProjectOptions options)
+        public Result<Project> CreateProject(int userId,
+            CreateProjectOptions options)
         {
-            if (options == null || options.UserId == null ||
-                options.Name == null || options.Description == null ||
-                options.Category == null || options.Category == 0 || options.AmountRequired == null)
+            var result = new Result<User>();
+
+            if (options == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null options";
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Name))
+            {
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null or empty Name";
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Description))
+            {
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null or empty Description";
+            }
+
+            if (options.AmountRequired <= 0 )
+            {
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Invalid AnountRequired";
+            }
+
+            if ((int)options.Category < 1 || (int)options.Category > 8)
+            {
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Invalid Category";
+            }
+
+            if (options.RewardPackages.Any() == false || options.RewardPackages == null)
+            {
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null or empty Description";
             }
 
             var project = new Project()
             {
                 Name = options.Name,
                 Description = options.Description,
-                Category = (Category)options.Category,
-                AmountRequired = (decimal)options.AmountRequired,
+                Category = options.Category,
+                AmountRequired = options.AmountRequired,
             };
 
             var user = userService_
-                .GetById(options.UserId)
+                .GetById(userId)
                 .Include(x => x.CreatedProjectsList)
                 .SingleOrDefault();
 
             user.CreatedProjectsList.Add(project);
 
-            return context_.SaveChanges() > 0 ? project : null;
+            var rows = 0;
+
+            try
+            {
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Project>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Project>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Project could not be created");
+            }
+
+            return Result<Project>.ActionSuccessful(project);
         }
 
         public IQueryable<Project> SearchProject(SearchProjectOptions options)
@@ -70,7 +122,7 @@ namespace crowdFunding.Core.Services
 
             if (options.ProjectId != null)
             {
-                query = query.Where(p => p.ProjectId == options.ProjectId);
+                query = query.Where(p => p.ProjectId == options.ProjectId.Value);
             }
 
             if (options.Category != null && options.Category != 0)
@@ -93,26 +145,35 @@ namespace crowdFunding.Core.Services
                 .Where(p => p.ProjectId == id);
         }
 
-        public Project UpdateProject(UpdateProjectOptions options)
+        public Result<Project> UpdateProject(int projectId,
+            UpdateProjectOptions options)
         {
-            if (options == null || options.ProjectId == null)
+            var result = new Result<Project>();
+
+            if (options == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null options";
+
+                return result;
             }
 
             var project = context_
                 .Set<Project>()
-                .Where(x => x.ProjectId == options.ProjectId)
+                .Where(x => x.ProjectId == projectId)
                 .SingleOrDefault();
 
             if (project == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.NotFound;
+                result.ErrorText = $"Project with id {projectId} was not found";
+
+                return result;
             }
 
-            if (options.Category != null && options.Category != 0)
+            if (options.Category != null && options.Category > 0 && (int)options.Category < 9)
             {
-                project.Category = (Category)options.Category;
+                project.Category = options.Category.Value;
             }
 
             if (string.IsNullOrWhiteSpace(options.Description))
@@ -127,10 +188,29 @@ namespace crowdFunding.Core.Services
 
             if (options.AmountRequired != null)
             {
-                project.AmountRequired = (decimal)options.AmountRequired;
+                project.AmountRequired = options.AmountRequired.Value;
             }
 
-            return context_.SaveChanges() > 0 ? project : null;
+            var rows = 0;
+
+            try
+            {
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Project>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Project>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Project could not be updated");
+            }
+
+            return Result<Project>.ActionSuccessful(project);
         }
 
         public List<int?> TrendingProjects()
