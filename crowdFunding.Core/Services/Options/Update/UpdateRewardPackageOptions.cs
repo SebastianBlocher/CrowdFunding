@@ -1,7 +1,4 @@
-﻿using crowdFunding.Core.Services.Options.Create;
-using System.Collections.Generic;
-
-namespace crowdFunding.Core.Services.Options.Update
+﻿namespace crowdFunding.Core.Services.Options.Update
 {
     public class UpdateRewardPackageOptions
     {               

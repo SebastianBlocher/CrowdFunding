@@ -39,9 +39,9 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int? rewardPackageId)
+        public IActionResult GetById(int? id)
         {
-            var rewardPackage = rewardPackageService.GetRewardPackageById(rewardPackageId);
+            var rewardPackage = rewardPackageService.GetRewardPackageById(id);
 
             if (rewardPackage == null)
             {
@@ -68,9 +68,9 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Remove([FromForm]int? rewardPackageId)
+        public IActionResult Remove([FromForm]int? id)
         {
-            var isRewardPackageRemoved = rewardPackageService.RemoveRewardPackage(rewardPackageId);
+            var isRewardPackageRemoved = rewardPackageService.RemoveRewardPackage(id);
 
             if (isRewardPackageRemoved == false)
             {

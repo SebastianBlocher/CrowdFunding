@@ -24,46 +24,48 @@ namespace crowdFunding.Core.Services
         }
 
        
-        public Result<Project> CreateProject(int userId,
-            CreateProjectOptions options)
+        public Result<Project> CreateProject(CreateProjectOptions options)
         {
-            var result = new Result<User>();
-
             if (options == null)
             {
-                result.ErrorCode = StatusCode.BadRequest;
-                result.ErrorText = "Null options";
+                return Result<Project>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
             }
 
             if (string.IsNullOrWhiteSpace(options.Name))
             {
-                result.ErrorCode = StatusCode.BadRequest;
-                result.ErrorText = "Null or empty Name";
+                return Result<Project>.ActionFailed(
+                   StatusCode.BadRequest, "Null or empty Name");
             }
 
             if (string.IsNullOrWhiteSpace(options.Description))
             {
-                result.ErrorCode = StatusCode.BadRequest;
-                result.ErrorText = "Null or empty Description";
+                return Result<Project>.ActionFailed(
+                   StatusCode.BadRequest, "Null or empty Description");
             }
 
             if (options.AmountRequired <= 0 || options.AmountRequired == null)
             {
-                result.ErrorCode = StatusCode.BadRequest;
-                result.ErrorText = "Invalid AnountRequired";
+                return Result<Project>.ActionFailed(
+                StatusCode.BadRequest, "Null or empty AmountRequired");
             }
 
             if ((int)options.Category < 1 || (int)options.Category > 8)
             {
-                result.ErrorCode = StatusCode.BadRequest;
-                result.ErrorText = "Invalid Category";
+                return Result<Project>.ActionFailed(
+                StatusCode.BadRequest, "Null or invalid Category");
             }
 
-            //if (options.RewardPackages.Any() == false || options.RewardPackages == null)
-            //{
-            //    result.ErrorCode = StatusCode.BadRequest;
-            //    result.ErrorText = "No Reward Packages ";
-            //}
+            var user = userService_
+            .GetById(options.UserId)
+            .Include(x => x.CreatedProjectsList)
+            .SingleOrDefault();
+
+            if (user == null)
+            {
+                return Result<Project>.ActionFailed(
+                StatusCode.BadRequest, "Invalid User");
+            }
 
             var project = new Project()
             {
@@ -71,12 +73,7 @@ namespace crowdFunding.Core.Services
                 Description = options.Description,
                 Category = options.Category,
                 AmountRequired = options.AmountRequired.Value,
-            };
-
-            var user = userService_
-                .GetById(userId)
-                .Include(x => x.CreatedProjectsList)
-                .SingleOrDefault();
+            }; 
 
             user.CreatedProjectsList.Add(project);
 
@@ -104,7 +101,10 @@ namespace crowdFunding.Core.Services
 
         public IQueryable<Project> SearchProject(SearchProjectOptions options)
         {
-            if (options == null) return null;
+            if (options == null) 
+            { 
+                return null;
+            }
 
             var query = context_
                    .Set<Project>()
@@ -176,12 +176,12 @@ namespace crowdFunding.Core.Services
                 project.Category = options.Category.Value;
             }
 
-            if (string.IsNullOrWhiteSpace(options.Description))
+            if (!string.IsNullOrWhiteSpace(options.Description))
             {
                 project.Description = options.Description;
             }
 
-            if (string.IsNullOrWhiteSpace(options.Name))
+            if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 project.Name = options.Name;
             }

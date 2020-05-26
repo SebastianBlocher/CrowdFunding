@@ -24,10 +24,9 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int userId,
-            [FromBody]CreateProjectOptions options)
+        public IActionResult Create([FromBody]CreateProjectOptions options)
         {
-            var result = projectService.CreateProject(userId, options);
+            var result = projectService.CreateProject(options);
 
             if (!result.Success)
             {
@@ -50,11 +49,12 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpGet("search")]
-        public IActionResult Search(SearchProjectOptions options)
+        public IActionResult Search([FromBody]SearchProjectOptions options)
         {
             var project = projectService
                 .SearchProject(options)
                 .ToList();
+
             if (project == null)
             {
                 return BadRequest();
@@ -69,10 +69,10 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPatch("{id}")]
-        public IActionResult Update(int projectId,
+        public IActionResult Update(int id,
             [FromBody]UpdateProjectOptions options)
         {
-            var result = projectService.UpdateProject(projectId,
+            var result = projectService.UpdateProject(id,
                options);
 
             if (!result.Success)

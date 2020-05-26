@@ -58,10 +58,11 @@ namespace crowdFunding.Core.Services
             var backedProject = new BackedProjects()
             {
                 Amount = options.Amount,
-                ProjectId = projectId,
+                //ProjectId = projectId,
                 Name = project.Name,
                 Category = project.Category,
                 Description = project.Description
+                //UserId = userId
             };
 
             project.NumberOfBackers += 1;

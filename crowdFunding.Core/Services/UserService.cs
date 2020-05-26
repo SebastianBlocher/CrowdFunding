@@ -20,12 +20,12 @@ namespace crowdFunding.Core.Services
 
         public Result<User> CreateUser(CreateUserOptions options)
         {
-
             if (options == null)
             {
                 return Result<User>.ActionFailed(
                     StatusCode.BadRequest, "Null options");
             }
+
             if (string.IsNullOrWhiteSpace(options.FirstName))
             {
                 return Result<User>.ActionFailed(
@@ -123,7 +123,7 @@ namespace crowdFunding.Core.Services
             }
 
             return context
-                        .Set<User>().Where(x => x.UserId == id);
+                     .Set<User>().Where(x => x.UserId == id);
         }
 
         public IQueryable<User> SearchUsers(SearchUserOptions options)

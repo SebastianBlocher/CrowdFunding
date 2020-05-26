@@ -24,22 +24,23 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int projectId, [FromBody]CreateRewardOptions options)
+        public IActionResult Create(int id, [FromBody]CreateRewardOptions options)
         {
-            var reward = rewardService.CreateReward(projectId, options);
+            var result = rewardService.CreateReward(id, options);
 
-            if (reward == null)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
 
-            return Json(reward);
+            return Json(result.Data);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromForm]int? rewardId)
+        public IActionResult GetById([FromForm]int? id)
         {
-            var reward = rewardService.GetRewardById(rewardId);
+            var reward = rewardService.GetRewardById(id);
 
             if (reward == null)
             {
@@ -50,10 +51,10 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPatch("{id}")]
-        public IActionResult Update(int rewardId,
+        public IActionResult Update(int id,
             [FromBody]UpdateRewardOptions options)
         {
-            var result = rewardService.UpdateReward(rewardId,
+            var result = rewardService.UpdateReward(id,
                 options);
 
             if (!result.Success)
@@ -66,9 +67,9 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Remove([FromForm]int? rewardId)
+        public IActionResult Remove([FromForm]int? id)
         {
-            var isRewardRemoved = rewardService.RemoveReward(rewardId);
+            var isRewardRemoved = rewardService.RemoveReward(id);
 
             if (isRewardRemoved == false)
             {
@@ -78,7 +79,7 @@ namespace crowdFunding.Web.Controllers
             return Json(isRewardRemoved);
         }
 
-        [HttpGet("{id}/search")]
+        [HttpGet("search")]
         public IActionResult Search([FromBody]SearchRewardOptions options)
         {
             var rewards = rewardService

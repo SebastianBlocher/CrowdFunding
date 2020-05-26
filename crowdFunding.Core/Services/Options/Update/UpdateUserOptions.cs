@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace crowdFunding.Core.Services.Options.Update
+﻿namespace crowdFunding.Core.Services.Options.Update
 {
     public class UpdateUserOptions
     {        
