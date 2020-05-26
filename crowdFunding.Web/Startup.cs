@@ -34,6 +34,7 @@ namespace crowdFunding.Web
 
             services.AddDbContext<CrowdFundingDbContext>(options =>
                 options.UseSqlServer(ConnectionString));
+            //services.AddDbContext<CrowdFundingDbContext>(options => options.UseSqlServer(ConnectionString, b => b.MigrationsAssembly("crowdFunding.Web")));
 
             services.AddScoped<IRewardService, RewardService>();
             services.AddScoped<IRewardPackageService, RewardPackageService>();
