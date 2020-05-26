@@ -1,35 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using crowdFunding.Core.Data;
-using crowdFunding.Core.Services;
-using crowdFunding.Core.Services.Interfaces;
+﻿using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
     public class UserController : Controller
     {
-        [Route("{user}")]
         public IActionResult Index()
         {
             return View();
         }
 
-        private CrowdFundingDbContext context;
         private IUserService userService;
 
-        public UserController()
-        {
-            context = new CrowdFundingDbContext();
-            userService = new UserService(context);
+        public UserController(IUserService userService_)
+        {            
+            userService = userService_;
         }
 
-        [HttpPost("{create}")]
+        [HttpPost]
         public IActionResult Create([FromBody]CreateUserOptions options)
         {
             var user = userService.CreateUser(options);
@@ -42,35 +34,40 @@ namespace crowdFunding.Web.Controllers
             return Json(user);
         }
 
-        [HttpGet("{getuser}")]
+        [HttpGet]
         public IActionResult GetUser(int? id)
         {
-            var user = userService.GetById(id);
-
+            var user = userService.GetById(id).SingleOrDefault();
+            
             if (user == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Json(user);
         }
 
-        [HttpPost("{search}")]
+        [HttpPost]
         public IActionResult Search([FromBody]SearchUserOptions options)
         {
             var users = userService
                 .SearchUsers(options)
                 .ToList();
 
-            if (users == null || users.Count == 0)
+            if (users == null)
             {
                 return BadRequest();
+            }
+
+            if (users.Count == 0)
+            {
+                return NotFound();
             }
 
             return Json(users);
         }
 
-        [HttpPatch("{update}")]
+        [HttpPatch]
         public IActionResult Update([FromBody]UpdateUserOptions options)
         {
             var user = userService.UpdateUser(options);
@@ -80,10 +77,10 @@ namespace crowdFunding.Web.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return Json(user);
         }
 
-        [HttpDelete("{delete}")]
+        [HttpDelete]
         public IActionResult Disable(int? id)
         {
             if (userService.DisableUser(id))

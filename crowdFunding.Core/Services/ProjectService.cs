@@ -27,7 +27,7 @@ namespace crowdFunding.Core.Services
         {
             if (options == null || options.UserId == null ||
                 options.Name == null || options.Description == null ||
-                options.Category == null || options.Category == 0 || options.AmountRequiered == null)
+                options.Category == null || options.Category == 0 || options.AmountRequired == null)
             {
                 return null;
             }
@@ -37,6 +37,7 @@ namespace crowdFunding.Core.Services
                 Name = options.Name,
                 Description = options.Description,
                 Category = (Category)options.Category,
+                AmountRequired = (decimal)options.AmountRequired,
             };
 
             var user = userService_
@@ -127,11 +128,6 @@ namespace crowdFunding.Core.Services
             if (options.AmountRequired != null)
             {
                 project.AmountRequired = (decimal)options.AmountRequired;
-            }
-
-            if (options.AmountGathered != null)
-            {
-                project.AmountGathered += (decimal)options.AmountGathered;
             }
 
             return context_.SaveChanges() > 0 ? project : null;

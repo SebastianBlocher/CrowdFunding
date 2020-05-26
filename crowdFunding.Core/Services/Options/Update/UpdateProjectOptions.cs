@@ -11,7 +11,6 @@ namespace crowdFunding.Core.Services.Options.Update
         public DateTimeOffset UpdatedOn { get; set; }
         public string Description { get; set; }
         public Category? Category { get; set; } // isos na min mas xreiazetai, giati na allaksei katigoria px.
-        public decimal? AmountGathered { get; set; }
         public List<RewardPackage> RewardPackages { get; set; }
         public decimal? AmountRequired { get; set; }
 

@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using crowdFunding;
+using crowdFunding.Core.Data;
 
-namespace crowdFunding.Migrations
+namespace crowdFunding.Web.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    [Migration("20200519161709_testProjectID")]
-    partial class testProjectID
+    partial class CrowdFundingDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +19,7 @@ namespace crowdFunding.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("crowdFunding.BackedProjects", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.BackedProjects", b =>
                 {
                     b.Property<int>("BackedProjectsId")
                         .ValueGeneratedOnAdd()
@@ -56,14 +54,17 @@ namespace crowdFunding.Migrations
                     b.ToTable("BackedProjects");
                 });
 
-            modelBuilder.Entity("crowdFunding.Project", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.Project", b =>
                 {
                     b.Property<int>("ProjectId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal>("AmountGathered")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmountRequired")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Category")
@@ -78,6 +79,9 @@ namespace crowdFunding.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumberOfBackers")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -88,7 +92,7 @@ namespace crowdFunding.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("crowdFunding.Reward", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.Reward", b =>
                 {
                     b.Property<int>("RewardId")
                         .ValueGeneratedOnAdd()
@@ -111,7 +115,7 @@ namespace crowdFunding.Migrations
                     b.ToTable("Reward");
                 });
 
-            modelBuilder.Entity("crowdFunding.RewardPackage", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.RewardPackage", b =>
                 {
                     b.Property<int>("RewardPackageId")
                         .ValueGeneratedOnAdd()
@@ -137,7 +141,7 @@ namespace crowdFunding.Migrations
                     b.ToTable("RewardPackage");
                 });
 
-            modelBuilder.Entity("crowdFunding.User", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -173,30 +177,30 @@ namespace crowdFunding.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("crowdFunding.BackedProjects", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.BackedProjects", b =>
                 {
-                    b.HasOne("crowdFunding.User", null)
+                    b.HasOne("crowdFunding.Core.Model.User", null)
                         .WithMany("BackedProjectsList")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("crowdFunding.Project", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.Project", b =>
                 {
-                    b.HasOne("crowdFunding.User", null)
+                    b.HasOne("crowdFunding.Core.Model.User", null)
                         .WithMany("CreatedProjectsList")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("crowdFunding.Reward", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.Reward", b =>
                 {
-                    b.HasOne("crowdFunding.RewardPackage", null)
+                    b.HasOne("crowdFunding.Core.Model.RewardPackage", null)
                         .WithMany("Rewards")
                         .HasForeignKey("RewardPackageId");
                 });
 
-            modelBuilder.Entity("crowdFunding.RewardPackage", b =>
+            modelBuilder.Entity("crowdFunding.Core.Model.RewardPackage", b =>
                 {
-                    b.HasOne("crowdFunding.Project", "Project")
+                    b.HasOne("crowdFunding.Core.Model.Project", null)
                         .WithMany("RewardPackages")
                         .HasForeignKey("ProjectId");
                 });

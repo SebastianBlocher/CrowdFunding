@@ -1,41 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using crowdFunding.Core.Data;
-using crowdFunding.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using crowdFunding.Core.Model;
-using crowdFunding.Core.Services.Options;
-using crowdFunding.Core.Services;
+﻿using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
-
     public class ProjectController : Controller
     {
-        private CrowdFundingDbContext context;
         private IProjectService projectService;
-        private IUserService userService;
 
-        [Route("{project}")]
         public IActionResult Index()
         {
             return View();
         }
 
-        public ProjectController()
+        public ProjectController(IProjectService projectService_)
         {
-            context = new CrowdFundingDbContext();
-            projectService = new ProjectService(context, userService);
+            projectService = projectService_;
         }
 
-        [HttpPost("{create}")]
-        public IActionResult Create(CreateProjectOptions options)
+        [HttpPost]
+        public IActionResult Create([FromBody]CreateProjectOptions options)
         {
             var project = projectService.CreateProject(options);
 
@@ -45,7 +32,8 @@ namespace crowdFunding.Web.Controllers
             }
             return Json(project);
         }
-        [HttpGet("{getproject}")]
+
+        [HttpGet]
         public IActionResult GetProject(int? id)
         {
             var project = projectService.GetProjectById(id);
@@ -56,7 +44,7 @@ namespace crowdFunding.Web.Controllers
             return Json(project);
         }
 
-        [HttpPost("{search}")]
+        [HttpPost]
         public IActionResult Search(SearchProjectOptions options)
         {
             var project = projectService
@@ -68,7 +56,8 @@ namespace crowdFunding.Web.Controllers
             }
             return Json(project);
         }
-        [HttpPatch("{update}")]
+
+        [HttpPatch]
         public IActionResult Update([FromBody]UpdateProjectOptions options)
         {
             var project = projectService.UpdateProject(options);
@@ -80,7 +69,5 @@ namespace crowdFunding.Web.Controllers
         }
         //[HttpDelete("{delete}")]
         //trending
-
-       
     }
 }
