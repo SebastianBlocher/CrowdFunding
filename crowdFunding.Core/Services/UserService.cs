@@ -12,7 +12,7 @@ namespace crowdFunding.Core.Services
 {
     public class UserService : IUserService
     {
-        private readonly CrowdFundingDbContext context;
+        private CrowdFundingDbContext context;
         public UserService(CrowdFundingDbContext dbcontext)
         {
             context = dbcontext;
@@ -123,10 +123,7 @@ namespace crowdFunding.Core.Services
             }
 
             return context
-                        .Set<User>()
-                        .Where(x => x.UserId == id)
-                        .Include(x => x.CreatedProjectsList)
-                        .Include(y => y.BackedProjectsList);
+                        .Set<User>().Where(x => x.UserId == id);
         }
 
         public IQueryable<User> SearchUsers(SearchUserOptions options)
@@ -260,7 +257,7 @@ namespace crowdFunding.Core.Services
                     "User could not be updated");
             }
 
-            return Result<User>.ActionSuccessful(result.Data);
+            return Result<User>.ActionSuccessful(user);
         }
     }
 }

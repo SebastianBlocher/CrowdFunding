@@ -13,8 +13,8 @@ namespace crowdFunding.Core.Services
 {
     public class ProjectService : IProjectService
     {
-        private readonly CrowdFundingDbContext context_;
-        private readonly IUserService userService_;
+        private CrowdFundingDbContext context_;
+        private IUserService userService_;
        
 
         public ProjectService(CrowdFundingDbContext context, IUserService userService)
@@ -47,7 +47,7 @@ namespace crowdFunding.Core.Services
                 result.ErrorText = "Null or empty Description";
             }
 
-            if (options.AmountRequired <= 0 )
+            if (options.AmountRequired <= 0 || options.AmountRequired == null)
             {
                 result.ErrorCode = StatusCode.BadRequest;
                 result.ErrorText = "Invalid AnountRequired";
@@ -59,18 +59,18 @@ namespace crowdFunding.Core.Services
                 result.ErrorText = "Invalid Category";
             }
 
-            if (options.RewardPackages.Any() == false || options.RewardPackages == null)
-            {
-                result.ErrorCode = StatusCode.BadRequest;
-                result.ErrorText = "Null or empty Description";
-            }
+            //if (options.RewardPackages.Any() == false || options.RewardPackages == null)
+            //{
+            //    result.ErrorCode = StatusCode.BadRequest;
+            //    result.ErrorText = "No Reward Packages ";
+            //}
 
             var project = new Project()
             {
                 Name = options.Name,
                 Description = options.Description,
                 Category = options.Category,
-                AmountRequired = options.AmountRequired,
+                AmountRequired = options.AmountRequired.Value,
             };
 
             var user = userService_

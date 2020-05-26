@@ -48,7 +48,7 @@ namespace crowdFunding.Core.Services
                   StatusCode.BadRequest, "Null options");
             }
 
-            if (options.Amount == null || options.Amount == 0)
+            if (options.Amount == null || options.Amount <= 0)
             {
                 return Result<RewardPackage>.ActionFailed(
                   StatusCode.BadRequest, "Invalid Amount");
@@ -125,18 +125,6 @@ namespace crowdFunding.Core.Services
                 query = query.Where(rp => rp.Name == options.Name);
             }
 
-            //----------------------
-            //var project = projectService_.SearchProject(new SearchProjectOption()
-            //{
-            //    ProjectId = options.ProjectId
-
-            //}).SingleOrDefault();
-
-            //if (project != null)
-            //{
-            //    query = query.Where(rp => rp.ProjectId == options.ProjectId);
-            //}
-            //-----------------------
             query = query
                 .Include(x => x.Rewards)
                 .Take(500);

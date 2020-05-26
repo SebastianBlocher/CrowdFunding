@@ -202,7 +202,7 @@ namespace crowdFunding.Core.Services
                     "Reward could not be updated");
             }
 
-            return Result<Reward>.ActionSuccessful(result.Data);
+            return Result<Reward>.ActionSuccessful(reward);
         }
     }
 }

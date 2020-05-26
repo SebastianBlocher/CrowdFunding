@@ -44,7 +44,7 @@ namespace crowdFunding.Web.Controllers
             var project = projectService.GetProjectById(id);
             if (project == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             return Json(project);
         }
