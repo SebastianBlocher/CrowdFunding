@@ -48,10 +48,10 @@ namespace crowdFunding.Core.Services
                   StatusCode.BadRequest, "Null options");
             }
 
-            if (options.Amount <= 0)
+            if (options.Amount == null || options.Amount == 0)
             {
                 return Result<RewardPackage>.ActionFailed(
-                  StatusCode.BadRequest, "Null options");
+                  StatusCode.BadRequest, "Invalid Amount");
             }           
 
             var project = projectService_.GetProjectById(projectId).SingleOrDefault();

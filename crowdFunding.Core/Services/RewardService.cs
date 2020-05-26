@@ -11,13 +11,10 @@ namespace crowdFunding.Core.Services
 {
     public class RewardService : IRewardService
     {
-        private CrowdFundingDbContext context_;
-        private IRewardPackageService rewardPackageService_;
-        public RewardService(CrowdFundingDbContext context,
-            RewardPackageService rewardPackageService)
+        private CrowdFundingDbContext context_;        
+        public RewardService(CrowdFundingDbContext context)
         {
-            context_ = context;
-            rewardPackageService_ = rewardPackageService;
+            context_ = context;            
         }
 
         public Result<Reward> CreateReward(int rewardPackageId,
@@ -35,8 +32,11 @@ namespace crowdFunding.Core.Services
                     StatusCode.BadRequest, "Null or empty Name");
             }
 
-            var rewardPackage = rewardPackageService_
-                .GetRewardPackageById(rewardPackageId);
+            var rewardPackage = context_
+                .Set<RewardPackage>()
+                .Where(rp => rp.RewardPackageId == rewardPackageId)
+                .SingleOrDefault();
+                
 
             if (rewardPackage == null)
             {

@@ -13,8 +13,8 @@ namespace crowdFunding.Core.Services
 {
     public class ProjectService : IProjectService
     {
-        private CrowdFundingDbContext context_;
-        private IUserService userService_;
+        private readonly CrowdFundingDbContext context_;
+        private readonly IUserService userService_;
        
 
         public ProjectService(CrowdFundingDbContext context, IUserService userService)

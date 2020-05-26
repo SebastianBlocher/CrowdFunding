@@ -12,7 +12,7 @@ namespace crowdFunding.Core.Services
 {
     public class UserService : IUserService
     {
-        private CrowdFundingDbContext context;
+        private readonly CrowdFundingDbContext context;
         public UserService(CrowdFundingDbContext dbcontext)
         {
             context = dbcontext;
