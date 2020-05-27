@@ -12,6 +12,7 @@ namespace crowdFunding.Core.Services.Options.Create
         public Category? Category { get; set; }
         public List<Reward> RewardPackages { get; set; }
         public decimal? AmountRequired { get; set; }
+        
 
         public CreateProjectOptions()
         {

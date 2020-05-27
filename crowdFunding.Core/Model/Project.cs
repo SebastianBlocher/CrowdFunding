@@ -15,12 +15,17 @@ namespace crowdFunding.Core.Model
         public decimal AmountRequired { get; set; }
         public decimal AmountGathered { get; set; }
         public int NumberOfBackers { get; set; }
+        public bool IsActive { get; set; }
+
+        
+
         public Project()
         {
             CreatedOn = DateTimeOffset.Now;
             RewardPackages = new List<RewardPackage>();
             NumberOfBackers = 0;
             AmountGathered = 0;
+            IsActive = true;
         }
     }
 }

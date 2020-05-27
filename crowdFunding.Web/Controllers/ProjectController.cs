@@ -67,7 +67,17 @@ namespace crowdFunding.Web.Controllers
             }
             return Ok();
         }
-        //[HttpDelete("{delete}")]
-        //trending
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+
+            if (projectService.DeleteProject(id))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
-}
+      //trending projects 
+    }
