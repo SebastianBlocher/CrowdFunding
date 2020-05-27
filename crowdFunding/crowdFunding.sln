@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crowdFunding", "crowdFunding.csproj", "{F9AAEA8E-EE3E-498D-BA95-BDC6551B44A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "crowdFunding.Core", "..\crowdFunding.Core\crowdFunding.Core.csproj", "{7D2F44E2-720E-45AC-B7F2-C22391CAA706}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "crowdFunding.Web", "..\crowdFunding.Web\crowdFunding.Web.csproj", "{0355FE8C-DE64-486C-BFDF-DBADB65734D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F9AAEA8E-EE3E-498D-BA95-BDC6551B44A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9AAEA8E-EE3E-498D-BA95-BDC6551B44A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9AAEA8E-EE3E-498D-BA95-BDC6551B44A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9AAEA8E-EE3E-498D-BA95-BDC6551B44A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2F44E2-720E-45AC-B7F2-C22391CAA706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2F44E2-720E-45AC-B7F2-C22391CAA706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2F44E2-720E-45AC-B7F2-C22391CAA706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D2F44E2-720E-45AC-B7F2-C22391CAA706}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0355FE8C-DE64-486C-BFDF-DBADB65734D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0355FE8C-DE64-486C-BFDF-DBADB65734D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0355FE8C-DE64-486C-BFDF-DBADB65734D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0355FE8C-DE64-486C-BFDF-DBADB65734D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
