@@ -1,0 +1,12 @@
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\obj\Debug\netcoreapp3.1\crowdFunding.Core.csproj.CoreCompileInputs.cache
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\obj\Debug\netcoreapp3.1\crowdFunding.Core.AssemblyInfoInputs.cache
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\obj\Debug\netcoreapp3.1\crowdFunding.Core.AssemblyInfo.cs
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\bin\Debug\netcoreapp3.1\crowdFunding.Core.deps.json
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\bin\Debug\netcoreapp3.1\crowdFunding.Core.runtimeconfig.json
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\bin\Debug\netcoreapp3.1\crowdFunding.Core.runtimeconfig.dev.json
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\bin\Debug\netcoreapp3.1\crowdFunding.Core.dll
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\bin\Debug\netcoreapp3.1\crowdFunding.Core.pdb
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\obj\Debug\netcoreapp3.1\crowdFunding.Core.dll
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\obj\Debug\netcoreapp3.1\crowdFunding.Core.pdb
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\obj\Debug\netcoreapp3.1\crowdFunding.Core.genruntimeconfig.cache
+C:\Users\sebab\source\repos\athens-pf-team5\crowdFunding.Core\obj\Debug\netcoreapp3.1\crowdFunding.Core.csprojAssemblyReference.cache
