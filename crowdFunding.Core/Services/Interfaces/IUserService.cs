@@ -11,13 +11,13 @@ namespace crowdFunding.Core.Services.Interfaces
 {
     public interface IUserService
     {
-        User CreateUser(CreateUserOptions options);
+        Result<User> CreateUser(CreateUserOptions options);
 
         IQueryable<User> SearchUsers(SearchUserOptions options);
 
         IQueryable<User> GetById(int? id);
 
-        User UpdateUser(UpdateUserOptions options);
+        Result<User> UpdateUser(int id, UpdateUserOptions options);
 
         bool DisableUser(int? id);
     }
