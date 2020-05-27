@@ -56,6 +56,7 @@ namespace crowdFunding.Core.Services
 
             var project = projectService_.GetProjectById(projectId).SingleOrDefault();
 
+
             if (project == null)
             {
                 return Result<RewardPackage>.ActionFailed(
@@ -67,8 +68,28 @@ namespace crowdFunding.Core.Services
                 Amount = options.Amount,
                 Description = options.Description,
                 Name = options.Name
-            };    
+            };
 
+            foreach (var option in options.RewardOptions)
+            {
+                if (option == null)
+                {
+                    continue;
+                }
+
+                var createdReward = rewardService_.AddRewardToList(option);
+
+                if (createdReward != null)
+                {
+                    rewardPackage.Rewards.Add(createdReward.Data);
+                }
+                else
+                {
+                    return Result<RewardPackage>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid Rewards given");
+                }
+            }
+                        
             project.RewardPackages.Add(rewardPackage);
             context_.Add(rewardPackage);
 

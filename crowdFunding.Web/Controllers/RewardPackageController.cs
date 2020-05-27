@@ -24,10 +24,10 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int projectId,
+        public IActionResult Create(int id,
             [FromBody]CreateRewardPackageOptions options)
         {
-            var result = rewardPackageService.CreateRewardPackage(projectId, options);
+            var result = rewardPackageService.CreateRewardPackage(id, options);
 
             if (!result.Success)
             {

@@ -35,8 +35,7 @@ namespace crowdFunding.Core.Services
             var rewardPackage = context_
                 .Set<RewardPackage>()
                 .Where(rp => rp.RewardPackageId == rewardPackageId)
-                .SingleOrDefault();
-                
+                .SingleOrDefault();            
 
             if (rewardPackage == null)
             {
@@ -47,8 +46,52 @@ namespace crowdFunding.Core.Services
             var reward = new Reward()
             {
                 Name = options.Name,
+                Description = options.Description 
+            };
+
+            rewardPackage.Rewards.Add(reward);
+
+            var rows = 0;
+
+            try
+            {
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward could not be created");
+            }
+
+            return Result<Reward>.ActionSuccessful(reward);
+        }
+
+        public Result<Reward> AddRewardToList(CreateRewardOptions options)
+        {
+            if (options == null)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Name))
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Null or empty Name");
+            }          
+
+            var reward = new Reward()
+            {
+                Name = options.Name,
                 Description = options.Description,
-                
+
             };
 
             context_.Add(reward);
@@ -74,7 +117,6 @@ namespace crowdFunding.Core.Services
 
             return Result<Reward>.ActionSuccessful(reward);
         }
-
         public Reward GetRewardById(int? rewardId)
         {
             if (rewardId == null)
