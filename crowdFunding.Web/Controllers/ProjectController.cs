@@ -84,6 +84,6 @@ namespace crowdFunding.Web.Controllers
             return Json(result.Data); ;
         }
         //[HttpDelete("{delete}")]
-        //trending
+        
     }
 }
