@@ -15,12 +15,14 @@ namespace crowdFunding.Core.Services
     {
         private CrowdFundingDbContext context_;
         private IUserService userService_;
-       
+        private IRewardPackageService rewardPackageService_;
 
-        public ProjectService(CrowdFundingDbContext context, IUserService userService)
+
+        public ProjectService(CrowdFundingDbContext context, IUserService userService, IRewardPackageService rewardPackageService)
         {
             context_ = context;
             userService_ = userService;
+            rewardPackageService_ = rewardPackageService;
         }
 
        
@@ -231,7 +233,44 @@ namespace crowdFunding.Core.Services
 
             return trendingProjetcs;
         }
+
+        public bool DeleteProject(int? id)
+        {
+            if (id == null)
+            {
+                return false;
+            }
+
+            var project = GetProjectById(id)
+                 .Where(p => p.ProjectId == id)
+                 .Include(p => p.RewardPackages)
+                 .SingleOrDefault();
+
+            if (project == null)
+            {
+                return false;
+            }
+
+            foreach (var rewardPackage in project.RewardPackages.ToList())
+            {
+                if (!rewardPackageService_.RemoveRewardPackage(rewardPackage.RewardPackageId))
+                {
+                    return false;
+                }
+            }
+            
+            context_.Remove(project);
+
+            if (context_.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
+
+
 }
 
 
