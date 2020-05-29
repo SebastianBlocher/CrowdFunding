@@ -4,42 +4,119 @@ using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using System;
 using System.Linq;
 
 namespace crowdFunding.Core.Services
 {
     public class RewardService : IRewardService
     {
-        private CrowdFundingDbContext context_;
+        private CrowdFundingDbContext context_;        
         public RewardService(CrowdFundingDbContext context)
         {
-            context_ = context;
+            context_ = context;            
         }
 
-        public Reward CreateReward(
+        public Result<Reward> CreateReward(int rewardPackageId,
             CreateRewardOptions options)
         {
-            if (options == null || string.IsNullOrWhiteSpace(options.Name))                 
+            if (options == null)
             {
-                return null;
+                return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Name))
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Null or empty Name");
+            }
+
+            var rewardPackage = context_
+                .Set<RewardPackage>()
+                .Where(rp => rp.RewardPackageId == rewardPackageId)
+                .SingleOrDefault();            
+
+            if (rewardPackage == null)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid Reward Package");
             }
 
             var reward = new Reward()
             {
                 Name = options.Name,
-                Description = options.Description              
+                Description = options.Description 
+            };
+
+            rewardPackage.Rewards.Add(reward);
+
+            var rows = 0;
+
+            try
+            {
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward could not be created");
+            }
+
+            return Result<Reward>.ActionSuccessful(reward);
+        }
+
+        public Result<Reward> AddRewardToList(CreateRewardOptions options)
+        {
+            if (options == null)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Name))
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Null or empty Name");
+            }          
+
+            var reward = new Reward()
+            {
+                Name = options.Name,
+                Description = options.Description,
+
             };
 
             context_.Add(reward);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return reward;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return null;
-        }
+            if (rows <= 0)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward could not be created");
+            }
 
+            return Result<Reward>.ActionSuccessful(reward);
+        }
         public Reward GetRewardById(int? rewardId)
         {
             if (rewardId == null)
@@ -55,7 +132,7 @@ namespace crowdFunding.Core.Services
             return reward;
         }
 
-        public bool RemoveReward(int? rewardId)
+            public bool RemoveReward(int? rewardId)
         {
             if (rewardId == null)
             {
@@ -103,7 +180,7 @@ namespace crowdFunding.Core.Services
 
             if (options.RewardId != null)
             {
-                query = query.Where(r => r.RewardId == options.RewardId);
+                query = query.Where(r => r.RewardId == options.RewardId.Value);
             }
 
             query = query.Take(500);
@@ -111,21 +188,31 @@ namespace crowdFunding.Core.Services
             return query;
         }
 
-        public Reward UpdateReward(UpdateRewardOptions options)
+        public Result<Reward> UpdateReward(
+        int rewardId,
+        UpdateRewardOptions options)
         {
+            var result = new Result<Reward>();
+
             if (options == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.BadRequest;
+                result.ErrorText = "Null options";
+
+                return result;
             }
 
             var reward = SearchReward(new SearchRewardOptions()
             {
-                RewardId = options.RewardId
+                RewardId = rewardId
             }).SingleOrDefault();
 
             if (reward == null)
             {
-                return null;
+                result.ErrorCode = StatusCode.NotFound;
+                result.ErrorText = $"Reward with id {rewardId} was not found";
+
+                return result;
             }
 
             if (!string.IsNullOrWhiteSpace(options.Name))
@@ -136,14 +223,28 @@ namespace crowdFunding.Core.Services
             if (!string.IsNullOrWhiteSpace(options.Description))
             {
                 reward.Description = options.Description;
-            } 
-
-            if (context_.SaveChanges() > 0)
-            {
-                return reward;
             }
 
-            return null;
+            var rows = 0;
+
+            try
+            {
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
+            }
+
+            if (rows <= 0)
+            {
+                return Result<Reward>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward could not be updated");
+            }
+
+            return Result<Reward>.ActionSuccessful(reward);
         }
     }
 }

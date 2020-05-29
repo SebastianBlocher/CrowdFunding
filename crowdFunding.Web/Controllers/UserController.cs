@@ -7,8 +7,10 @@ using System.Linq;
 
 namespace crowdFunding.Web.Controllers
 {
+    [Route("user")]
     public class UserController : Controller
     {
+        [HttpGet("index")]
         public IActionResult Index()
         {
             return View();
@@ -24,17 +26,18 @@ namespace crowdFunding.Web.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]CreateUserOptions options)
         {
-            var user = userService.CreateUser(options);
+            var result = userService.CreateUser(options);
 
-            if (user == null)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
 
-            return Json(user);
+            return Json(result.Data);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetUser(int? id)
         {
             var user = userService.GetById(id).SingleOrDefault();
@@ -47,7 +50,7 @@ namespace crowdFunding.Web.Controllers
             return Json(user);
         }
 
-        [HttpPost]
+        [HttpGet("search")]
         public IActionResult Search([FromBody]SearchUserOptions options)
         {
             var users = userService
@@ -67,20 +70,23 @@ namespace crowdFunding.Web.Controllers
             return Json(users);
         }
 
-        [HttpPatch]
-        public IActionResult Update([FromBody]UpdateUserOptions options)
+        [HttpPatch("{id}")]
+        public IActionResult Update(int id,
+            [FromBody]UpdateUserOptions options)
         {
-            var user = userService.UpdateUser(options);
+            var result = userService.UpdateUser(id,
+               options);
 
-            if (user == null)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
 
-            return Json(user);
+            return Json(result.Data); ;
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Disable(int? id)
         {
             if (userService.DisableUser(id))
