@@ -13,17 +13,14 @@ namespace crowdFunding.Core.Services
     public class RewardPackageService : IRewardPackageService
     {
         private CrowdFundingDbContext context_;
-        private IRewardService rewardService_;
-        private IProjectService projectService_;
+        private IRewardService rewardService_;        
 
         public RewardPackageService(
             CrowdFundingDbContext context,
-            IRewardService rewardService,
-            IProjectService projectService)
+            IRewardService rewardService)            
         {
             context_ = context;
-            rewardService_ = rewardService;
-            projectService_ = projectService;
+            rewardService_ = rewardService;            
         }
 
         public Result<RewardPackage> CreateRewardPackage(
@@ -52,15 +49,17 @@ namespace crowdFunding.Core.Services
             {
                 return Result<RewardPackage>.ActionFailed(
                   StatusCode.BadRequest, "Invalid Amount");
-            }           
+            }
 
-            var project = projectService_.GetProjectById(projectId).SingleOrDefault();
-
+            var project = context_
+               .Set<Project>()
+               .Where(p => p.ProjectId == projectId)               
+               .SingleOrDefault();
 
             if (project == null)
             {
                 return Result<RewardPackage>.ActionFailed(
-                  StatusCode.BadRequest, "Null options");
+                  StatusCode.BadRequest, "Invalid ProjectId");
             }
 
             var rewardPackage = new RewardPackage()

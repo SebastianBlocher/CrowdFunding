@@ -83,7 +83,19 @@ namespace crowdFunding.Web.Controllers
 
             return Json(result.Data); ;
         }
-        //[HttpDelete("{delete}")]
-        
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int? id)
+        {
+            var isProjectRemoved = projectService.DeleteProject(id);
+
+            if (isProjectRemoved == false)
+            {
+                return BadRequest();
+            }
+
+            return Json(isProjectRemoved);
+        }
+
     }
 }
