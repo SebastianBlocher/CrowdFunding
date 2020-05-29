@@ -2,70 +2,156 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+/*sdfsdfsdfsdf*/
+
+.mainViewer {
+    max-width: 570px;
+    width: 570px;
+    height: 250px;
+    margin: auto;
+    background-color: #7ccedc;
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    height: 100%;
+    min-width: calc(190px *5);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: all .6s;
+}
+
+.card {
+    height: 250px;
+    width: 150px;
+    background-color: blue;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.trending {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trendingH {
+    color: #506263;
+}
+
+.container input[type=search] {
+    padding: 6px;
+    padding-left: 16px;
+    margin-top: 8px;
+    margin-right: 8px;
+    font-size: 17px;
+    border: 1px solid #738182;
+    border-radius: 25px;
+}
+
+.search-container {
+    float: right;
+}
+
+    .search-container button {
+        float: right;
+        padding: 6px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        border-radius: 25px;
+    }
+
+.search-container button:hover {
+     background: #ccc;
+}
+
+.navbar-nav li {
+    color: #738182;
 }
