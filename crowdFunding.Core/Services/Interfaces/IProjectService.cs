@@ -12,8 +12,7 @@ namespace crowdFunding.Core.Services.Interfaces
         Result<Project> CreateProject(CreateProjectOptions options);
         IQueryable<Project> SearchProject(SearchProjectOptions options);
         Result<Project> UpdateProject(int projectId, UpdateProjectOptions options);
-        IQueryable<Project> GetProjectById(int? Id);
-        bool DeleteProject (int? projectId);
+        IQueryable<Project> GetProjectById(int? Id);        
         List<int?> TrendingProjects();
         bool DeleteProject(int? id);
     }

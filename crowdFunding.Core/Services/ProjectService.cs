@@ -232,35 +232,8 @@ namespace crowdFunding.Core.Services
             }
 
             return trendingProjects;
-        }
+        } 
 
-        public bool DeleteProject(int? id)
-        {
-            if (id == null)
-            {
-                return false;
-            }
-
-            var project = GetProjectById(id)
-                 .Where(p => p.ProjectId == id)
-                 .Include(p => p.RewardPackages)
-                 .SingleOrDefault();
-
-            if (project == null)
-            {
-                return false;
-            }
-
-            if (project.RewardPackages != null)
-            {
-                project.RewardPackages.Clear();
-            }
-            project.IsActive = false;
-
-            context_.Remove(project);
-
-            return context_.SaveChanges() > 0;
-        }
 
         public bool DeleteProject(int? id)
         {
