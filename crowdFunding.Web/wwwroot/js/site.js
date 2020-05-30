@@ -4,7 +4,9 @@
 // Write your JavaScript code.
 
 
-
+//**************************************************
+//Edit User JS
+//**************************************************
 let userEditSuccessAlert = $('.js-useredit-success-alert');
 userEditSuccessAlert.hide();
 
@@ -98,6 +100,9 @@ userCreateButton.on('click', () => {
         userCreateSuccessAlert.html(`A customer with id ${user.userId} was created.`);
         userCreateSuccessAlert.show().delay(2000);
         userCreateSuccessAlert.fadeOut();
+
+        localStorage.removeItem('userId');
+        localStorage.setItem('userId', user.userId);
     }).fail(failureResponse => {
         userCreateFailedAlert.show().delay(2000);
         userCreateFailedAlert.fadeOut();
