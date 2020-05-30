@@ -10,8 +10,8 @@ using crowdFunding.Core.Data;
 namespace crowdFunding.Core.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    [Migration("20200520094813_initial")]
-    partial class initial
+    [Migration("20200530083625_proj")]
+    partial class proj
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace crowdFunding.Core.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("BackedProjectsId");
@@ -183,7 +183,9 @@ namespace crowdFunding.Core.Migrations
                 {
                     b.HasOne("crowdFunding.Core.Model.User", null)
                         .WithMany("BackedProjectsList")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("crowdFunding.Core.Model.Project", b =>

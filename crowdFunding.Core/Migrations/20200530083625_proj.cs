@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace crowdFunding.Core.Migrations
 {
-    public partial class initial : Migration
+    public partial class proj : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,12 +34,12 @@ namespace crowdFunding.Core.Migrations
                     BackedProjectsId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     BackedOn = table.Column<DateTimeOffset>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Category = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: true)
+                    Category = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,7 +49,7 @@ namespace crowdFunding.Core.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

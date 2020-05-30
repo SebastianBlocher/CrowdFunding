@@ -18,14 +18,30 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        @*<li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>*@
+                        <li class="nav-item dropdown">
+                            <a id="usr" href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">User</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up">Sign Up</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Browse</a>
+                        <li class="nav-item dropdown  ml-5">
+                            <a href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">Browse</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="nav-item cat1"><a href="#" class="nav-link text-dark" data-category-code="1">Arts</a></li>
+                                <li class="nav-item cat2"><a href="#" class="nav-link text-dark" data-category-code="2">Comics / Illustration</a></li>
+                                <li class="nav-item cat3"><a href="#" class="nav-link text-dark">Design / Tech</a></li>
+                                <li class="nav-item cat4"><a href="#" class="nav-link text-dark">Film</a></li>
+                                <li class="nav-item cat5"><a href="#" class="nav-link text-dark">Food / Craft</a></li>
+                                <li class="nav-item cat6"><a href="#" class="nav-link text-dark">Games</a></li>
+                                <li class="nav-item cat7"><a href="#" class="nav-link text-dark">Music</a></li>
+                                <li class="nav-item cat8"><a href="#" class="nav-link text-dark">Publishing</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Create</a>
@@ -35,7 +51,7 @@
                 <div class="search-container">
                     <form action="">
                         <input type="search" id="searchIn" name="searchIn" placeholder="Search">
-                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <button type="button" id="searchBtn" class="searchBtn"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
             </div>

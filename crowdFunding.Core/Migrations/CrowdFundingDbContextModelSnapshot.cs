@@ -44,7 +44,7 @@ namespace crowdFunding.Core.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("BackedProjectsId");
@@ -181,7 +181,9 @@ namespace crowdFunding.Core.Migrations
                 {
                     b.HasOne("crowdFunding.Core.Model.User", null)
                         .WithMany("BackedProjectsList")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("crowdFunding.Core.Model.Project", b =>
