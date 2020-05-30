@@ -23,7 +23,7 @@ namespace crowdFunding.Web.Controllers
             userService = userService_;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create([FromBody]CreateUserOptions options)
         {
             var result = userService.CreateUser(options);
@@ -99,6 +99,21 @@ namespace crowdFunding.Web.Controllers
 
             return Json(result.Data); ;
         }
+        //[HttpPatch("{update}")]
+        //public IActionResult Update(
+        //    [FromBody]UpdateUserOptions options)
+        //{
+        //    var result = userService.UpdateUser(options.UserId,
+        //       options);
+
+        //    if (!result.Success)
+        //    {
+        //        return StatusCode((int)result.ErrorCode,
+        //            result.ErrorText);
+        //    }
+
+        //    return Json(result.Data); ;
+        //}
 
         [HttpDelete("{id}")]
         public IActionResult Disable(int? id)

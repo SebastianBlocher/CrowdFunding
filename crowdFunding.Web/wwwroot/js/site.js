@@ -56,6 +56,13 @@ userEditButton.on('click', () => {
 //**************************************************
 //Create User JS
 //**************************************************
+//let signUpButton = $('.georgepap123');
+//signUpButton.on('click', () => {
+    
+//    $('#popup-user-create').modal('show'); 
+//})
+
+
 let userCreateSuccessAlert = $('.js-usercreate-success');
 userCreateSuccessAlert.hide();
 
