@@ -97,7 +97,6 @@ userCreateButton.on('click', () => {
     })
 });
 
-
 var btnL = document.getElementById("btnLeft");
 var btnR = document.getElementById("btnRight");
 
