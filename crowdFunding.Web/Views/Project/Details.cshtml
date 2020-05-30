@@ -1,0 +1,65 @@
+﻿@model ProjectViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">
+        Project not found
+    </div>
+
+    return;
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <div class="card project-details" style="width: 18rem;">
+            <iframe width='500' height='400' src='@Model.Project.Videos.ElementAt(2).Url'></iframe>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+        <h5 class="card-title">@Model.Project.Name </h5>
+        <p>by User</p>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" style="width:46%"></div>
+        </div>
+        <h5 class="card-title">@Model.Project.AmountGathered €</h5>
+        <p class="card-text">@Model.Project.NumberOfBackers Backers</p>
+        <a href="#" class="btn btn-primary">Back this project</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <div class="card-body">
+            <p class="card-text">@Model.Project.Description</p>
+            @foreach (var p in Model.Project.Photos)
+            {
+                <div class="project-images">
+                    <img src="@p.Url" width="500" height="333">
+                </div>
+            }
+
+            @foreach (var p in Model.Project.Posts)
+            {
+                <p class="card-text">@p.Post</p>
+            }
+        </div>
+    </div>
+    <div class="col-md-3">
+        <h5 class="card-title">Reward Packages</h5>
+        @foreach (var rp in Model.RewardPackages)
+        {
+            <div class="card">
+                <h5 class="card-header">@rp.Name</h5>
+                <div class="card-body">
+                    <h5 class="card-title">@rp.Amount €</h5>
+                    <p class="card-text">@rp.Description</p>
+                    <a href="#" class="btn btn-primary">Buy Package</a>
+                </div>
+            </div>           
+        }
+    </div>
+</div>

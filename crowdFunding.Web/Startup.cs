@@ -36,6 +36,9 @@ namespace crowdFunding.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IBackedProjectsService, BackedProjectsService>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IVideoService,VideoService>();
+            services.AddScoped<IPostService, PostService>();
             services.AddControllersWithViews();
         }
 

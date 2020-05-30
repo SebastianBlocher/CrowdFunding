@@ -1,0 +1,82 @@
+﻿@using crowdFunding.Core.Model
+@model List<Project>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to CrowdFunding</h1>
+</div>
+
+<div class="row">
+
+    <!-- Project table -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+        <h2>Projects</h2>
+        <table class="projects table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>                    
+                    <th scope="col">Amount Required</th>
+                    <th scope="col">Amount Gathered</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Created On</th>
+                    <th scope="col">RewardPackages</th>
+                    <th scope="col">Number Of Backers</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                <tr>
+                    <th scope="row">@p.ProjectId</th>
+                    <td>@p.Name</td>
+                    <td>@p.Description</td>                    
+                    <td>@p.AmountRequired</td>
+                    <td>@p.AmountGathered</td>
+                    <td>@p.Category</td>
+                    <td>@p.CreatedOn.ToString("dd-MM-yyyy")</td>
+                    <td>@p.RewardPackages</td>
+                    <td>@p.NumberOfBackers</td>
+                    <td>
+                        <a class="nav-link" href="@Url.Action("Details", "Project", new { id = p.ProjectId })">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <h5>Total Projetcs: @Model.Count()</h5>
+                    <br />
+                </div>
+
+                @*<div class="col-lg-6 col-md-12 col-sm-12">
+                    <h2>Products</h2>
+                    <table class="products table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var p in Model.Products)
+                            {
+                                <tr>
+                                    <th scope="row">@p.ProductId</th>
+                                    <td>@p.Name</td>
+                                    <td>@p.Price</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <h5>Total Products: @Model.Products.Count()</h5>
+                    <br />
+                </div>*@
+            </div>

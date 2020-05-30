@@ -43,11 +43,10 @@ namespace crowdFunding.Core.Services
             {
                 return Result<BackedProjects>.ActionFailed(
                     StatusCode.BadRequest, "Invalid UserId");
-            }      
+            }
 
             var project = projectService_
-                .GetProjectById(projectId)               
-                .SingleOrDefault();
+                .GetProjectById(projectId);                
 
             if (project == null)
             {

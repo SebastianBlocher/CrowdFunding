@@ -52,6 +52,18 @@ namespace crowdFunding.Core.Services
                 StatusCode.BadRequest, "Null or empty AmountRequired");
             }
 
+            //if (options.Videos == null || options.Videos.Any() == false)
+            //{
+            //    return Result<Project>.ActionFailed(
+            //    StatusCode.BadRequest, "No Videos given");
+            //}
+
+            //if (options.Photos == null || options.Photos.Any() == false)
+            //{
+            //    return Result<Project>.ActionFailed(
+            //    StatusCode.BadRequest, "No Photos given");
+            //}
+
             if ((int)options.Category < 1 || (int)options.Category > 8)
             {
                 return Result<Project>.ActionFailed(
@@ -74,7 +86,7 @@ namespace crowdFunding.Core.Services
                 Name = options.Name,
                 Description = options.Description,
                 Category = options.Category,
-                AmountRequired = options.AmountRequired.Value,
+                AmountRequired = options.AmountRequired.Value                
             }; 
 
             user.CreatedProjectsList.Add(project);
@@ -135,16 +147,22 @@ namespace crowdFunding.Core.Services
             return query;
         }
 
-        public IQueryable<Project> GetProjectById(int? id)
+        public Project GetProjectById(int? id)
         {
             if (id == null)
             {
                 return null;
             }
 
-            return context_
-                .Set<Project>()
-                .Where(p => p.ProjectId == id);
+            var project = SearchProject(new SearchProjectOptions()
+            {
+                ProjectId = id
+            }).Include(p => p.Photos)
+            .Include(p => p.Videos)
+            .Include(p => p.Posts)
+            .SingleOrDefault();
+
+            return project;
         }
 
         public Result<Project> UpdateProject(int projectId,
@@ -192,6 +210,21 @@ namespace crowdFunding.Core.Services
             {
                 project.AmountRequired = options.AmountRequired.Value;
             }
+
+            //if (options.Videos != null && options.Videos.Any() != false)
+            //{
+            //    project.Videos = options.Videos.ToList();
+            //}
+
+            //if (options.Photos != null && options.Photos.Any() != false)
+            //{
+            //    project.Photos = options.Photos.ToList();
+            //}
+
+            //if (options.PostUpdates != null && options.PostUpdates.Any() != false)
+            //{
+            //    project.PostUpdates = options.PostUpdates.ToList();
+            //}
 
             var rows = 0;
 
@@ -241,10 +274,7 @@ namespace crowdFunding.Core.Services
                 return false;
             }
 
-            var project = GetProjectById(id)
-                 .Where(p => p.ProjectId == id)
-                 .Include(p => p.RewardPackages)
-                 .SingleOrDefault();
+            var project = GetProjectById(id);              
 
             if (project == null)
             {

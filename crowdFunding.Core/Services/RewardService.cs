@@ -132,7 +132,7 @@ namespace crowdFunding.Core.Services
             return reward;
         }
 
-            public bool RemoveReward(int? rewardId)
+        public bool RemoveReward(int? rewardId)
         {
             if (rewardId == null)
             {
