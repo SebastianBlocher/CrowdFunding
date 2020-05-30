@@ -37,6 +37,20 @@ namespace crowdFunding.Web.Controllers
             return Json(result.Data);
         }
 
+        [HttpGet("register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpGet("edit")]
+        public IActionResult Edit(int? id)
+        {
+            var user = userService.GetById(id).SingleOrDefault();
+
+            return View(user);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetUser(int? id)
         {
