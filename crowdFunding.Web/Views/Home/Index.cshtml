@@ -16,6 +16,39 @@
     return;
 }
 
+<div class="modal fade" tabindex="-1" role="dialog" id="myLoginModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please enter your information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-group">
+                    <label for="First Name">User</label>
+                    <input class="js-userlogin-firstname form-control" id="FirstName" placeholder="Enter your first name.">
+                </div>
+                <div class="modal-group">
+                    <label for="Email">Email Address</label>
+                    <input class="js-userlogin-email form-control" id="Email" placeholder="Enter your e-mail address">
+                </div>
+                <div class="alert alert-success js-userlogin-success-alert" role="alert">
+                    User was successfully updated!
+                </div>
+                <div class="alert alert-danger js-userlogin-fail-alert" role="alert">
+                    User could not be updated!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="jsLoginButton">Login</button>
+                <button type="button" class="btn btn-secondary js-modal-login-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="text-center mainDiv">
     <img src="~/images/outsideofthebox.jpg" alt="company logo">
 </div>
@@ -51,6 +84,8 @@
 
     <a class="clickable" id="btnRight"><i class="fas fa-angle-right"></i></a>
 </div>
+
+
 
 
 

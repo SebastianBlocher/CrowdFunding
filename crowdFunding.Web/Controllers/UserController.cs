@@ -43,7 +43,7 @@ namespace crowdFunding.Web.Controllers
             return View();
         }
 
-        [HttpGet("edit")]
+        [HttpGet("edit/{id}")]
         public IActionResult Edit(int? id)
         {
             var user = userService.GetById(id).SingleOrDefault();
@@ -51,7 +51,7 @@ namespace crowdFunding.Web.Controllers
             return View(user);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getuser/{id}")]
         public IActionResult GetUser(int? id)
         {
             var user = userService.GetById(id).SingleOrDefault();
@@ -84,7 +84,7 @@ namespace crowdFunding.Web.Controllers
             return Json(users);
         }
 
-        [HttpPatch("{update}")]
+        [HttpPatch("update")]
         public IActionResult Update(
             [FromBody]UpdateUserOptions options)
         {
@@ -100,7 +100,7 @@ namespace crowdFunding.Web.Controllers
             return Json(result.Data); ;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("id")]
         public IActionResult Disable(int? id)
         {
             if (userService.DisableUser(id))
@@ -111,10 +111,19 @@ namespace crowdFunding.Web.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{login}")]
-        public IActionResult Login()
+        [HttpPost("login")]
+        public IActionResult Login([FromBody]SearchUserOptions options)
         {
-            return View();
+            var user = userService
+                .SearchUsers(options)
+                .SingleOrDefault();
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            return Json(user);
         }
     }
 }

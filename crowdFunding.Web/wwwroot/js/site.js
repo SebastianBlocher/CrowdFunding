@@ -7,53 +7,53 @@
 //**************************************************
 //Login User JS
 //**************************************************
-let loginButton = $('.jsLogIn');
+let loginButton = $('#jsLogIn');
 loginButton.on('click', () => {
-
-    $('#js-modal-login-dialog').modal('show'); 
+    
+    $('#myLoginModal').modal('show');
 })
 
-let userLoginSuccessAlert = $('.js-useredit-success-alert');
+let userLoginSuccessAlert = $('.js-userlogin-success-alert');
 userLoginSuccessAlert.hide();
 
-let userLoginFailedAlert = $('.js-useredit-fail-alert');
+let userLoginFailedAlert = $('.js-userlogin-fail-alert');
 userLoginFailedAlert.hide();
 
-let userLoginButton = $('.js-modal-login-login');
+let userLoginButton = $('#jsLoginButton');
 userLoginButton.on('click', () => {
+    
     userLoginSuccessAlert.hide();
     userLoginFailedAlert.hide();
 
-    let firstname = $('.js-useredit-firstname');
-    let email = $('.js-useredit-email');
+    let firstname = $('.js-userlogin-firstname');
+    let email = $('.js-userlogin-email');
 
     let data = {
-        firstname: firstname.val(),
+        firstName: firstname.val(),
         email: email.val(),
     }
-
+    
     $.ajax({
-        type: 'GET',
-        url: '/user/search',
+        type: 'POST',
+        url: '/user/login',
         contentType: 'application/json',
         data: JSON.stringify(data),
         processData: false,
         dataType: 'json'
     }).done(user => {
         userLoginSuccessAlert.html(`Login successful.`);
-        userLoginSuccessAlert.show().delay(2000);
+        userLoginSuccessAlert.show().delay(3000);
         userLoginSuccessAlert.fadeOut();
 
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
 
         localStorage.setItem('userId', user.userId);
-        localStorage.setItem('userName', user.firstname);
+        localStorage.setItem('userName', user.firstName);
 
-        $('#js-modal-login-dialog').modal('hide');
         location.reload();
     }).fail(failureResponse => {
-        userLoginFailedAlert.html(`Login failed.`);
+        userLoginFailedAlert.html('No user was found.');
         userLoginFailedAlert.show().delay(2000);
         userLoginFailedAlert.fadeOut();
     })
@@ -109,16 +109,9 @@ userEditButton.on('click', () => {
     })
 });
 
-
-
 //**************************************************
 //Create User JS
 //**************************************************
-//let signUpButton = $('.georgepap123');
-//signUpButton.on('click', () => {
-    
-//    $('#popup-user-create').modal('show'); 
-//})
 let userCreateSuccessAlert = $('.js-usercreate-success');
 userCreateSuccessAlert.hide();
 
@@ -172,8 +165,6 @@ var btnR = document.getElementById("btnRight");
 
 var content = document.getElementById("content");
 
-
-
 btnR.addEventListener("click", goRight);
 btnL.addEventListener("click", goLeft);
 
@@ -194,14 +185,13 @@ function goLeft() {
 }
 
 $('.nav-link').on('click', (event) => {
-    debugger;
+    
     //event.target
 });
 
 //**************************************************
 //Search Project JS
 //**************************************************
-
 let searchInput = $('#searchIn');
 let searchButton = $('.searchBtn');
 
@@ -244,10 +234,6 @@ let myProfile = $('#jsMyProfile');
 let editProfile = $('#jsEditProfile');
 let createdProjects = $('#jsCreatedProjects');
 let backedProjects = $('#jsBackedProjects');
-
-//$(user,)   
-
-user.setAttribute("href", "test");
 
 if (localStorage.getItem('userId') != null) {
     myProfile.show();
