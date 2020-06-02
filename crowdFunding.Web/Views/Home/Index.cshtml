@@ -6,15 +6,15 @@
 }
 
 @if (Model == null)
-    {
-        <div class="alert alert-warning" role="alert">
-            Project not found
-        </div>
+{
+    <div class="alert alert-warning" role="alert">
+        Project not found
+    </div>
 
 
 
-        return;
-    }
+    return;
+}
 
 <div class="text-center mainDiv">
     <img src="~/images/outsideofthebox.jpg" alt="company logo">
@@ -31,15 +31,18 @@
         <div class="content" id="content">
             @foreach (var p in Model)
             {
-                @*<div class="card">
-                    @p.Name
-                </div>*@
                 <div class="card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="inHeader">
+                        <img class="card-img-top" src="~/images/cat1.jpg" alt="Card image cap">
+                        <div class="pos">
+                            @p.Name
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">@p.Name</h5>
                         <p class="card-text">@p.Description</p>
-                        <a href="#" class="btn btn-primary">Check it out</a>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary btn-sm">Details</a>
                     </div>
                 </div>
             }

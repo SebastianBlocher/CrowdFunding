@@ -105,7 +105,7 @@ var btnR = document.getElementById("btnRight");
 
 var content = document.getElementById("content");
 
-let searchButton = $('.searchBtn');
+
 
 btnR.addEventListener("click", goRight);
 btnL.addEventListener("click", goLeft);
@@ -131,24 +131,65 @@ $('.nav-link').on('click', (event) => {
     //event.target
 });
 
-searchButton.on('click', () => {
-    let searchInput = $('#searchIn').val();
-    if (searchInput == "") {
-        return;
-    }
-    else {
-        //$.ajax({
-        //    type: 'POST',
-        //    url: '/project',
-        //    contentType: 'application/json',
-        //    data: JSON.stringify(data)
-        //}).done(customer => {
-        //    successAlert.html(`Customer ${customer.firstname} ${customer.lastname} with id ${customer.customerId} was created`);
-        //    successAlert.show();
-        //}).fail(failureResponse => {
-        //    failedAlert.show();
-        //});
-        console.log("input OK");
-    }
+//**************************************************
+//Search Project JS
+//**************************************************
+
+let searchInput = $('#searchIn');
+let searchButton = $('.searchBtn');
+
+searchInput.on('input', () => {
+    console.log("test");
+    //$(searchButton, setAttribute("href"))
+    //searchButton.setAttribute("href", "test")
+
+    //searchButton.href = searchInput.val();
+    //let data = {
+    //    name: searchInput
+    //}
+
+    //if (searchInput == "") {
+    //    return;
+    //}
+    //else {
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: '/project/search',
+    //        contentType: 'application/json',
+    //        data: JSON.stringify(data)
+    //    }).done(function () {
+    //        console.log("done");
+    //    }).fail(function() {
+    //        console.log("failed")
+    //    });
+    //    //console.log(searchInput);
+    //}
 
 });
+
+//**************************************************
+//User in Navbar
+//**************************************************
+let user = document.getElementById(usr);
+let logIn = $('#jsLogIn');
+let signUp = $('#jsSignUp');
+let myProfile = $('#jsMyProfile');
+let editProfile = $('#jsEditProfile');
+let createdProjects = $('#jsCreatedProjects');
+let backedProjects = $('#jsBackedProjects');
+
+//$(user,)   
+
+user.setAttribute("href", "test");
+
+if (localStorage.getItem('userId') != null) {
+    myProfile.show();
+    editProfile.show();
+    createdProjects.show();
+    backedProjects.show();
+}
+else {
+    logIn.show();
+    signUp.show();
+}
+

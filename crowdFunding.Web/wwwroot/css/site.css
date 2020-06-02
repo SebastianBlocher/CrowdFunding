@@ -106,6 +106,18 @@ body {
     flex-direction: column;
 }
 
+.inHeader {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.pos {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
 .clickable {
     cursor: pointer;
 }
@@ -148,9 +160,9 @@ body {
         border-radius: 25px;
     }
 
-.search-container button:hover {
-     background: #ccc;
-}
+        .search-container button:hover {
+            background: #ccc;
+        }
 
 .navbar-nav li {
     color: #738182;
