@@ -5,6 +5,62 @@
 
 
 //**************************************************
+//Login User JS
+//**************************************************
+let loginButton = $('.jsLogIn');
+loginButton.on('click', () => {
+
+    $('#js-modal-login-dialog').modal('show'); 
+})
+
+let userLoginSuccessAlert = $('.js-useredit-success-alert');
+userLoginSuccessAlert.hide();
+
+let userLoginFailedAlert = $('.js-useredit-fail-alert');
+userLoginFailedAlert.hide();
+
+let userLoginButton = $('.js-modal-login-login');
+userLoginButton.on('click', () => {
+    userLoginSuccessAlert.hide();
+    userLoginFailedAlert.hide();
+
+    let firstname = $('.js-useredit-firstname');
+    let email = $('.js-useredit-email');
+
+    let data = {
+        firstname: firstname.val(),
+        email: email.val(),
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: '/user/search',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        processData: false,
+        dataType: 'json'
+    }).done(user => {
+        userLoginSuccessAlert.html(`Login successful.`);
+        userLoginSuccessAlert.show().delay(2000);
+        userLoginSuccessAlert.fadeOut();
+
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+
+        localStorage.setItem('userId', user.userId);
+        localStorage.setItem('userName', user.firstname);
+
+        $('#js-modal-login-dialog').modal('hide');
+        location.reload();
+    }).fail(failureResponse => {
+        userLoginFailedAlert.html(`Login failed.`);
+        userLoginFailedAlert.show().delay(2000);
+        userLoginFailedAlert.fadeOut();
+    })
+});
+
+
+//**************************************************
 //Edit User JS
 //**************************************************
 let userEditSuccessAlert = $('.js-useredit-success-alert');
@@ -34,7 +90,7 @@ userEditButton.on('click', () => {
         country: country.val(),
         description: description.val()
     }
-    debugger;
+    
     $.ajax({
         type: 'PATCH',
         url: '/user/update',
@@ -49,7 +105,7 @@ userEditButton.on('click', () => {
     }).fail(failureResponse => {
         userEditFailedAlert.show();
         userEditFailedAlert.show().delay(2000);
-        succeuserEditFailedAlertssAlert.fadeOut();
+        userEditFailedAlert.fadeOut();
     })
 });
 
@@ -63,8 +119,6 @@ userEditButton.on('click', () => {
     
 //    $('#popup-user-create').modal('show'); 
 //})
-
-
 let userCreateSuccessAlert = $('.js-usercreate-success');
 userCreateSuccessAlert.hide();
 
@@ -97,13 +151,17 @@ userCreateButton.on('click', () => {
         processData: false,
         dataType: 'json'
     }).done(user => {
-        userCreateSuccessAlert.html(`A customer with id ${user.userId} was created.`);
+        userCreateSuccessAlert.html(`A user with id ${user.userId} was created.`);
         userCreateSuccessAlert.show().delay(2000);
         userCreateSuccessAlert.fadeOut();
-
+        
         localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+
         localStorage.setItem('userId', user.userId);
+        localStorage.setItem('userName', user.firstname);
     }).fail(failureResponse => {
+        userCreateFailedAlert.html(`${failureResponse.responseCode} - User creation failed, ${failureResponse.responseText}.`);
         userCreateFailedAlert.show().delay(2000);
         userCreateFailedAlert.fadeOut();
     })

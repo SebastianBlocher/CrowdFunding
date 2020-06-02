@@ -84,11 +84,11 @@ namespace crowdFunding.Web.Controllers
             return Json(users);
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult Update(int id,
+        [HttpPatch("{update}")]
+        public IActionResult Update(
             [FromBody]UpdateUserOptions options)
         {
-            var result = userService.UpdateUser(id,
+            var result = userService.UpdateUser(options.UserId,
                options);
 
             if (!result.Success)
@@ -99,21 +99,6 @@ namespace crowdFunding.Web.Controllers
 
             return Json(result.Data); ;
         }
-        //[HttpPatch("{update}")]
-        //public IActionResult Update(
-        //    [FromBody]UpdateUserOptions options)
-        //{
-        //    var result = userService.UpdateUser(options.UserId,
-        //       options);
-
-        //    if (!result.Success)
-        //    {
-        //        return StatusCode((int)result.ErrorCode,
-        //            result.ErrorText);
-        //    }
-
-        //    return Json(result.Data); ;
-        //}
 
         [HttpDelete("{id}")]
         public IActionResult Disable(int? id)
@@ -124,6 +109,12 @@ namespace crowdFunding.Web.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpGet("{login}")]
+        public IActionResult Login()
+        {
+            return View();
         }
     }
 }
