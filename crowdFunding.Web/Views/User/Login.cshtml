@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+
+<div class="modal-login" tabindex="-1" role="dialog">
+    <div class="js-modal-login-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-login-group">
+                <label for="First Name">First Name</label>
+                <input class="js-useredit-firstname form-control" id="FirstName" placeholder="Enter your first name.">
+            </div>
+            <div class="modal-login-group">
+                <label for="Email">Email Address</label>
+                <input class="js-useredit-email form-control" id="Email" placeholder="Enter your new e-mail address">
+            </div>
+            <div class="modal-login-footer">
+                <button type="button" class="btn btn-primary js-modal-login-login">Login</button>
+                <button type="button" class="btn btn-secondary js-modal-login-close" data-dismiss="modal">Close</button>
+            </div>
+            <div class="alert alert-success js-useredit-success-alert" style="visibility: hidden" role="alert">
+                User was successfully updated!
+            </div>
+
+            <div class="alert alert-danger js-useredit-fail-alert" style="visibility: hidden" role="alert">
+                User could not be updated!
+            </div>
+        </div>
+    </div>
+</div>
+

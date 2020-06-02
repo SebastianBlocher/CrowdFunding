@@ -1,8 +1,15 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Register";
 }
-
+@*<div class="modal" tabindex="-1" id="popup-user-create" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
 <form method="post" class="js-user-edit-form">
 
     <h4>
@@ -12,17 +19,17 @@
     <div class="form-group">
         <label for="First Name">First Name</label>
         <input class="js-usercreate-firstname form-control" id="FirstName" placeholder="Enter your first name.">
-        <small id="edit-fn" class="form-text text-muted">Enter your new e-mail address.</small>
+        <small id="edit-fn" class="form-text text-muted">Enter your first name.</small>
     </div>
     <div class="form-group">
         <label for="Last Name">Last Name</label>
         <input class="js-usercreate-lastname form-control" id="LastName" placeholder="Enter your last name.">
-        <small id="edit-ln" class="form-text text-muted">Enter your new e-mail address.</small>
+        <small id="edit-ln" class="form-text text-muted">Enter your last name.</small>
     </div>
     <div class="form-group">
         <label for="Email">Email Address</label>
         <input class="js-usercreate-email form-control" id="Email" placeholder="Ex. yourmail@mail.com">
-        <small id="edit-mail" class="form-text text-muted">Enter your new e-mail address.</small>
+        <small id="edit-mail" class="form-text text-muted">Enter your e-mail address.</small>
     </div>
     <div class="form-group">
         <label for="Country">Country</label>
@@ -259,3 +266,10 @@
         User could not be created!
     </div>
 </form>
+@*<div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
