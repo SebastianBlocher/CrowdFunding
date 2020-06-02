@@ -137,40 +137,18 @@ $('.nav-link').on('click', (event) => {
 
 let searchInput = $('#searchIn');
 let searchButton = $('.searchBtn');
+$(searchButton).attr("href", "test");
+
 
 searchInput.on('input', () => {
     console.log("test");
-    //$(searchButton, setAttribute("href"))
-    //searchButton.setAttribute("href", "test")
-
-    //searchButton.href = searchInput.val();
-    //let data = {
-    //    name: searchInput
-    //}
-
-    //if (searchInput == "") {
-    //    return;
-    //}
-    //else {
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: '/project/search',
-    //        contentType: 'application/json',
-    //        data: JSON.stringify(data)
-    //    }).done(function () {
-    //        console.log("done");
-    //    }).fail(function() {
-    //        console.log("failed")
-    //    });
-    //    //console.log(searchInput);
-    //}
-
+    $(searchButton).attr("href", "project/search?name=" + searchInput.val());
 });
 
 //**************************************************
 //User in Navbar
 //**************************************************
-let user = document.getElementById(usr);
+let user = $('#usr');
 let logIn = $('#jsLogIn');
 let signUp = $('#jsSignUp');
 let myProfile = $('#jsMyProfile');
@@ -178,11 +156,10 @@ let editProfile = $('#jsEditProfile');
 let createdProjects = $('#jsCreatedProjects');
 let backedProjects = $('#jsBackedProjects');
 
-//$(user,)   
 
-user.setAttribute("href", "test");
 
 if (localStorage.getItem('userId') != null) {
+    $(user).text(localStorage.getItem('userName'));
     myProfile.show();
     editProfile.show();
     createdProjects.show();
