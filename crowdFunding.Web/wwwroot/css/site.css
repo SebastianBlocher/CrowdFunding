@@ -70,6 +70,152 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+.mainViewer {
+    max-width: 570px;
+    width: 570px;
+    height: 250px;
+    margin: auto;
+    background-color: #7ccedc;
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    height: 100%;
+    min-width: calc(190px *5);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: all .6s;
+}
+
+.card_home{
+    height: 250px;
+    width: 150px;
+    background-color: blue;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inHeader {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.pos {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.trending {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trendingH {
+    color: #506263;
+}
+
+.container input[type=search] {
+    padding: 6px;
+    padding-left: 16px;
+    margin-top: 8px;
+    margin-right: 8px;
+    font-size: 17px;
+    border: 1px solid #738182;
+    border-radius: 25px;
+}
+
+.search-container {
+    float: right;
+}
+
+.search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.search-container button:hover {
+    background: #ccc;
+}
+
+.navbar-nav li {
+    color: #738182;
+}
+
 .project-images{
     margin-top: 50px;
 }
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;    
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;    
+}
+.card-body-project {
+    padding: 0rem;    
+}
+
+.heading {
+    color: white;    
+    text-align: center;
+    margin: auto;
+    margin-left: 177px;
+}
+
+.modal-header {
+    color: white;
+    text-align: center;
+    font-size: 1.45em;
+    background: #C0C0C0;
+}
+.reward-package {
+    color: white;
+    background: #228B22;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.reward-packages {
+    background: #A9A9A9;
+    color: black;
+}
+
+.not-found-message{
+    margin-top:50px;
+    margin-bottom:50px;
+}
+
+
+

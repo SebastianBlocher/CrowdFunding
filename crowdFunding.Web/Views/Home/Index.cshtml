@@ -1,8 +1,53 @@
-﻿@{
+﻿@using crowdFunding.Core.Model
+@model List<Project>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">
+        Project not found
+    </div>
+
+
+
+    return;
+}
+
+<div class="text-center mainDiv">
+    <img src="~/images/outsideofthebox.jpg" alt="company logo">
+</div>
+
+
+
+<h2 class="trendingH">Trending Projects</h2>
+<div class="trending">
+
+    <a class="clickable" id="btnLeft"><i class="fas fa-angle-left"></i></a>
+
+    <div class="mainViewer">
+        <div class="content" id="content">
+            @foreach (var p in Model)
+            {
+                <div class="card card_home">
+                    <div class="inHeader">
+                        <img class="card-img-top" src="~/images/cat1.jpg" alt="Card image cap">
+                        <div class="pos">
+                            @p.Name
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@p.Description</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary btn-sm">Details</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <a class="clickable" id="btnRight"><i class="fas fa-angle-right"></i></a>
 </div>

@@ -122,7 +122,7 @@ namespace crowdFunding.Core.Migrations
                     b.Property<int>("NumberOfBackers")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("ProjectId");
@@ -138,9 +138,6 @@ namespace crowdFunding.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -262,9 +259,11 @@ namespace crowdFunding.Core.Migrations
 
             modelBuilder.Entity("crowdFunding.Core.Model.Project", b =>
                 {
-                    b.HasOne("crowdFunding.Core.Model.User", null)
+                    b.HasOne("crowdFunding.Core.Model.User", "User")
                         .WithMany("CreatedProjectsList")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("crowdFunding.Core.Model.Reward", b =>

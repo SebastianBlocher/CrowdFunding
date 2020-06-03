@@ -16,7 +16,9 @@ namespace crowdFunding.Core.Model
         public int NumberOfBackers { get; set; }
         public List<Photo> Photos { get; set; }
         public List<Video> Videos { get; set; }
-        public List<Posts> Posts { get; set; }
+        public List<Posts> Posts { get; set; } 
+        public User User { get; set; }
+        public int UserId { get; set; }
         public Project()
         {
             CreatedOn = DateTimeOffset.Now;
@@ -30,16 +32,9 @@ namespace crowdFunding.Core.Model
 
         public string Percentage()
         {
-            if (AmountRequired != 0)
-            {
-                var percentage = (AmountGathered / AmountRequired) * 100;
-
-                return percentage.ToString("0.00");
-            }
-            else
-            {
-                return "0";
-            }
+            var percentage = (AmountGathered / AmountRequired) * 100;
+            return percentage.ToString("0.00")+"%";
+   
         }
     }
 }

@@ -64,6 +64,7 @@ namespace crowdFunding.Core.Services
             };
 
             project.NumberOfBackers += 1;
+            project.AmountGathered += options.Amount;
 
             user.BackedProjectsList.Add(backedProject);
 

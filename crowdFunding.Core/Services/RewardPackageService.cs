@@ -53,7 +53,7 @@ namespace crowdFunding.Core.Services
 
             var project = context_
                .Set<Project>()
-               .Where(p => p.ProjectId == projectId)               
+               .Where(p => p.ProjectId == projectId)
                .SingleOrDefault();
 
             if (project == null)
@@ -122,7 +122,7 @@ namespace crowdFunding.Core.Services
             }
 
             var query = context_
-                .Set<RewardPackage>()
+                .Set<RewardPackage>()                                
                 .AsQueryable();
 
             if (options.RewardPackageId != null)
@@ -223,7 +223,8 @@ namespace crowdFunding.Core.Services
             var rewardPackage = SearchRewardPackage(new SearchRewardPackageOptions()
             {
                 RewardPackageId = rewardPackageId
-            }).SingleOrDefault();
+            }).Include(rp => rp.Rewards)
+            .SingleOrDefault();
 
             return rewardPackage;
         }

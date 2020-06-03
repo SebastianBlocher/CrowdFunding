@@ -6,6 +6,7 @@ using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
 using crowdFunding.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Linq;
 
 namespace crowdFunding.Web.Controllers
@@ -52,32 +53,30 @@ namespace crowdFunding.Web.Controllers
                 RewardPackages = context.Set<RewardPackage>()
                 .ToList(),
 
-                Rewards = context.Set <Reward>()                
+                Rewards = context.Set<Reward>()                
                 .ToList(),
+
+                User = context.Set<User>().SingleOrDefault()
+                
             };
 
             return View(viewModel);
         }
 
         [HttpGet("search")]
-        public IActionResult Search([FromBody]SearchProjectOptions options)
+        public IActionResult Search(SearchProjectOptions options)
         {
-            var project = projectService
+            var viewModel = new ProjectSearchViewModel()
+            {
+                ProjectList = projectService
                 .SearchProject(options)
-                .ToList();
+                .ToList(),
 
-            if (project == null)
-            {
-                return BadRequest();
-            }
+                User = context.Set<User>().SingleOrDefault()
+            };
 
-            if(project.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Json(project);
-        }
+            return View(viewModel);
+         }        
 
         [HttpPatch("{id}/edit")]
         public IActionResult Update(int id,
@@ -108,5 +107,10 @@ namespace crowdFunding.Web.Controllers
             return Json(isProjectRemoved);
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

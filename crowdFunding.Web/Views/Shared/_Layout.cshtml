@@ -6,25 +6,53 @@
     <title>@ViewData["Title"] - crowdFunding.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
 </head>
-<body>
+<body style="background-color: #7ccedc">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">crowdFunding.Web</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.jpg" style="width:110px; height:60px"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item dropdown">
+                            <a id="usr" href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">User</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogIn">log In</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsSignUp">Sign Up</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsMyProfile">My Profile</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsEditProfile">Edit Profile</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsCreatedProjects">Created Projects</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsBackedProjects">Backed Projects</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown  ml-5">
+                            <a href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">Browse</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="nav-item cat1"><a href="@Url.Action("Search", "Project", new { category = 1})" class="nav-link text-dark" data-category-code="1">Arts</a></li>
+                                <li class="nav-item cat2"><a href="@Url.Action("Search", "Project", new { category = 2})" class="nav-link text-dark" data-category-code="2">Comics / Illustration</a></li>
+                                <li class="nav-item cat3"><a href="@Url.Action("Search", "Project", new { category = 3})" class="nav-link text-dark">Design / Tech</a></li>
+                                <li class="nav-item cat4"><a href="@Url.Action("Search", "Project", new { category = 4})" class="nav-link text-dark">Film</a></li>
+                                <li class="nav-item cat5"><a href="@Url.Action("Search", "Project", new { category = 5})" class="nav-link text-dark">Food / Craft</a></li>
+                                <li class="nav-item cat6"><a href="@Url.Action("Search", "Project", new { category = 6})" class="nav-link text-dark">Games</a></li>
+                                <li class="nav-item cat7"><a href="@Url.Action("Search", "Project", new { category = 7})" class="nav-link text-dark">Music</a></li>
+                                <li class="nav-item cat8"><a href="@Url.Action("Search", "Project", new { category = 8})" class="nav-link text-dark">Publishing</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Create</a>
                         </li>
                     </ul>
+                </div>
+                <div class="search-container">
+                    <form action="">
+                        <input type="search" id="searchIn" name="searchIn" placeholder="Search" value="">
+                        <a type="button" id="searchBtn" class="searchBtn" href="#"><i class="fa fa-search"></i></a>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -42,6 +70,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/f14f4d0e0c.js" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

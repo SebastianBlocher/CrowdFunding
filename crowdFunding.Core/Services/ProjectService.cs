@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace crowdFunding.Core.Services
 {
@@ -73,20 +74,20 @@ namespace crowdFunding.Core.Services
             var user = userService_
             .GetById(options.UserId)
             .Include(x => x.CreatedProjectsList)
-            .SingleOrDefault();
+            .SingleOrDefault();            
 
             if (user == null)
             {
                 return Result<Project>.ActionFailed(
                 StatusCode.BadRequest, "Invalid User");
-            }
+            }            
 
             var project = new Project()
             {
                 Name = options.Name,
                 Description = options.Description,
                 Category = options.Category,
-                AmountRequired = options.AmountRequired.Value                
+                AmountRequired = options.AmountRequired.Value           
             }; 
 
             user.CreatedProjectsList.Add(project);
@@ -143,6 +144,11 @@ namespace crowdFunding.Core.Services
             {
                 query = query.Where(p => p.Category == options.Category);
             }
+
+            query = query.Include(p => p.Photos)
+            .Include(p => p.RewardPackages)
+            .Include(p => p.Videos)
+            .Include(p => p.Posts);
 
             return query;
         }

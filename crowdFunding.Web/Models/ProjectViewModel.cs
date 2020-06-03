@@ -7,7 +7,8 @@ namespace crowdFunding.Web.Models
     {
         public Project Project { get; set; }
         public List<RewardPackage> RewardPackages { get; set; }
-        public List<Reward> Rewards { get; set; }
+        public List<Reward> Rewards { get; set; }     
+        public User User { get; set; }
 
         public ProjectViewModel()
         {            

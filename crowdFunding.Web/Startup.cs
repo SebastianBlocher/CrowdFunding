@@ -39,6 +39,8 @@ namespace crowdFunding.Web
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IVideoService,VideoService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllersWithViews();
         }
 
