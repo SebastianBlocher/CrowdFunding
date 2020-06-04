@@ -1,0 +1,71 @@
+﻿@using crowdFunding.Core.Model
+@model Project
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">
+        Project could not be found!
+    </div>
+
+    return;
+}
+<h1>Edit</h1>
+
+<form method="post" class="js-project-edit-form">
+
+    <p style="visibility: hidden" id="projectid">
+        @Model.ProjectId
+    </p>
+
+    <div class="form-group">
+        <label for="Name">Project Name</label>
+        <input class="js-projectedit-projectname form-control" id="ProjectName" value="@Model.Name" placeholder="Change your project's name.">
+    </div>
+
+    <div class="form-group">
+        <label for="Name">Project Description</label>
+        <input class="js-projectedit-description form-control" id="ProjectDesc" value="@Model.Description" placeholder="Change your project's description.">
+    </div>
+
+    <div class="form-group">
+        <textlabel for="Name">Project Description</textlabel>
+        <textarea id="ProjectDesc" name="ProjectDesc" rows="4" cols="50" value:"@Model.Description">
+            Change your project's description...
+        </textarea>
+        @*<input class="js-projectedit-description form-control" id="ProjectDesc" value="@Model.Description" placeholder="Change your project's description.">*@
+    </div>
+
+    <<select class="js-projectedit-category">
+        <option value="0">Default</option>
+        <option value="1">Arts</option>
+        <option value="2">Comics Illustration</option>
+        <option value="3"> Design Tech </option>
+        <option value="4">  Film </option>
+        <option value="5">  Food_Craft </option>
+        <option value="6">  Games </option>
+        <option value="7">  Music </option>
+        <option value="8">  Publishing </option>
+
+    </select>
+
+    <div class="form-group">
+        <label for="Name">Required Amount</label>
+        <input class="js-projectcreate-amountrequired form-control" id="ProjectAm" value="@Model.AmountRequired" placeholder="Change the required amount you need.">
+    </div>
+    <button type="button" class="js-projectedit-submit-button btn btn-primary">
+        Update
+    </button>
+
+    <div class="alert alert-success s-projectedit-success-alert" role="alert">
+        Project was successfully updated!
+    </div>
+
+    <div class="alert alert-danger js-projectedit-fail-alert" role="alert">
+        Project could not be updated!
+    </div>
+
+</form>

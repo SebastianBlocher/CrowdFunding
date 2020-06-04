@@ -16,14 +16,14 @@ namespace crowdFunding.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private CrowdFundingDbContext dbContext_;
         private IProjectService projectService;
+        public IUserService userService;
 
         public HomeController(ILogger<HomeController> logger, IProjectService iproj, CrowdFundingDbContext dbContext)
         {
+            userService = user;
+            projectService = project;
             _logger = logger;
-            projectService = iproj;
-            dbContext_ = dbContext;
         }
 
         public IActionResult Index()
@@ -41,6 +41,10 @@ namespace crowdFunding.Web.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Project()
         {
             return View();
         }
