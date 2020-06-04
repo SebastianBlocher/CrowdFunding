@@ -22,8 +22,8 @@
                         <li class="nav-item dropdown">
                             <a id="usr" href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">User</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogIn" data-target="#myModal">Log In</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsSignUp">Sign Up</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogIn" data-target="#myLoginModal">Log In</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Register", "User")" class="nav-link text-dark sign-up" style="display:none" id="jsSignUp">Sign Up</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsMyProfile">My Profile</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsEditProfile">Edit Profile</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsCreatedProjects">Created Projects</a></li>
@@ -44,11 +44,12 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Create</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Project" id="js-createNewProject" data-target="#myLoginModal" asp-action="Register">Create</a>
                         </li>
+
                         @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Project">Project</a>
-                        </li>*@
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Project">Project</a>
+        </li>*@
                     </ul>
                 </div>
                 <div class="search-container">

@@ -55,7 +55,7 @@ namespace crowdFunding.Web.Controllers
             return View(user);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("details/{id}")]
         public IActionResult Details(int? id)
         {
             var viewModel = new UserViewModel()
