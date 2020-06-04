@@ -15,12 +15,12 @@ namespace crowdFunding.Web.Controllers
     public class ProjectController : Controller
     {
         private IProjectService projectService;
-        private CrowdFundingDbContext context;        
+        private CrowdFundingDbContext context;
 
         public ProjectController(IProjectService projectService_, CrowdFundingDbContext context_)
         {
             projectService = projectService_;
-            context = context_;            
+            context = context_;
         }
 
         [HttpGet]
@@ -29,7 +29,20 @@ namespace crowdFunding.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet("register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpGet("edit")]
+        public IActionResult Edit(int? id)
+        {
+            var project = projectService.GetProjectById(id);
+
+            return View(project);
+        }
+
+        [HttpPost("create")]
         public IActionResult Create([FromBody]CreateProjectOptions options)
         {
             var result = projectService.CreateProject(options);
@@ -53,11 +66,11 @@ namespace crowdFunding.Web.Controllers
                 RewardPackages = context.Set<RewardPackage>()
                 .ToList(),
 
-                Rewards = context.Set<Reward>()                
+                Rewards = context.Set<Reward>()
                 .ToList(),
 
                 User = context.Set<User>().SingleOrDefault()
-                
+
             };
 
             return View(viewModel);
@@ -76,7 +89,7 @@ namespace crowdFunding.Web.Controllers
             };
 
             return View(viewModel);
-         }        
+        }
 
         [HttpPatch("{id}/edit")]
         public IActionResult Update(int id,

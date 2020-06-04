@@ -19,7 +19,7 @@ namespace crowdFunding.Web.Controllers
         private IProjectService projectService;
         public IUserService userService;
 
-        public HomeController(ILogger<HomeController> logger, IProjectService iproj, CrowdFundingDbContext dbContext)
+        public HomeController(ILogger<HomeController> logger, IProjectService project, IUserService user)
         {
             userService = user;
             projectService = project;

@@ -257,17 +257,17 @@ namespace crowdFunding.Core.Services
 
             List<Project> SortedList = project.OrderByDescending(p => p.NumberOfBackers).ToList();
 
-            var trendingProjetcs = new List<int?>();
+            var trendingProjects = new List<int?>();
 
             for (var i = 0; i <= 4; i++)
             {
                 if (SortedList.Count > i)
                 {
-                    trendingProjetcs.Add(SortedList.ElementAt(i).ProjectId);
+                    trendingProjects.Add(SortedList.ElementAt(i).ProjectId);
                 }
             }
 
-            return trendingProjetcs;
+            return trendingProjects;
         }
 
         public bool DeleteProject(int? id)
