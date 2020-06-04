@@ -5,17 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200529223747_add_photos_etc2.cs" />
-    <Compile Remove="Migrations\20200529223747_add_photos_etc2.Designer.cs" />
-    <Compile Remove="Migrations\20200529224013_add_photos_etc3.cs" />
-    <Compile Remove="Migrations\20200529224013_add_photos_etc3.Designer.cs" />
-    <Compile Remove="Migrations\20200529225028_ddddd.cs" />
-    <Compile Remove="Migrations\20200529225028_ddddd.Designer.cs" />
-    <Compile Remove="Migrations\20200529230607_add_videos.cs" />
-    <Compile Remove="Migrations\20200529230607_add_videos.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>
