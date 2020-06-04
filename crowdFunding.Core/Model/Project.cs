@@ -7,7 +7,8 @@ namespace crowdFunding.Core.Model
     {
         public string Name { get; set; }
         public int ProjectId { get; set; }
-        public DateTimeOffset CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime DueTo { get; set; }
         public string Description { get; set; }
         public List<RewardPackage> RewardPackages { get; set; }
         public Category Category { get; set; }
@@ -21,7 +22,7 @@ namespace crowdFunding.Core.Model
         public int UserId { get; set; }
         public Project()
         {
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTime.Today;
             RewardPackages = new List<RewardPackage>();
             NumberOfBackers = 0;
             AmountGathered = 0;

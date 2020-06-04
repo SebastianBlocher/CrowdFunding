@@ -53,6 +53,12 @@ namespace crowdFunding.Core.Services
                 StatusCode.BadRequest, "Null or empty AmountRequired");
             }
 
+            if (options.DueTo == null || options.DueTo.CompareTo(options.CreatedOn) <= 0)
+            {
+                return Result<Project>.ActionFailed(
+                StatusCode.BadRequest, "Invalid Due to date");
+            }
+
             //if (options.Videos == null || options.Videos.Any() == false)
             //{
             //    return Result<Project>.ActionFailed(
@@ -87,7 +93,8 @@ namespace crowdFunding.Core.Services
                 Name = options.Name,
                 Description = options.Description,
                 Category = options.Category,
-                AmountRequired = options.AmountRequired.Value           
+                AmountRequired = options.AmountRequired.Value,
+                DueTo = options.DueTo
             }; 
 
             user.CreatedProjectsList.Add(project);
@@ -217,20 +224,10 @@ namespace crowdFunding.Core.Services
                 project.AmountRequired = options.AmountRequired.Value;
             }
 
-            //if (options.Videos != null && options.Videos.Any() != false)
-            //{
-            //    project.Videos = options.Videos.ToList();
-            //}
-
-            //if (options.Photos != null && options.Photos.Any() != false)
-            //{
-            //    project.Photos = options.Photos.ToList();
-            //}
-
-            //if (options.PostUpdates != null && options.PostUpdates.Any() != false)
-            //{
-            //    project.PostUpdates = options.PostUpdates.ToList();
-            //}
+            if (options.DueTo != null && options.DueTo.CompareTo(DateTime.Today) > 0)
+            {
+                project.DueTo = options.DueTo;
+            }
 
             var rows = 0;
 

@@ -1,4 +1,5 @@
 ﻿using crowdFunding.Core.Model;
+using System;
 using System.Collections.Generic;
 
 namespace crowdFunding.Core.Services.Options.Create
@@ -10,6 +11,8 @@ namespace crowdFunding.Core.Services.Options.Create
         public string Description { get; set; }
         public Category Category { get; set; }        
         public decimal? AmountRequired { get; set; }
+        public DateTime DueTo { get; set; }
+        public DateTime CreatedOn { get; set; }
         public List<Photo> Photos { get; set; }
         public List<Video> Videos { get; set; }
 
@@ -17,6 +20,7 @@ namespace crowdFunding.Core.Services.Options.Create
         {
             Photos = new List<Photo>();
             Videos = new List<Video>();
+            CreatedOn = DateTime.Today;
         }
     }   
 }

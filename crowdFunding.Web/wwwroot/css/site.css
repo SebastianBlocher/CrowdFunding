@@ -196,7 +196,7 @@ body {
     color: white;
     text-align: center;
     font-size: 1.45em;
-    background: #C0C0C0;
+    background: #34495E;
 }
 .reward-package {
     color: white;
@@ -215,6 +215,26 @@ body {
 .not-found-message{
     margin-top:50px;
     margin-bottom:50px;
+}
+
+.modal-footer {
+    background: #34495E;
+}
+
+.card-title-user{
+    text-align:center;
+    margin-top:50px;
+    margin-bottom:25px;
+}
+.normal-type {
+    font-size: 0.8em;
+    color: #34495E
+}
+
+.profile_bio{
+    text-align:center;
+    margin-top:60px;
+    margin-bottom:70px;
 }
 
 
