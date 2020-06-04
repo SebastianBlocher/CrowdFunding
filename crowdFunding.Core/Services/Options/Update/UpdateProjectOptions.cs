@@ -5,6 +5,7 @@ namespace crowdFunding.Core.Services.Options.Update
 {
     public class UpdateProjectOptions
     {        
+        public int? ProjectId { get; set; }
         public string Name { get; set; }
         public DateTimeOffset UpdatedOn { get; set; }
         public string Description { get; set; }

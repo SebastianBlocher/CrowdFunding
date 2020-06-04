@@ -25,7 +25,7 @@ namespace crowdFunding.Core.Services
             rewardPackageService_ = rewardPackageService;
         }
 
-       
+
         public Result<Project> CreateProject(CreateProjectOptions options)
         {
             if (options == null)
@@ -75,7 +75,8 @@ namespace crowdFunding.Core.Services
                 Description = options.Description,
                 Category = options.Category,
                 AmountRequired = options.AmountRequired.Value,
-            }; 
+            };
+           
 
             user.CreatedProjectsList.Add(project);
 
@@ -103,8 +104,8 @@ namespace crowdFunding.Core.Services
 
         public IQueryable<Project> SearchProject(SearchProjectOptions options)
         {
-            if (options == null) 
-            { 
+            if (options == null)
+            {
                 return null;
             }
 
@@ -232,7 +233,7 @@ namespace crowdFunding.Core.Services
             }
 
             return trendingProjects;
-        } 
+        }
 
 
         public bool DeleteProject(int? id)
@@ -259,7 +260,7 @@ namespace crowdFunding.Core.Services
                     return false;
                 }
             }
-            
+
             context_.Remove(project);
 
             if (context_.SaveChanges() > 0)

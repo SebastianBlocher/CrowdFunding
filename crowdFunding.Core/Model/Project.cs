@@ -25,6 +25,8 @@ namespace crowdFunding.Core.Model
             NumberOfBackers = 0;
             AmountGathered = 0;
             IsActive = true;
+            //Category.ToString();
+            //var categoryArray = Enum.GetValues(typeof(Category));
         }
     }
 }

@@ -23,7 +23,7 @@ namespace crowdFunding.Web.Controllers
             projectService = projectService_;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create([FromBody]CreateProjectOptions options)
         {
             var result = projectService.CreateProject(options);
@@ -35,6 +35,20 @@ namespace crowdFunding.Web.Controllers
             }
 
             return Json(result.Data);
+
+        }
+
+        [HttpGet("register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpGet("edit")]
+        public IActionResult Edit(int? id)
+        {
+            var project = projectService.GetProjectById(id).SingleOrDefault();
+
+            return View(project);
         }
 
         [HttpGet("{id}")]
@@ -60,7 +74,7 @@ namespace crowdFunding.Web.Controllers
                 return BadRequest();
             }
 
-            if(project.Count == 0)
+            if (project.Count == 0)
             {
                 return NotFound();
             }
@@ -81,7 +95,7 @@ namespace crowdFunding.Web.Controllers
                     result.ErrorText);
             }
 
-            return Json(result.Data); ;
+            return Json(result.Data);
         }
 
         [HttpDelete("{id}")]
