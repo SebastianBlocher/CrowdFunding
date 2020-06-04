@@ -44,12 +44,6 @@ namespace crowdFunding.Core.Services
                      StatusCode.BadRequest, "Null or empty Email");
             }
 
-            if (string.IsNullOrWhiteSpace(options.Description))
-            {
-                return Result<User>.ActionFailed(
-                       StatusCode.BadRequest, "Null or empty Description");
-            }
-
             if (string.IsNullOrWhiteSpace(options.Country))
             {
                 return Result<User>.ActionFailed(

@@ -4,7 +4,65 @@
 // Write your JavaScript code.
 
 
+//**************************************************
+//Login User JS
+//**************************************************
+let loginButton = $('#jsLogIn');
+loginButton.on('click', () => {
+    
+    $('#myLoginModal').modal('show');
+})
 
+let userLoginSuccessAlert = $('.js-userlogin-success-alert');
+userLoginSuccessAlert.hide();
+
+let userLoginFailedAlert = $('.js-userlogin-fail-alert');
+userLoginFailedAlert.hide();
+
+let userLoginButton = $('#jsLoginButton');
+userLoginButton.on('click', () => {
+    
+    userLoginSuccessAlert.hide();
+    userLoginFailedAlert.hide();
+
+    let firstname = $('.js-userlogin-firstname');
+    let email = $('.js-userlogin-email');
+
+    let data = {
+        firstName: firstname.val(),
+        email: email.val(),
+    }
+    
+    $.ajax({
+        type: 'POST',
+        url: '/user/login',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        processData: false,
+        dataType: 'json'
+    }).done(user => {
+        userLoginSuccessAlert.html(`Login successful.`);
+        userLoginSuccessAlert.show().delay(3000);
+        userLoginSuccessAlert.fadeOut();
+
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+
+        localStorage.setItem('userId', user.userId);
+        localStorage.setItem('userName', user.firstName);
+
+        location.reload();
+    }).fail(failureResponse => {
+        userLoginFailedAlert.html('No user was found.');
+        userLoginFailedAlert.show().delay(2000);
+        userLoginFailedAlert.fadeOut();
+    })
+});
+
+
+//**************************************************
+//Edit User JS
+//**************************************************
 let userEditSuccessAlert = $('.js-useredit-success-alert');
 userEditSuccessAlert.hide();
 
@@ -32,7 +90,7 @@ userEditButton.on('click', () => {
         country: country.val(),
         description: description.val()
     }
-    debugger;
+    
     $.ajax({
         type: 'PATCH',
         url: '/user/update',
@@ -47,7 +105,7 @@ userEditButton.on('click', () => {
     }).fail(failureResponse => {
         userEditFailedAlert.show();
         userEditFailedAlert.show().delay(2000);
-        succeuserEditFailedAlertssAlert.fadeOut();
+        userEditFailedAlert.fadeOut();
     })
 });
 
@@ -88,10 +146,17 @@ userCreateButton.on('click', () => {
         processData: false,
         dataType: 'json'
     }).done(user => {
-        userCreateSuccessAlert.html(`A customer with id ${user.userId} was created.`);
+        userCreateSuccessAlert.html(`A user with id ${user.userId} was created.`);
         userCreateSuccessAlert.show().delay(2000);
         userCreateSuccessAlert.fadeOut();
+        
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+
+        localStorage.setItem('userId', user.userId);
+        localStorage.setItem('userName', user.firstname);
     }).fail(failureResponse => {
+        userCreateFailedAlert.html(`${failureResponse.responseCode} - User creation failed, ${failureResponse.responseText}.`);
         userCreateFailedAlert.show().delay(2000);
         userCreateFailedAlert.fadeOut();
     })
@@ -104,8 +169,6 @@ var btnL = document.getElementById("btnLeft");
 var btnR = document.getElementById("btnRight");
 
 var content = document.getElementById("content");
-
-
 
 btnR.addEventListener("click", goRight);
 btnL.addEventListener("click", goLeft);
@@ -127,7 +190,7 @@ function goLeft() {
 }
 
 $('.nav-link').on('click', (event) => {
-    debugger;
+    
     //event.target
 });
 
@@ -137,7 +200,6 @@ $('.nav-link').on('click', (event) => {
 
 let searchInput = $('#searchIn');
 let searchButton = $('.searchBtn');
-$(searchButton).attr("href", "test");
 
 
 searchInput.on('input', () => {
