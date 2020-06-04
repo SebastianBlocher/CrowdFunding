@@ -1,7 +1,10 @@
-﻿using crowdFunding.Core.Services.Interfaces;
+﻿using crowdFunding.Core.Data;
+using crowdFunding.Core.Model;
+using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using crowdFunding.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -17,10 +20,12 @@ namespace crowdFunding.Web.Controllers
         }
 
         private IUserService userService;
+        private CrowdFundingDbContext context;
 
-        public UserController(IUserService userService_)
+        public UserController(IUserService userService_, CrowdFundingDbContext context_)
         {            
             userService = userService_;
+            context = context_;
         }
 
         [HttpPost]
@@ -52,16 +57,20 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUser(int? id)
+        public IActionResult Details(int? id)
         {
-            var user = userService.GetById(id).SingleOrDefault();
-            
-            if (user == null)
+            var viewModel = new UserViewModel()
             {
-                return NotFound();
-            }
+                User = userService.GetById(id).SingleOrDefault(),
 
-            return Json(user);
+                CreatedProjectsList = context.Set<Project>()
+                .ToList(),
+
+                BackedProjectsList = context.Set<BackedProjects>()
+                .ToList()
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet("search")]

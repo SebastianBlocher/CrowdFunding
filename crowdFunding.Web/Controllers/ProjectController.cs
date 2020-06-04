@@ -1,8 +1,12 @@
-﻿using crowdFunding.Core.Services.Interfaces;
+﻿using crowdFunding.Core.Data;
+using crowdFunding.Core.Model;
+using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using crowdFunding.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Linq;
 
 namespace crowdFunding.Web.Controllers
@@ -11,16 +15,18 @@ namespace crowdFunding.Web.Controllers
     public class ProjectController : Controller
     {
         private IProjectService projectService;
+        private CrowdFundingDbContext context;        
 
-        [HttpGet("index")]
+        public ProjectController(IProjectService projectService_, CrowdFundingDbContext context_)
+        {
+            projectService = projectService_;
+            context = context_;            
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
-        }
-
-        public ProjectController(IProjectService projectService_)
-        {
-            projectService = projectService_;
         }
 
         [HttpPost]
@@ -38,37 +44,41 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProject(int? id)
+        public IActionResult Details(int? id)
         {
-            var project = projectService.GetProjectById(id);
-            if (project == null)
+            var viewModel = new ProjectViewModel()
             {
-                return NotFound();
-            }
-            return Json(project);
+                Project = projectService.GetProjectById(id),
+
+                RewardPackages = context.Set<RewardPackage>()
+                .ToList(),
+
+                Rewards = context.Set<Reward>()                
+                .ToList(),
+
+                User = context.Set<User>().SingleOrDefault()
+                
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet("search")]
-        public IActionResult Search([FromBody]SearchProjectOptions options)
+        public IActionResult Search(SearchProjectOptions options)
         {
-            var project = projectService
+            var viewModel = new ProjectSearchViewModel()
+            {
+                ProjectList = projectService
                 .SearchProject(options)
-                .ToList();
+                .ToList(),
 
-            if (project == null)
-            {
-                return BadRequest();
-            }
+                User = context.Set<User>().SingleOrDefault()
+            };
 
-            if(project.Count == 0)
-            {
-                return NotFound();
-            }
+            return View(viewModel);
+         }        
 
-            return Json(project);
-        }
-
-        [HttpPatch("{id}")]
+        [HttpPatch("{id}/edit")]
         public IActionResult Update(int id,
             [FromBody]UpdateProjectOptions options)
         {
@@ -83,7 +93,24 @@ namespace crowdFunding.Web.Controllers
 
             return Json(result.Data); ;
         }
-        //[HttpDelete("{delete}")]
-        //trending
+
+        [HttpDelete("{id}/delete")]
+        public IActionResult Remove(int? id)
+        {
+            var isProjectRemoved = projectService.DeleteProject(id);
+
+            if (isProjectRemoved == false)
+            {
+                return BadRequest();
+            }
+
+            return Json(isProjectRemoved);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

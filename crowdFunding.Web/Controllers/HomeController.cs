@@ -32,9 +32,9 @@ namespace crowdFunding.Web.Controllers
             var trendingProjectList = projectService
                      .TrendingProjects();
 
-                        foreach (var i in trendingProjectList)
+            foreach (var i in trendingProjectList)
             {
-                tpl.Add(projectService.GetProjectById(i).SingleOrDefault());
+                tpl.Add(projectService.GetProjectById(i));
             }
 
             return View(tpl);

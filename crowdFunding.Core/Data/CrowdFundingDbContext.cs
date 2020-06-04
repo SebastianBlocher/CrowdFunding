@@ -44,6 +44,18 @@ namespace crowdFunding.Core.Data
             modelBuilder
                .Entity<RewardPackage>()
                .ToTable("RewardPackage");
+
+            modelBuilder
+                .Entity<Posts>()
+                .ToTable("Posts");
+
+            modelBuilder
+                .Entity<Photo>()
+                .ToTable("Photo");
+
+            modelBuilder
+                .Entity<Video>()
+                .ToTable("Video");
         }
     }
 }

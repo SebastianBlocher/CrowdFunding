@@ -4,6 +4,7 @@ using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -34,6 +35,7 @@ namespace crowdFunding.Core.Services
 
             var rewardPackage = context_
                 .Set<RewardPackage>()
+                .Include(x => x.Rewards)
                 .Where(rp => rp.RewardPackageId == rewardPackageId)
                 .SingleOrDefault();            
 
@@ -45,8 +47,7 @@ namespace crowdFunding.Core.Services
 
             var reward = new Reward()
             {
-                Name = options.Name,
-                Description = options.Description 
+                Name = options.Name                
             };
 
             rewardPackage.Rewards.Add(reward);
@@ -89,9 +90,7 @@ namespace crowdFunding.Core.Services
 
             var reward = new Reward()
             {
-                Name = options.Name,
-                Description = options.Description,
-
+                Name = options.Name
             };
 
             context_.Add(reward);
@@ -132,7 +131,7 @@ namespace crowdFunding.Core.Services
             return reward;
         }
 
-            public bool RemoveReward(int? rewardId)
+        public bool RemoveReward(int? rewardId)
         {
             if (rewardId == null)
             {
@@ -165,17 +164,12 @@ namespace crowdFunding.Core.Services
             }
 
             var query = context_
-                .Set<Reward>()
+                .Set<Reward>()                
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 query = query.Where(r => r.Name == options.Name);
-            }
-
-            if (!string.IsNullOrWhiteSpace(options.Description))
-            {
-                query = query.Where(r => r.Description == options.Description);
             }
 
             if (options.RewardId != null)
@@ -218,11 +212,6 @@ namespace crowdFunding.Core.Services
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 reward.Name = options.Name;
-            }
-
-            if (!string.IsNullOrWhiteSpace(options.Description))
-            {
-                reward.Description = options.Description;
             }
 
             var rows = 0;
