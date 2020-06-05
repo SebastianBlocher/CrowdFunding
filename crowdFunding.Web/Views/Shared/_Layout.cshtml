@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
+   
 </head>
 <body style="background-color: #7ccedc">
     <header>
@@ -47,8 +48,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Create</a>
                         </li>
                         @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Project">Project</a>
-                        </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Project">Project</a>
+                            </li>*@
                     </ul>
                 </div>
                 <div class="search-container">
@@ -73,6 +74,8 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://kit.fontawesome.com/f14f4d0e0c.js" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

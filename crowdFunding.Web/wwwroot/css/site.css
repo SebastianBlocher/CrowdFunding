@@ -238,5 +238,52 @@ body {
     margin-bottom:70px;
 }
 
+.img-fluid{
+    height:235px;
+}
 
+.about{
+    margin-right:30px;
+}
+
+.backed_nav {
+    margin-right: 30px;
+}
+
+.user_nav{
+    color: white !important;
+}
+
+.user_row {
+    border-style: double !important;
+    border-color: #95959E !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+.user_description {
+    color: #95959E;
+    padding-left:15px;   
+}
+
+.user_desc {
+    padding-left: 15px;
+}
+
+@media screen and (max-width: 767px) {
+    .mobile-space {
+        margin-left:155px;
+    }
+}
+
+#js-created-list-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    height: 100%;    
+}
 

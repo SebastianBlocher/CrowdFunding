@@ -12,7 +12,7 @@ namespace crowdFunding.Web.Models
         public UserViewModel()
         {
             CreatedProjectsList = new List<Project>();
-            BackedProjectsList = new List<BackedProjects>();
+            BackedProjectsList = new List<BackedProjects>();            
         }
 
     }
