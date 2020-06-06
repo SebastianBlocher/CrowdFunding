@@ -15,11 +15,6 @@
 }
 
 <form method="post" class="js-user-edit-form">
-
-    <p style="visibility: hidden" id="userId">
-        @Model.UserId
-    </p>
-
     <div class="form-group">
         <label for="First Name">First Name</label>
         <input class="js-useredit-firstname form-control" id="FirstName" value="@Model.FirstName" placeholder="Change your first name.">
@@ -37,7 +32,7 @@
     </div>
     <div class="form-group">
         <label for="Country">Country</label>
-        <select class="js-usercreate-country form-control" id="country" name="country">
+        <select class="js-useredit-country form-control" id="country" name="country">
             <option selected="selected">@Model.Country</option>
             <option value="US">USA (+1)</option>
             <option value="GB">UK (+44)</option>
@@ -258,11 +253,32 @@
         <input class="js-useredit-description form-control" id="Description" value="@Model.Description" placeholder="Describe yourself.">
         <small id="edit-dscr" class="form-text text-muted">Update your user description.</small>
     </div>
-
-    <button type="button" class="js-useredit-submit-button btn btn-primary">
-        Update
-    </button>
-
+    <div>
+        <button type="button" class="js-useredit-submit-button btn btn-primary">
+            Update
+        </button>
+        <button type="button" class="btn btn-danger btn-primary" data-toggle="modal" data-target="#myDisableUserModal" style="margin-left:50px">
+            Disable me!
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="myDisableUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#7ccedc">
+                        <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <span>Are you sure you want to be disabled? </span>
+                    </div>
+                    <div class="modal-footer" style="background-color:#7ccedc">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input id="jsDisableUser" type="button" value="Disable" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="alert alert-success js-useredit-success-alert" role="alert">
         User was successfully updated!
     </div>

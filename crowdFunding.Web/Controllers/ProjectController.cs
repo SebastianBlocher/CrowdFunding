@@ -67,34 +67,8 @@ namespace crowdFunding.Web.Controllers
         {
             var viewModel = new ProjectViewModel()
             {
-                Project = projectService.GetProjectById(id),
-
-                //    RewardPackages = rewardPackageService
-                //    .SearchRewardPackage(new SearchRewardPackageOptions()).ToList(),
-
-                //    Rewards = rewardService
-                //    .SearchReward(new SearchRewardOptions()).ToList(),
-
-                //    User = userService.SearchUsers(new SearchUserOptions()).SingleOrDefault()
-
-            };
-            //var proj = projectService.GetProjectById(id);
-            //if (proj == null)
-            //{
-            //    return View(null);
-            //}
-
-            //var viewModel = new ProjectViewModel()
-            //{
-            //    Project = proj,
-            //    RewardPackages = proj.RewardPackages,
-            //    User = proj.User
-            //};
-
-            //foreach (var rw in proj.RewardPackages)
-            //{
-            //    viewModel.Rewards = rw.Rewards;
-            //}
+                Project = projectService.GetProjectById(id)
+            };            
 
             return View(viewModel);           
         }
@@ -106,9 +80,7 @@ namespace crowdFunding.Web.Controllers
             {
                 ProjectList = projectService
                 .SearchProject(options)
-                .ToList(),
-                
-                //Users = userService.SearchUsers(new SearchUserOptions()).ToList()
+                .ToList()  
             };
 
             return View(viewModel);
