@@ -315,3 +315,14 @@ body {
     background: #5E14A6;
     color:white;
 }
+
+.spinner-text {
+    font-size: 30px;
+    color: darkgreen;
+    text-align:center;
+    margin-top:30px;
+}
+
+.project-photos{
+    margin-bottom:20px
+}

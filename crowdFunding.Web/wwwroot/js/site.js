@@ -88,11 +88,11 @@ let homePageCreateButton = $('#js-createNewProject');
 homePageCreateButton.on('click', () => {
 
 
+
+    if (!localStorage.getItem("userId")) {
         $('#myCreateLoginModal').modal('show');
     }
     else {
-        //Html.ActionLink("createProject", "Register", "Project", null, null)
-        //return RedirectToAction("Register", "Project");
         var url = $("#RedirectTo").val();
         location.href = url;
     }

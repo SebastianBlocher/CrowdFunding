@@ -16,13 +16,21 @@ namespace crowdFunding.Core.Services
         private CrowdFundingDbContext context_;
         private IUserService userService_;
         private IRewardPackageService rewardPackageService_;
+        private IPhotoService photoService_;
+        private IVideoService videoService_;
 
 
-        public ProjectService(CrowdFundingDbContext context, IUserService userService, IRewardPackageService rewardPackageService)
+        public ProjectService(CrowdFundingDbContext context,
+            IUserService userService,
+            IRewardPackageService rewardPackageService,
+            IPhotoService photoService,
+            IVideoService videoService)
         {
             context_ = context;
             userService_ = userService;
             rewardPackageService_ = rewardPackageService;
+            photoService_ = photoService;
+            videoService_ = videoService;
         }
 
        
@@ -99,14 +107,23 @@ namespace crowdFunding.Core.Services
 
             foreach (var photo in options.Photos)
             {
-                project.Photos.Add(photo);
+                var url = new CreatePhotoOptions()
+                {
+                    Url = photo
+                };
+
+                photoService_.CreatePhoto(project.ProjectId, url);
             }
 
             foreach (var video in options.Videos)
             {
-                project.Videos.Add(video);
+                var url = new CreateVideoOptions()
+                {
+                    Url = video
+                };
+
+                videoService_.CreateVideo(project.ProjectId, url);
             }
-            user.CreatedProjectsList.Add(project);
 
             var rows = 0;
 
