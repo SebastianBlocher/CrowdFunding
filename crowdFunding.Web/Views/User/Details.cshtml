@@ -43,23 +43,28 @@
     </div>
 </div>
 
-<div class="row mt-3 user_row" id="js-about-row">
-    <div class="col-md-3"></div>
-    <h3 class="user_description mobile-space mt-2">
-        Description
-    </h3>
-    <div class="col-md-1"></div>
-    <p class="user_desc mt-2">@Model.User.Description</p>
-</div>
-
 <div class="overlaping position-relative">
+    <div class="row user_row mt-3" id="js-about-row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <h3 class="user_description mobile-space mt-5">
+                Description
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <p class="user_desc mt-5">@Model.User.Description</p>
+        </div>
+    </div>
+
+
 
     <div class="row user_row mt-3" id="js-backed-list-row">
 
         @foreach (var p in Model.User.BackedProjectsList)
         {
             <div class="col-md-4">
-                <div class="card mb-2 shadow mb-5 bg-white rounded">
+                <div class="card mt-5 shadow mb-5 bg-white rounded">
                     <!-- Card image -->
                     <img class="card-img-top img-fluid project_photo" src="@p.Photo"
                          alt="Image can not be displayed" width="400" height="250">
@@ -88,7 +93,7 @@
         @foreach (var p in Model.User.CreatedProjectsList)
         {
             <div class="col-md-4">
-                <div class="card mb-2 mt-4 shadow mb-5 bg-white rounded">
+                <div class="card mt-5 shadow mb-5 bg-white rounded">
                     <!-- Card image -->
                     <img class="card-img-top img-fluid project_photo" src="@p.Photos.ElementAt(0).Url"
                          alt="Image can not be displayed" width="400" height="250">
