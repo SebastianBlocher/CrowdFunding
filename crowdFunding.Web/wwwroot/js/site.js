@@ -341,12 +341,12 @@ backProjectButton.on('click', () => {
         contentType: 'application/json',
         data: JSON.stringify(data),
         dataType: 'json'
+    })
+        .done(_project => {
+        createSuccesAlert.show();
+    }).fail(_failureResponse => {
+        createFailedAlert.show();
     });
-    //    .done(_project => {
-    //    createSuccesAlert.show();
-    //}).fail(_failureResponse => {
-    //    createFailedAlert.show();
-    //});
 });
 ////------- User Profile--------//
 
@@ -354,6 +354,7 @@ let aboutRow = $('#js-about-row');
 aboutRow.hide();
 
 let footer = $('#js-footer');
+let header = $('#js-header');
 
 let createdRow = $('#js-created-list-row');   
 createdRow.hide();

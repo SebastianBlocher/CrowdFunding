@@ -6,12 +6,25 @@
 
 @if (Model.User == null)
 {
-    <div class="alert alert-warning" role="alert">
-        User not found
+    <div class="row text-center">
+        <div class="col-md-3"></div>
+        <div class="box">
+            <div class="content-project">
+                <div class="not-found-image">
+                    <img src="https://www.cdgi.com/wp-content/uploads/2019/05/404-Pages-1112x556.jpg" width="500" height="350" id="not-found-img" class="img-fluid" alt="Image can not be displayed">
+                </div>
+                <div class="alert alert-warning not-found-message text-center">
+                    Oops! We can't find the user you are looking for
+                </div>
+                <a class="btn btn-warning" href="@Url.Action("Index", "Home")" role="button">Take me home</a>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
     </div>
 
     return;
 }
+
 
 <div class="row">
     <div class="col-4"></div>

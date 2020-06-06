@@ -1,4 +1,5 @@
 ﻿@model ProjectViewModel
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -12,18 +13,18 @@
                 <div class="not-found-image">
                     <img src="https://www.cdgi.com/wp-content/uploads/2019/05/404-Pages-1112x556.jpg" width="500" height="350" id="not-found-img" class="img-fluid" alt="Image can not be displayed">
                 </div>
-                <div class="not-found-message text-center">
-                    <p>We can't find the page you are looking for, but we have many other projects you can browse</p>
-                    <a class="btn btn-warning" href="@Url.Action("Index", "Home")" role="button">Take me home</a>
+                <div class="alert alert-warning not-found-message text-center">
+                    We can't find the page you are looking for, <br>
+                    but we have many other projects you can browse
                 </div>
+                <a class="btn btn-warning" href="@Url.Action("Index", "Home")" role="button">Take me home</a>
             </div>
             <div class="col-md-3"></div>
         </div>
-        
     </div>
 
-
     return;
+
 }
 
 <p style="visibility: hidden" id="js-back-projectId">

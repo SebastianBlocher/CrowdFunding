@@ -214,8 +214,7 @@ body {
 }
 
 .not-found-message{
-    margin-top:50px;
-    margin-bottom:50px;
+    margin-top:50px;   
 }
 
 .modal-footer {
@@ -300,19 +299,15 @@ body {
     padding-right:15px;
 }
 
-/*#js-about-row {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-}*/
+.btn-warning{
+    color:blue;
+}
 
-/*@media screen and (max-width: 767px) {
-    .mobile-space {
-        margin-left: 155px;
-    }
-}*/
+.alert-warning {
+    color: #df4040;
+}
+
+.box{
+    margin-top : 80px;
+}
 
