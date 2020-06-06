@@ -70,6 +70,21 @@ namespace crowdFunding.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpGet("MyProfile/{id}")]
+        public IActionResult MyProfile(int? id)
+        {
+            var viewModel = new UserViewModel()
+            {
+                User = userService
+                    .GetById(id)
+                    .Include(x => x.CreatedProjectsList)
+                    .Include(y => y.BackedProjectsList)
+                    .SingleOrDefault(),
+            };
+
+            return View(viewModel);
+        }
+
         [HttpGet("search")]
         public IActionResult Search([FromBody]SearchUserOptions options)
         {
@@ -120,6 +135,11 @@ namespace crowdFunding.Web.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody]SearchUserOptions options)
         {
+            if (string.IsNullOrWhiteSpace(options.FirstName) || string.IsNullOrWhiteSpace(options.Email))
+            {
+                return BadRequest();
+            }
+
             var user = userService
                 .SearchUsers(options)
                 .SingleOrDefault();

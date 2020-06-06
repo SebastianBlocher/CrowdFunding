@@ -26,8 +26,7 @@
                                 <li class="nav-item"><a href="@Url.Action("Register", "User")" class="nav-link text-dark sign-up" style="display:none" id="jsSignUp">Sign Up</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsMyProfile">My Profile</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsEditProfile">Edit Profile</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsCreatedProjects">Created Projects</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsBackedProjects">Backed Projects</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogOut">Log Out</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown  ml-5">
@@ -44,7 +43,8 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Project" id="js-createNewProject" asp-action="Register">Create</a>
+                            @*<a class="nav-link text-dark" id="js-createNewProject" asp-area="" asp-controller="" asp-action="">Create</a>*@
+                            <a href="#" id="js-createNewProject" class="nav-link text-dark" role="button">Create</a>
                         </li>
 
                         @*<li class="nav-item">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </nav>
-
+        @Html.Hidden("RedirectTo", Url.Action("Register", "Project"));
         @*Login modal Popup*@
         <div class="modal fade" tabindex="-1" role="dialog" id="myLoginModal">
             <div class="modal-dialog" role="document">
@@ -74,17 +74,17 @@
                     <div class="modal-body">
                         <div class="modal-group">
                             <label for="First Name">User</label>
-                            <input class="js-userlogin-firstname form-control" id="FirstName" placeholder="Enter your first name.">
+                            <input class="js-userlogin-firstname form-control" id="login-FirstName" placeholder="Enter your first name.">
                         </div>
                         <div class="modal-group">
                             <label for="Email">Email Address</label>
-                            <input class="js-userlogin-email form-control" id="Email" placeholder="Enter your e-mail address">
+                            <input class="js-userlogin-email form-control" id="login-Email" placeholder="Enter your e-mail address">
                         </div>
                         <div class="alert alert-success js-userlogin-success-alert" role="alert">
-                            User was successfully updated!
+                            Login Successful!
                         </div>
                         <div class="alert alert-danger js-userlogin-fail-alert" role="alert">
-                            User could not be updated!
+                            Login Failed!
                         </div>
                     </div>
                     <div class="modal-footer" style="background-color:#7ccedc">
@@ -95,24 +95,23 @@
             </div>
         </div>
 
-        @*Create - not logged in modal popup*@
+        @*Create Project - not logged in modal popup*@
         <div class="modal fade" tabindex="-1" role="dialog" id="myCreateLoginModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color:#7ccedc">
-                        <h5 class="modal-title">Please enter your information</h5>
+                        <h5 class="modal-title">Cannot create your ideas if you are not logged in!</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger js-userlogin-fail-alert" role="alert">
-                            User could not be updated!
-                        </div>
+                        <a>If you are already a user, please Login.</a>
                     </div>
                     <div class="modal-footer" style="background-color:#7ccedc">
-                        <button type="button" class="btn btn-primary" id="jsLoginButton">Login</button>
-                        <button type="button" class="btn btn-secondary js-modal-login-close" data-dismiss="modal">Close</button>
+                        <a href="@Url.Action("Index", "Home")" type="button" class="btn btn-primary" style="margin-right:200px">Home</a>
+                        <a href="@Url.Action("Register", "User")" type="button" class="btn btn-primary">Sign Up</a>
+                        <a class="btn btn-primary" type="button" data-dismiss="modal" data-toggle="modal" href="#myLoginModal">Login</a>
                     </div>
                 </div>
             </div>
