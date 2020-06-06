@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 
+
 //**************************************************
 //Login User JS
 //**************************************************
@@ -57,17 +58,7 @@ userLoginButton.on('click', () => {
         userLoginFailedAlert.fadeOut();
     })
 });
-//**************************************************
-//Create New Project Check for Logged In User
-//**************************************************
-let homePageCreateButton = $('#js-createNewProject');
-homePageCreateButton.on('click', () => {
 
-    if (localStorage.getItem('userId') == null) {
-
-        $('#myCreateLoginModal').modal('show');
-    }
-});
 
 //**************************************************
 //Edit User JS
@@ -83,8 +74,8 @@ userEditButton.on('click', () => {
     userEditSuccessAlert.hide();
     userEditFailedAlert.hide();
 
-    let userid = localStorage.getItem('userId');
-    
+    let userid = document.getElementById("userId").innerHTML;
+
     let firstname = $('.js-useredit-firstname');
     let lastname = $('.js-useredit-lastname');
     let email = $('.js-useredit-email');
@@ -111,9 +102,6 @@ userEditButton.on('click', () => {
         userEditSuccessAlert.html(`Customer with id ${user.userId} was updated.`);
         userEditSuccessAlert.show().delay(2000);
         userEditSuccessAlert.fadeOut();
-
-        localStorage.setItem('userName', user.firstName);
-        
     }).fail(failureResponse => {
         userEditFailedAlert.show();
         userEditFailedAlert.show().delay(2000);
@@ -166,7 +154,7 @@ userCreateButton.on('click', () => {
         localStorage.removeItem('userName');
 
         localStorage.setItem('userId', user.userId);
-        localStorage.setItem('userName', user.firstName);
+        localStorage.setItem('userName', user.firstname);
     }).fail(failureResponse => {
         userCreateFailedAlert.html(`${failureResponse.responseCode} - User creation failed, ${failureResponse.responseText}.`);
         userCreateFailedAlert.show().delay(2000);
@@ -177,13 +165,17 @@ userCreateButton.on('click', () => {
 
 
 
-//let btnL = document.getElementById("btnLeft");
-//let btnR = document.getElementById("btnRight");
+var btnL = document.getElementById("btnLeft");
+var btnR = document.getElementById("btnRight");
 
 var content = document.getElementById("content");
+if (btnL) {
+    btnL.addEventListener("click", goLeft);
+}
 
-//btnR.addEventListener("click", goRight);
-//btnL.addEventListener("click", goLeft);
+if (btnR) {
+    btnR.addEventListener("click", goRight);
+}
 
 var clickedIndex = 0;
 
@@ -230,6 +222,8 @@ let editProfile = $('#jsEditProfile');
 let createdProjects = $('#jsCreatedProjects');
 let backedProjects = $('#jsBackedProjects');
 
+
+
 if (localStorage.getItem('userId') != null) {
     $(user).text(localStorage.getItem('userName'));
     myProfile.show();
@@ -242,9 +236,7 @@ else {
     signUp.show();
 }
 
-//**************************************************
-//Create Project
-//**************************************************
+// ----- Create project----//
 let createSuccesAlert = $('.js-create-success-alert');
 createSuccesAlert.hide();
 
@@ -253,24 +245,26 @@ createFailedAlert.hide();
 
 let projectCreateButton = $('.js-projectcreate-submit-button');
 projectCreateButton.on('click', () => {
-
     createSuccesAlert.hide();
     createFailedAlert.hide();
-
-    let userid = localStorage.getItem("userId");
+    debugger;
+    let userid = localStorage.getItem("userid");
     let name = $('.js-projectcreate-projectname');
     let description = $('.js-projectcreate-description');
     let category = $('.js-project-create-category');
     let amountrequired = $('.js-projectcreate-amountrequired');
 
+    debugger;
+
+
     let data = {
-        userId: parseInt(userid),
+        userid: parseInt(userid),
         name: name.val(),
         description: description.val(),
         category: parseInt(category.val()),
-        amountRequired: parseFloat(amountrequired.val())
+        amountrequired: parseFloat(amountrequired.val())
     }
-
+    debugger;
     $.ajax({
         type: 'POST',
         url: '/project/create',
@@ -282,11 +276,11 @@ projectCreateButton.on('click', () => {
     }).fail(_failureResponse => {
         createFailedAlert.show();
     });
+    debugger;
+
 });
 
-//**************************************************
-//Edit Project
-//**************************************************
+//-------Edit Project-------//
 let projectEditSuccessAlert = $('.js-projectedit-success-alert');
 projectEditSuccessAlert.hide();
 
@@ -297,8 +291,9 @@ let projectEditButton = $('.js-projectedit-submit-button');
 projectEditButton.on('click', () => {
     projectEditSuccessAlert.hide();
     projectEditFailedAlert.hide();
+
   
-    //let projectid = localStorage.getItem("projectid");
+    let projectid = localStorage.getItem("projectid");
     let name = $('.js-projectedit-projectname');
     let description = $('.js-projectedit-description');
     let category = $('.js-projectedit-category');
@@ -325,6 +320,28 @@ projectEditButton.on('click', () => {
         
     })
 });
+
+
+////------- User Profile--------//
+
+//let aboutButton = $('#js-about-button');
+//aboutButton.on('click', () => {
+;
+    
+//})
+
+////let backedListButton = $('#js-backedlist-button');
+////backedListButton.on('click', () => {
+
+
+////})
+
+//let createdListButton = $('#js-createdlist-button');
+//createdListButton.on('click', () => {
+
+//})
+
+//----------------------------------//
 
 
 

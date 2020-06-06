@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace crowdFunding.Core.Services
 {
@@ -94,7 +93,8 @@ namespace crowdFunding.Core.Services
                 Description = options.Description,
                 Category = options.Category,
                 AmountRequired = options.AmountRequired.Value,
-                DueTo = options.DueTo
+                DueTo = options.DueTo,
+                User = user
             }; 
 
             user.CreatedProjectsList.Add(project);
@@ -153,9 +153,11 @@ namespace crowdFunding.Core.Services
             }
 
             query = query.Include(p => p.Photos)
-            .Include(p => p.RewardPackages)
             .Include(p => p.Videos)
-            .Include(p => p.Posts);
+            .Include(p => p.Posts)
+            .Include(p => p.RewardPackages)
+            .ThenInclude(p => p.Rewards)
+            .Include(p => p.User);
 
             return query;
         }
@@ -170,12 +172,7 @@ namespace crowdFunding.Core.Services
             var project = SearchProject(new SearchProjectOptions()
             {
                 ProjectId = id
-            }).Include(p => p.Photos)
-            .Include(p => p.Videos)
-            .Include(p => p.Posts)
-            .Include(p => p.User)
-            .Include(p => p.RewardPackages)
-                .ThenInclude(p => p.Rewards)
+            })
             .SingleOrDefault();
 
             return project;

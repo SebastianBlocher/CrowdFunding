@@ -1,6 +1,4 @@
-﻿using crowdFunding.Core.Data;
-using crowdFunding.Core.Model;
-using crowdFunding.Core.Services.Interfaces;
+﻿using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
@@ -20,11 +18,11 @@ namespace crowdFunding.Web.Controllers
             return View();
         }
 
-        private IUserService userService;
+        private IUserService userService;        
 
         public UserController(IUserService userService_)
         {            
-            userService = userService_;
+            userService = userService_;            
         }
 
         [HttpPost("create")]
@@ -55,16 +53,16 @@ namespace crowdFunding.Web.Controllers
             return View(user);
         }
 
-        [HttpGet("details/{id}")]
+        [HttpGet("{id}")]
         public IActionResult Details(int? id)
         {
             var viewModel = new UserViewModel()
             {
-                User = userService
-                    .GetById(id)
-                    .Include(x => x.CreatedProjectsList)
-                    .Include(y => y.BackedProjectsList)
-                    .SingleOrDefault(),
+                User = userService.GetById(id)
+                .Include(u => u.BackedProjectsList)                
+                .Include(u => u.CreatedProjectsList)
+                .ThenInclude(u => u.Photos) 
+                .SingleOrDefault()
             };
 
             return View(viewModel);
