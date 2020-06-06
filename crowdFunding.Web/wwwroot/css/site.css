@@ -283,6 +283,21 @@ body {
     height: 100%;
 }
 
+.user_row {
+    border-style: double !important;
+    border-color: #95959E !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+@media screen and (max-width: 767px) {
+    .mobile-space {
+        margin-left: 155px;
+    }
+}
+
+
 /*#js-about-row {
     position: absolute;
     top: 0;

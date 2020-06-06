@@ -43,7 +43,7 @@
     </div>
 </div>
 
-<div class="row mt-3" id="js-about-row">
+<div class="row mt-3 user_row" id="js-about-row">
     <div class="col-md-3"></div>
     <h3 class="user_description mobile-space mt-2">
         Description
@@ -54,7 +54,7 @@
 
 <div class="overlaping position-relative">
 
-    <div class="row mt-3" id="js-backed-list-row">
+    <div class="row user_row mt-3" id="js-backed-list-row">
 
         @foreach (var p in Model.User.BackedProjectsList)
         {
@@ -83,7 +83,7 @@
         }
     </div>
 
-    <div class="row mt-3" id="js-created-list-row">
+    <div class="row user_row mt-3" id="js-created-list-row">
 
         @foreach (var p in Model.User.CreatedProjectsList)
         {
