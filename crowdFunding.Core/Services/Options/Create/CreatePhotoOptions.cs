@@ -3,5 +3,6 @@
     public class CreatePhotoOptions
     {
         public string Url { set; get; }
+      
     }
 }

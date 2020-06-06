@@ -2,6 +2,8 @@
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 using System.Linq;
 
 namespace crowdFunding.Web.Controllers
@@ -35,7 +37,7 @@ namespace crowdFunding.Web.Controllers
 
             return Json(result.Data);
         }
-
+       
         [HttpGet("{id}")]
         public IActionResult Details(int? id)
         {
