@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace crowdFunding.Core.Migrations
 {
-    public partial class migration1 : Migration
+    public partial class myMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,13 +33,17 @@ namespace crowdFunding.Core.Migrations
                 {
                     BackedProjectsId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProjectId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    BackedOn = table.Column<DateTimeOffset>(nullable: false),
-                    Amount = table.Column<decimal>(nullable: false),
                     Name = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    Category = table.Column<int>(nullable: false)
+                    Category = table.Column<int>(nullable: false),
+                    NumberOfBackers = table.Column<int>(nullable: false),
+                    Photo = table.Column<string>(nullable: true),
+                    ProjectCreatorId = table.Column<int>(nullable: false),
+                    ProjectCreatorFirstName = table.Column<string>(nullable: true),
+                    ProjectCreatorLastName = table.Column<string>(nullable: true),
+                    Amount = table.Column<decimal>(nullable: false),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,7 +53,7 @@ namespace crowdFunding.Core.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

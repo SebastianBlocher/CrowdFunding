@@ -238,5 +238,31 @@ body {
     margin-bottom:70px;
 }
 
+.img-fluid{
+    height:235px;
+}
+
+.about{
+    margin-right:30px;
+}
+
+.backed_nav {
+    margin-right: 30px;
+}
+
+.user_nav{
+    color: white !important;
+}
+
+.user_description {
+    color: #95959E;
+    padding-left:15px;   
+}
+
+.user_desc {
+    padding-left: 15px;
+}
+
+
 
 

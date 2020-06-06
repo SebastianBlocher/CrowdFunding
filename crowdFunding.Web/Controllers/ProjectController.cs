@@ -1,6 +1,4 @@
-﻿using crowdFunding.Core.Data;
-using crowdFunding.Core.Model;
-using crowdFunding.Core.Services.Interfaces;
+﻿using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
@@ -15,12 +13,19 @@ namespace crowdFunding.Web.Controllers
     public class ProjectController : Controller
     {
         private IProjectService projectService;
-        private CrowdFundingDbContext context;
+        private IRewardService rewardService;
+        public IRewardPackageService rewardPackageService;
+        public IUserService userService;
 
-        public ProjectController(IProjectService projectService_, CrowdFundingDbContext context_)
+        public ProjectController(IProjectService projectService_,
+            IRewardService rewardService_,
+            IRewardPackageService rewardPackageService_,
+            IUserService userService_)
         {
             projectService = projectService_;
-            context = context_;
+            rewardPackageService = rewardPackageService_;
+            rewardService = rewardService_;
+            userService = userService_;
         }
 
         [HttpGet]
@@ -34,6 +39,7 @@ namespace crowdFunding.Web.Controllers
         {
             return View();
         }
+
         [HttpGet("edit")]
         public IActionResult Edit(int? id)
         {
@@ -63,17 +69,34 @@ namespace crowdFunding.Web.Controllers
             {
                 Project = projectService.GetProjectById(id),
 
-                RewardPackages = context.Set<RewardPackage>()
-                .ToList(),
+                //    RewardPackages = rewardPackageService
+                //    .SearchRewardPackage(new SearchRewardPackageOptions()).ToList(),
 
-                Rewards = context.Set<Reward>()
-                .ToList(),
+                //    Rewards = rewardService
+                //    .SearchReward(new SearchRewardOptions()).ToList(),
 
-                User = context.Set<User>().SingleOrDefault()
+                //    User = userService.SearchUsers(new SearchUserOptions()).SingleOrDefault()
 
             };
+            //var proj = projectService.GetProjectById(id);
+            //if (proj == null)
+            //{
+            //    return View(null);
+            //}
 
-            return View(viewModel);
+            //var viewModel = new ProjectViewModel()
+            //{
+            //    Project = proj,
+            //    RewardPackages = proj.RewardPackages,
+            //    User = proj.User
+            //};
+
+            //foreach (var rw in proj.RewardPackages)
+            //{
+            //    viewModel.Rewards = rw.Rewards;
+            //}
+
+            return View(viewModel);           
         }
 
         [HttpGet("search")]
@@ -84,8 +107,8 @@ namespace crowdFunding.Web.Controllers
                 ProjectList = projectService
                 .SearchProject(options)
                 .ToList(),
-
-                User = context.Set<User>().SingleOrDefault()
+                
+                //Users = userService.SearchUsers(new SearchUserOptions()).ToList()
             };
 
             return View(viewModel);

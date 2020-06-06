@@ -10,8 +10,8 @@ using crowdFunding.Core.Data;
 namespace crowdFunding.Core.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    [Migration("20200604133729_migration1")]
-    partial class migration1
+    [Migration("20200606084931_myMig")]
+    partial class myMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,9 +31,6 @@ namespace crowdFunding.Core.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTimeOffset>("BackedOn")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
@@ -43,10 +40,25 @@ namespace crowdFunding.Core.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumberOfBackers")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectCreatorFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectCreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProjectCreatorLastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("BackedProjectsId");
@@ -246,9 +258,7 @@ namespace crowdFunding.Core.Migrations
                 {
                     b.HasOne("crowdFunding.Core.Model.User", null)
                         .WithMany("BackedProjectsList")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("crowdFunding.Core.Model.Photo", b =>

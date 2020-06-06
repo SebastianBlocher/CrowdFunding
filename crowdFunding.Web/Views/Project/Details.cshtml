@@ -3,7 +3,7 @@
     ViewData["Title"] = "Details";
 }
 
-@if (Model.Project == null)
+@if (Model == null)
 {<div class="box">
         <div class="content-project">
             <div class="not-found-image">
@@ -19,6 +19,10 @@
     return;
 }
 
+<p style="visibility: hidden" id="js-back-projectId">
+    @Model.Project.ProjectId
+</p>
+
 
 <div class="row mb-3">
     <div class="col-md-6">
@@ -28,14 +32,18 @@
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-4">
-        <h5 class="card-title mb-3">@Model.Project.Name </h5>
+        <h5 class="card-title mb-3 js-back-project-name">@Model.Project.Name </h5>
         <p>
-            by <a href="@Url.Action("Details", "User", new { id = Model.User.UserId })">
-                @Model.User.FirstName @Model.User.LastName
+            by <a href="@Url.Action("Details", "User", new { id = Model.Project.User.UserId })">
+                @Model.Project.User.FirstName @Model.Project.User.LastName
             </a>
         </p>
         <div class="progress mb-3">
-            <div class="progress-bar progress-bar-striped mb-3" style="width:@Model.Project.Percentage()"></div>
+            <div class="progress-bar progress-bar-striped mb-3" role="progressbar" style="width: 70%"  aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+
+        </div>
+        <div class="progress mb-3">
+            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <h5 class="card-title mt-3">@Model.Project.AmountGathered €</h5>
         <p class="card-text mt-3">@Model.Project.NumberOfBackers Backers</p>
@@ -63,17 +71,17 @@
 
     <div class="col-md-4">
         <h5 class="card-header reward-package">Reward Packages</h5>
-        @foreach (var rp in Model.RewardPackages)
+        @foreach (var rp in Model.Project.RewardPackages)
         {
             <div class="card mb-2 shadow p-3 mb-5 bg-white rounded">
                 <h5 class="card-header reward-packages">@rp.Name</h5>
                 <div class="card-body">
-                    <h5 class="card-title">@rp.Amount €</h5>
+                    <h5 class="card-title js-back-project-amount">@rp.Amount €</h5>
                     <p class="card-text">@rp.Description</p>
 
                     <button type="button" class="btn btn-primary mb-3"
                             data-toggle="modal" data-target="#myModal">
-                        Ckeckout Rewards
+                        Checkout Rewards
                     </button>
 
                     <div class="modal fade right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -109,9 +117,18 @@
                         </div>
                     </div>
                     <br />
-                    <a href="#" class="btn btn-primary btn-md mt-2">Buy Package</a>
+                    <a href="#" class="js-back-project-button btn btn-primary btn-md mt-2">Buy Package</a>
                 </div>
             </div>
         }
     </div>
+
+    <div class="alert alert-success js-create-success-alert" role="alert">
+        Project was successfully created!
+    </div>
+
+    <div class="alert alert-danger js-create-failed-alert" role="alert">
+        Project could not be created!
+    </div>
+
 </div>

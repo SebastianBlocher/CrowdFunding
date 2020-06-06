@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace crowdFunding.Core.Services
 {
@@ -59,17 +58,17 @@ namespace crowdFunding.Core.Services
                 StatusCode.BadRequest, "Invalid Due to date");
             }
 
-            if (options.Videos == null || options.Videos.Any() == false)
-            {
-                return Result<Project>.ActionFailed(
-                StatusCode.BadRequest, "No Videos given");
-            }
+            //if (options.Videos == null || options.Videos.Any() == false)
+            //{
+            //    return Result<Project>.ActionFailed(
+            //    StatusCode.BadRequest, "No Videos given");
+            //}
 
-            if (options.Photos == null || options.Photos.Any() == false)
-            {
-                return Result<Project>.ActionFailed(
-                StatusCode.BadRequest, "No Photos given");
-            }
+            //if (options.Photos == null || options.Photos.Any() == false)
+            //{
+            //    return Result<Project>.ActionFailed(
+            //    StatusCode.BadRequest, "No Photos given");
+            //}
 
             if ((int)options.Category < 1 || (int)options.Category > 8)
             {
@@ -95,18 +94,9 @@ namespace crowdFunding.Core.Services
                 Category = options.Category,
                 AmountRequired = options.AmountRequired.Value,
                 DueTo = options.DueTo,
-             
-            };
+                User = user
+            }; 
 
-            foreach (var photo in options.Photos)
-            {
-                project.Photos.Add(photo);
-            }
-
-            foreach (var video in options.Videos)
-            {
-                project.Videos.Add(video);
-            }
             user.CreatedProjectsList.Add(project);
 
             var rows = 0;
@@ -163,9 +153,11 @@ namespace crowdFunding.Core.Services
             }
 
             query = query.Include(p => p.Photos)
-            .Include(p => p.RewardPackages)
             .Include(p => p.Videos)
-            .Include(p => p.Posts);
+            .Include(p => p.Posts)
+            .Include(p => p.RewardPackages)
+            .ThenInclude(p => p.Rewards)
+            .Include(p => p.User);
 
             return query;
         }
@@ -180,9 +172,7 @@ namespace crowdFunding.Core.Services
             var project = SearchProject(new SearchProjectOptions()
             {
                 ProjectId = id
-            }).Include(p => p.Photos)
-            .Include(p => p.Videos)
-            .Include(p => p.Posts)
+            })
             .SingleOrDefault();
 
             return project;

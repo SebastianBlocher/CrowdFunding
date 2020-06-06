@@ -154,7 +154,7 @@ userCreateButton.on('click', () => {
         localStorage.removeItem('userName');
 
         localStorage.setItem('userId', user.userId);
-        localStorage.setItem('userName', user.firstName);
+        localStorage.setItem('userName', user.firstname);
     }).fail(failureResponse => {
         userCreateFailedAlert.html(`${failureResponse.responseCode} - User creation failed, ${failureResponse.responseText}.`);
         userCreateFailedAlert.show().delay(2000);
@@ -165,13 +165,17 @@ userCreateButton.on('click', () => {
 
 
 
-//var btnL = document.getElementById("btnLeft");
-//var btnR = document.getElementById("btnRight");
+var btnL = document.getElementById("btnLeft");
+var btnR = document.getElementById("btnRight");
 
 var content = document.getElementById("content");
+if (btnL) {
+    btnL.addEventListener("click", goLeft);
+}
 
-//btnR.addEventListener("click", goRight);
-//btnL.addEventListener("click", goLeft);
+if (btnR) {
+    btnR.addEventListener("click", goRight);
+}
 
 var clickedIndex = 0;
 
@@ -203,7 +207,6 @@ let searchButton = $('.searchBtn');
 
 
 searchInput.on('input', () => {
-    console.log("test");
     $(searchButton).attr("href", "project/search?name=" + searchInput.val());
 });
 
@@ -244,27 +247,21 @@ projectCreateButton.on('click', () => {
     createSuccesAlert.hide();
     createFailedAlert.hide();
     debugger;
-    let userid = localStorage.getItem("userId");
+    let userid = localStorage.getItem("userid");
     let name = $('.js-projectcreate-projectname');
     let description = $('.js-projectcreate-description');
     let category = $('.js-project-create-category');
     let amountrequired = $('.js-projectcreate-amountrequired');
-    let dueto = $('#js-projectcreate-dueto');
-    dueto = new Date();
-    let photos = $('#js-projectcreate-photos');
-    let videos = $('#js-projectcreate-videos');
+
     debugger;
 
 
     let data = {
-        userId: parseInt(userid),
+        userid: parseInt(userid),
         name: name.val(),
         description: description.val(),
         category: parseInt(category.val()),
-        amountRequired: parseFloat(amountrequired.val()),
-        dueTo: dueto.toISOString(),
-        photos: photos.url.val(),
-        videos: videos.url.val()
+        amountrequired: parseFloat(amountrequired.val())
     }
     debugger;
     $.ajax({
@@ -295,21 +292,20 @@ projectEditButton.on('click', () => {
     projectEditFailedAlert.hide();
 
 
-    //let projectid = localStorage.getItem("projectid");
+    let projectid = localStorage.getItem("projectid");
     let name = $('.js-projectedit-projectname');
     let description = $('.js-projectedit-description');
     let category = $('.js-projectedit-category');
     let amountrequired = $('.js-projectcreate-amountrequired');
 
     let data = {
-        //projectid: projectid.val(),
+        projectid: projectid.val(),
         name: name.val(),
         description: description.val(),
         category: parseInt(category.val()),
         amountrequired: parseFloat(amountrequired.val()),
     }
-   
-   
+
     $.ajax({
         type: 'PATCH',
         url: '/project/update',
@@ -324,5 +320,31 @@ projectEditButton.on('click', () => {
     })
 });
 
+//-------Back Project-------//
+let backProjectButton = $('.js-back-project-button');
+backProjectButton.on('click', () => {
+    let userid = localStorage.getItem("userid");
+    let projectid = document.getElementById("js-back-projectId");
+    let name = $('.js-back-projectName');
+    let amount = $('.js-back-project-amount');
 
-
+    let data = {
+        userid: parseInt(userid),
+        projectid: projectid.val(),
+        name: name.val(),
+        amount: parseFloat(amount.val())
+    }
+    debugger;
+    $.ajax({
+        type: 'POST',
+        url: '/backedProject/create',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    });
+    //    .done(_project => {
+    //    createSuccesAlert.show();
+    //}).fail(_failureResponse => {
+    //    createFailedAlert.show();
+    //});
+});
