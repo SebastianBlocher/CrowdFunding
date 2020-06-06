@@ -24,13 +24,11 @@
     </div>
 
     return;
-
 }
 
 <p style="visibility: hidden" id="js-back-projectId">
     @Model.Project.ProjectId
 </p>
-
 
 <div class="row mb-3">
     <div class="col-md-6">
@@ -55,7 +53,7 @@
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col-md-8">
+    <div class="col-md-6">
         <div class="card-body-project">
             <p class="card-text">@Model.Project.Description</p>
             @foreach (var p in Model.Project.Posts)
@@ -65,20 +63,21 @@
             }
             @foreach (var p in Model.Project.Photos)
             {
-                <div class="project-images">
+                <div class="project-photos">
                     <img src="@p.Url" width="450" height="300" class="img-fluid" alt="Image can not be displayed">
                 </div>
             }
 
-            @for (int i=1; i < Model.Project.Videos.Count(); i++)
+            @for (int i = 1; i < Model.Project.Videos.Count(); i++)
             {
-                <div class="iframe-container">
+                <div class="iframe-container mt-5">
                     <iframe width='500' height='400' src='@Model.Project.Videos.ElementAt(i).Url' frameborder="0"></iframe>
                 </div>
             }
         </div>
     </div>
 
+    <div class="col-md-2"></div>
     <div class="col-md-4">
         <h5 class="card-header reward-package">Reward Packages</h5>
         @foreach (var rp in Model.Project.RewardPackages)
@@ -89,7 +88,7 @@
                     <h5 class="card-title js-back-project-amount">@rp.Amount €</h5>
                     <p class="card-text">@rp.Description</p>
 
-                    <button type="button" class="btn btn-primary mb-3"
+                    <button type="button" class="btn see-rewards mb-3"
                             data-toggle="modal" data-target="#myModal">
                         Checkout Rewards
                     </button>
