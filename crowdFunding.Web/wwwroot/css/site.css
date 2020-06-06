@@ -238,10 +238,6 @@ body {
     margin-bottom:70px;
 }
 
-.img-fluid{
-    height:235px;
-}
-
 .about{
     margin-right:30px;
 }
@@ -297,6 +293,12 @@ body {
     }
 }
 
+#not-found-img {
+    width: 500px !important;
+    height: 350px !important;
+    padding-left:15px;
+    padding-right:15px;
+}
 
 /*#js-about-row {
     position: absolute;
