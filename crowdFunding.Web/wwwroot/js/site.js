@@ -341,10 +341,9 @@ backProjectButton.on('click', () => {
         contentType: 'application/json',
         data: JSON.stringify(data),
         dataType: 'json'
+    }).done(_project => {
+        createSuccesAlert.show();
+    }).fail(_failureResponse => {
+        createFailedAlert.show();
     });
-    //    .done(_project => {
-    //    createSuccesAlert.show();
-    //}).fail(_failureResponse => {
-    //    createFailedAlert.show();
-    //});
 });
