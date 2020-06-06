@@ -58,6 +58,11 @@
     <div class="col-md-8">
         <div class="card-body-project">
             <p class="card-text">@Model.Project.Description</p>
+            @foreach (var p in Model.Project.Posts)
+            {
+                <p class="card-text mt-3"><u>@p.CreatedOn.ToString("d")</u></p>
+                <p class="card-text mt-1">@p.Post</p>
+            }
             @foreach (var p in Model.Project.Photos)
             {
                 <div class="project-images">
@@ -65,10 +70,11 @@
                 </div>
             }
 
-            @foreach (var p in Model.Project.Posts)
+            @for (int i=1; i < Model.Project.Videos.Count(); i++)
             {
-                <p class="card-text mt-3"><u>@p.CreatedOn.ToString("d")</u></p>
-                <p class="card-text mt-1">@p.Post</p>
+                <div class="iframe-container">
+                    <iframe width='500' height='400' src='@Model.Project.Videos.ElementAt(i).Url' frameborder="0"></iframe>
+                </div>
             }
         </div>
     </div>
@@ -126,13 +132,4 @@
             </div>
         }
     </div>
-
-    <div class="alert alert-success js-create-success-alert" role="alert">
-        Project was successfully created!
-    </div>
-
-    <div class="alert alert-danger js-create-failed-alert" role="alert">
-        Project could not be created!
-    </div>
-
 </div>
