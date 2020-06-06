@@ -448,3 +448,48 @@ backProjectButton.on('click', () => {
         createFailedAlert.show();
     });
 });
+////------- User Profile--------//
+
+let aboutRow = $('#js-about-row');
+aboutRow.hide();
+
+let footer = $('#js-footer');
+let header = $('#js-header');
+
+let createdRow = $('#js-created-list-row');   
+createdRow.hide();
+
+let backedRow = $('#js-backed-list-row');
+backedRow.hide();
+
+let aboutButton = $('#js-about-button');
+aboutButton.on('click', () => {
+    aboutRow.show();
+    createdRow.hide();
+    backedRow.hide();
+    footer.show();
+
+})
+
+let backedListButton = $('#js-backedlist-button');
+backedListButton.on('click', () => {
+
+    backedRow.show();
+    aboutRow.hide();
+    createdRow.hide();
+    footer.hide();
+})
+
+let createdListButton = $('#js-createdlist-button');
+createdListButton.on('click', () => {
+
+    createdRow.show();
+    backedRow.hide();
+    aboutRow.hide();
+    footer.hide();
+})
+
+//----------------------------------//
+
+
+

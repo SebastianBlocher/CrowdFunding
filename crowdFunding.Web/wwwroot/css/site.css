@@ -214,8 +214,7 @@ body {
 }
 
 .not-found-message{
-    margin-top:50px;
-    margin-bottom:50px;
+    margin-top:50px;   
 }
 
 .modal-footer {
@@ -236,10 +235,6 @@ body {
     text-align:center;
     margin-top:60px;
     margin-bottom:70px;
-}
-
-.img-fluid{
-    height:235px;
 }
 
 .about{
@@ -263,6 +258,56 @@ body {
     padding-left: 15px;
 }
 
+#js-created-list-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+}
 
+#js-backed-list-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+}
 
+.user_row {
+    border-style: double !important;
+    border-color: #95959E !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+@media screen and (max-width: 767px) {
+    .mobile-space {
+        margin-left: 155px;
+    }
+}
+
+#not-found-img {
+    width: 500px !important;
+    height: 350px !important;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.btn-warning{
+    color:blue;
+}
+
+.alert-warning {
+    color: #df4040;
+}
+
+.box{
+    margin-top : 80px;
+}
 
