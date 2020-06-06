@@ -59,17 +59,17 @@ namespace crowdFunding.Core.Services
                 StatusCode.BadRequest, "Invalid Due to date");
             }
 
-            //if (options.Videos == null || options.Videos.Any() == false)
-            //{
-            //    return Result<Project>.ActionFailed(
-            //    StatusCode.BadRequest, "No Videos given");
-            //}
+            if (options.Videos == null || options.Videos.Any() == false)
+            {
+                return Result<Project>.ActionFailed(
+                StatusCode.BadRequest, "No Videos given");
+            }
 
-            //if (options.Photos == null || options.Photos.Any() == false)
-            //{
-            //    return Result<Project>.ActionFailed(
-            //    StatusCode.BadRequest, "No Photos given");
-            //}
+            if (options.Photos == null || options.Photos.Any() == false)
+            {
+                return Result<Project>.ActionFailed(
+                StatusCode.BadRequest, "No Photos given");
+            }
 
             if ((int)options.Category < 1 || (int)options.Category > 8)
             {
@@ -94,9 +94,19 @@ namespace crowdFunding.Core.Services
                 Description = options.Description,
                 Category = options.Category,
                 AmountRequired = options.AmountRequired.Value,
-                DueTo = options.DueTo
-            }; 
+                DueTo = options.DueTo,
+             
+            };
 
+            foreach (var photo in options.Photos)
+            {
+                project.Photos.Add(photo);
+            }
+
+            foreach (var video in options.Videos)
+            {
+                project.Videos.Add(video);
+            }
             user.CreatedProjectsList.Add(project);
 
             var rows = 0;

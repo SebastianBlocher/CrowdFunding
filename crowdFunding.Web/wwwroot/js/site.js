@@ -251,8 +251,8 @@ projectCreateButton.on('click', () => {
     let amountrequired = $('.js-projectcreate-amountrequired');
     let dueto = $('#js-projectcreate-dueto');
     dueto = new Date();
-    let photos = $('.js-projectcreate-photos');
-    let videos = $('.js-projectcreate-videos');
+    let photos = $('#js-projectcreate-photos');
+    let videos = $('#js-projectcreate-videos');
     debugger;
 
 
@@ -262,8 +262,9 @@ projectCreateButton.on('click', () => {
         description: description.val(),
         category: parseInt(category.val()),
         amountRequired: parseFloat(amountrequired.val()),
-        dueTo: dueto.toISOString()
-
+        dueTo: dueto.toISOString(),
+        photos: photos.url.val(),
+        videos: videos.url.val()
     }
     debugger;
     $.ajax({

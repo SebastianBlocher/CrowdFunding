@@ -1,72 +1,119 @@
 ﻿
+
 @{
     ViewData["Title"] = "Register";
 
 }
+    <form method="post" class="js-project-create-form">
 
+        <h4>
+            Please enter your projects' information
+        </h4>
 
-<form method="post" class="js-project-create-form">
-
-    <h4>
-        Please enter your projects' information
-    </h4>
-
-    @*<div class="form-group">
+        @*<div class="form-group">
             <label for="UserId">User ID</label>
             <input class="js-projectcreate-userid form-control" id="UserId" placeholder="Enter your user ID.">
 
         </div>*@
 
-    <div class="form-group">
-        <label for="Project Title">Project Title</label>
-        <input class="js-projectcreate-projectname form-control" id="ProjectTitle" placeholder="Enter your project's title">
+        <div class="form-group">
+            <label for="Project Title">Project Title</label>
+            <input class="js-projectcreate-projectname form-control" id="ProjectTitle" placeholder="Enter your project's title">
 
-    </div>
+        </div>
 
-    <div class="form-group">
-        <label for="dueto">Due Date</label>
-        <input type="date" id="js-projectcreate-dueto" name="Due Date">
+        <div class="form-group">
+            <label for="dueto">Due Date:</label>
+            <input type="date" id="js-projectcreate-dueto" placeholder="Due Date">
 
-    </div>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select class="js-project-create-category" placeholder="Category:">
+
+                <option value="0">Default</option>
+                <option value="1">Arts</option>
+                <option value="2">Comics Illustration</option>
+                <option value="3"> Design Tech </option>
+                <option value="4">  Film </option>
+                <option value="5">  Food & Craft </option>
+                <option value="6">  Games </option>
+                <option value="7">  Music </option>
+                <option value="8">  Publishing </option>
+
+            </select>
+        </div>
+
+        @*<div class="form-group">
+            <label for="exampleFormControlFile1">Upload your photo here</label>
+            <input type="file" class="form-control-file" id="js-projectcreate-photos">
+        </div>
+
+        <label for="basic-url">Your vanity URL</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">https://example.com/u</span>
+            </div>
+            <input type="text" class="form-control" id="js-projectcreate-photos" aria-describedby="basic-addon3">
+        </div>
 
 
-    <select class="js-project-create-category" name="Category:">
-        <option value="0">Default</option>
-        <option value="1">Arts</option>
-        <option value="2">Comics Illustration</option>
-        <option value="3"> Design Tech </option>
-        <option value="4">  Film </option>
-        <option value="5">  Food & Craft </option>
-        <option value="6">  Games </option>
-        <option value="7">  Music </option>
-        <option value="8">  Publishing </option>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Upload your video here</label>
+            <input type="file" class="form-control-file" id="js-projectcreate-videos">
+        </div>
+        <br />*@
+        <div class="form-group">
+            <label for="url">Enter an https:// URL: for your Project's Photo</label>
 
-    </select>
-    <br/>
+            <input type="url" name="url" id="js-projectcreate-photos"
+                   placeholder="https://example.com"
+                   pattern="https://.*" size="30"
+                   required>
+        </div>
 
-    <div class="form-group">
-        <label for="Description">Project Description</label>
-        <input class="js-projectcreate-description form-control" id="ProjectDesc" placeholder="Description.">
+        <div class="form-group">
+            <label for="url">Enter an https:// URL:</label>
 
-    </div>
+            <input type="url" name="url" id="js-projectcreate-videos"
+                   placeholder="https://example.com"
+                   pattern="https://.*" size="30"
+                   required>
+        </div>
 
-    <div class="form-group">
-        <label for="Amount">Project Amount</label>
-        <input class="js-projectcreate-amountrequired form-control" id="ProjectAm" placeholder="Amount Required">
+        <div class="form-group">
+            <label for="Description">Project Description</label>
+            <textarea class="js-projectcreate-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3"></textarea>
 
-    </div>
+        </div>
 
-    <button type="button" class="js-projectcreate-submit-button btn btn-primary">
-        Create
-    </button>
+        @*<div class="form-group">
+            <label for="Amount">Project Amount</label>
+            <input class="js-projectcreate-amountrequired form-control" id="ProjectAm" placeholder="Amount Required">
 
-    <div class="alert alert-success js-create-success-alert" role="alert">
-        Project was successfully created!
-    </div>
+        </div>*@
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">€</span>
+            </div>
+            <input type="text" class="js-projectcreate-amountrequired form-control" aria-label="Amount Required">
+            <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+            </div>
+        </div>
 
-    <div class="alert alert-danger js-create-failed-alert" role="alert">
-        Project could not be created!
-    </div>
-</form>
+        <button type="button" class="js-projectcreate-submit-button btn btn-primary">
+            Create
+        </button>
+
+        <div class="alert alert-success js-create-success-alert" role="alert">
+            Project was successfully created!
+        </div>
+
+        <div class="alert alert-danger js-create-failed-alert" role="alert">
+            Project could not be created!
+        </div>
+    </form>
 
 
