@@ -87,12 +87,10 @@ userLogOutButton.on('click', () => {
 let homePageCreateButton = $('#js-createNewProject');
 homePageCreateButton.on('click', () => {
 
-
+    if (!localStorage.getItem("userId")) {
         $('#myCreateLoginModal').modal('show');
     }
     else {
-        //Html.ActionLink("createProject", "Register", "Project", null, null)
-        //return RedirectToAction("Register", "Project");
         var url = $("#RedirectTo").val();
         location.href = url;
     }
@@ -348,8 +346,7 @@ projectCreateButton.on('click', () => {
     let description = $('.js-projectcreate-description');
     let category = $('.js-project-create-category');
     let amountrequired = $('.js-projectcreate-amountrequired');
-    let dueto = $('#js-projectcreate-dueto');
-    dueto = new Date();
+    let dueto = new Date($('#js-projectcreate-dueto').val());
     let photos = $('#js-projectcreate-photos');
     let videos = $('#js-projectcreate-videos');
     debugger;
@@ -362,7 +359,7 @@ projectCreateButton.on('click', () => {
         category: parseInt(category.val()),
         amountRequired: parseFloat(amountrequired.val()),
         dueTo: dueto.toISOString(),
-        photos: photos.url.val(),
+        photos: JSON.parse("[" + photos.val() + "]"),
         videos: videos.url.val()
     }
     debugger;
