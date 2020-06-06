@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace crowdFunding.Core.Migrations
 {
-    public partial class photo : Migration
+    public partial class backedProj_overhaul : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,31 +25,6 @@ namespace crowdFunding.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BackedProjects",
-                columns: table => new
-                {
-                    BackedProjectsId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProjectId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    BackedOn = table.Column<DateTimeOffset>(nullable: false),
-                    Amount = table.Column<decimal>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Category = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BackedProjects", x => x.BackedProjectsId);
-                    table.ForeignKey(
-                        name: "FK_BackedProjects_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,6 +138,41 @@ namespace crowdFunding.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BackedProjects",
+                columns: table => new
+                {
+                    BackedProjectsId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Category = table.Column<int>(nullable: false),
+                    NumberOfBackers = table.Column<int>(nullable: false),
+                    PhotoId = table.Column<int>(nullable: true),
+                    ProjectCreatorId = table.Column<int>(nullable: false),
+                    ProjectCreatorFirstName = table.Column<string>(nullable: true),
+                    ProjectCreatorLastName = table.Column<string>(nullable: true),
+                    Amount = table.Column<decimal>(nullable: false),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BackedProjects", x => x.BackedProjectsId);
+                    table.ForeignKey(
+                        name: "FK_BackedProjects_Photo_PhotoId",
+                        column: x => x.PhotoId,
+                        principalTable: "Photo",
+                        principalColumn: "PhotoId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BackedProjects_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reward",
                 columns: table => new
                 {
@@ -181,6 +191,11 @@ namespace crowdFunding.Core.Migrations
                         principalColumn: "RewardPackageId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BackedProjects_PhotoId",
+                table: "BackedProjects",
+                column: "PhotoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BackedProjects_UserId",
@@ -224,9 +239,6 @@ namespace crowdFunding.Core.Migrations
                 name: "BackedProjects");
 
             migrationBuilder.DropTable(
-                name: "Photo");
-
-            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
@@ -234,6 +246,9 @@ namespace crowdFunding.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Video");
+
+            migrationBuilder.DropTable(
+                name: "Photo");
 
             migrationBuilder.DropTable(
                 name: "RewardPackage");

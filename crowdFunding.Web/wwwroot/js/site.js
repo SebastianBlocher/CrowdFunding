@@ -169,9 +169,13 @@ var btnL = document.getElementById("btnLeft");
 var btnR = document.getElementById("btnRight");
 
 var content = document.getElementById("content");
+if (btnL) {
+    btnL.addEventListener("click", goLeft);
+}
 
-btnR.addEventListener("click", goRight);
-btnL.addEventListener("click", goLeft);
+if (btnR) {
+    btnR.addEventListener("click", goRight);
+}
 
 var clickedIndex = 0;
 
@@ -319,38 +323,22 @@ projectEditButton.on('click', () => {
 
 
 ////------- User Profile--------//
-//var aboutRow = document.getElementById("js-about-row");
-//aboutRow.hide();
-
-//let aboutRow = $('#js-about-row');
-//aboutRow.hide();
-
-//let createdRow =      
-//createdRow.hide();
-
-////let backedRow = $('#js-backed-list-row');
-////backedRow.hide();
 
 //let aboutButton = $('#js-about-button');
 //aboutButton.on('click', () => {
-//    aboutRow.show();
-//    createdRow.hide();
+;
     
 //})
 
 ////let backedListButton = $('#js-backedlist-button');
 ////backedListButton.on('click', () => {
 
-////    backedRow.show();
-////    aboutRow.hide();
-////    createdRow.hide();
+
 ////})
 
 //let createdListButton = $('#js-createdlist-button');
 //createdListButton.on('click', () => {
 
-//    createdRow.show();
-//    aboutRow.hide();
 //})
 
 //----------------------------------//

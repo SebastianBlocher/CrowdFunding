@@ -2,7 +2,6 @@
 using crowdFunding.Core.Model;
 using crowdFunding.Core.Services.Interfaces;
 using crowdFunding.Core.Services.Options.Create;
-using crowdFunding.Core.Services.Options.Search;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -52,19 +51,37 @@ namespace crowdFunding.Core.Services
             {
                 return Result<BackedProjects>.ActionFailed(
                   StatusCode.BadRequest, "Invalid ProjectId");
-            }
+            }           
 
             var backedProject = new BackedProjects()
             {
                 Amount = options.Amount,
-                ProjectId = projectId,
+                ProjectId = project.ProjectId,
                 Name = project.Name,
                 Category = project.Category,
-                Description = project.Description                
+                Description = project.Description,
+                Photo = project.Photos.ElementAt(0).Url,
+                NumberOfBackers = project.NumberOfBackers,
+                ProjectCreatorId = project.UserId,
+                ProjectCreatorFirstName = project.User.FirstName ,
+                ProjectCreatorLastName = project.User.LastName
             };
 
-            project.NumberOfBackers += 1;
-            project.AmountGathered += options.Amount;
+            var backedProjectIds = user.BackedProjectsList
+                .Select(s => s.ProjectId).ToList();
+
+            if (backedProjectIds.Contains(project.ProjectId))
+            {
+                project.AmountGathered += options.Amount;               
+
+                context_.SaveChanges();
+
+                return Result<BackedProjects>.ActionFailed(
+                    StatusCode.OK,
+                    "Reward Package was succesfully purchased");
+            }
+
+            project.NumberOfBackers += 1;            
 
             project.AmountGathered += options.Amount;
 
@@ -90,62 +107,6 @@ namespace crowdFunding.Core.Services
             }
 
             return Result<BackedProjects>.ActionSuccessful(backedProject);
-        }
-
-        public IQueryable<BackedProjects> SearchBackedProjects(SearchBackedProjectsOptions options)
-        {
-            if (options == null || options.UserId == null)
-            {
-                return null;
-            }
-
-            var user = userService_
-                .GetById(options.UserId)
-                .Include(c => c.BackedProjectsList)
-                .SingleOrDefault();
-
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            var backedProjects = user.BackedProjectsList.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(options.Name))
-            {
-                backedProjects = backedProjects.Where(bp => bp.Name == options.Name);
-            }
-            if (!string.IsNullOrWhiteSpace(options.Description))
-            {
-                backedProjects = backedProjects.Where(bp => bp.Description == options.Description);
-            }
-            if (options.Category != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Category == options.Category.Value);
-            }
-            if (options.ProjectId != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.ProjectId == options.ProjectId.Value);
-            }
-            if (options.BackedFrom != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.BackedOn >= options.BackedFrom.Value);
-            }
-            if (options.BackedTo != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.BackedOn <= options.BackedTo.Value);
-            }
-            if (options.AmountFrom != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Amount >= options.AmountFrom.Value);
-            }
-            if (options.AmountTo != null)
-            {
-                backedProjects = backedProjects.Where(bp => bp.Amount <= options.AmountTo.Value);
-            }
-
-            return backedProjects;
         }
     }
 }
