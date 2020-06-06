@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
-
 </head>
 <body style="background-color: #7ccedc">
     <header>
@@ -23,8 +22,8 @@
                         <li class="nav-item dropdown">
                             <a id="usr" href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">User</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogIn" data-target="#myModal">Log In</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsSignUp">Sign Up</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogIn" data-target="#myLoginModal">Log In</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Register", "User")" class="nav-link text-dark sign-up" style="display:none" id="jsSignUp">Sign Up</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsMyProfile">My Profile</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsEditProfile">Edit Profile</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsCreatedProjects">Created Projects</a></li>
@@ -45,11 +44,12 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Create</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Project" id="js-createNewProject" asp-action="Register">Create</a>
                         </li>
+
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Project">Project</a>
-                            </li>*@
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Project">Project</a>
+                        </li>*@
                     </ul>
                 </div>
                 <div class="search-container">
@@ -60,6 +60,64 @@
                 </div>
             </div>
         </nav>
+
+        @*Login modal Popup*@
+        <div class="modal fade" tabindex="-1" role="dialog" id="myLoginModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#7ccedc">
+                        <h5 class="modal-title">Please enter your information</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-group">
+                            <label for="First Name">User</label>
+                            <input class="js-userlogin-firstname form-control" id="FirstName" placeholder="Enter your first name.">
+                        </div>
+                        <div class="modal-group">
+                            <label for="Email">Email Address</label>
+                            <input class="js-userlogin-email form-control" id="Email" placeholder="Enter your e-mail address">
+                        </div>
+                        <div class="alert alert-success js-userlogin-success-alert" role="alert">
+                            User was successfully updated!
+                        </div>
+                        <div class="alert alert-danger js-userlogin-fail-alert" role="alert">
+                            User could not be updated!
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="background-color:#7ccedc">
+                        <button type="button" class="btn btn-primary" id="jsLoginButton">Login</button>
+                        <button type="button" class="btn btn-secondary js-modal-login-close" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Create - not logged in modal popup*@
+        <div class="modal fade" tabindex="-1" role="dialog" id="myCreateLoginModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#7ccedc">
+                        <h5 class="modal-title">Please enter your information</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger js-userlogin-fail-alert" role="alert">
+                            User could not be updated!
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="background-color:#7ccedc">
+                        <button type="button" class="btn btn-primary" id="jsLoginButton">Login</button>
+                        <button type="button" class="btn btn-secondary js-modal-login-close" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

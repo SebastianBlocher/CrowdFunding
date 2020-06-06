@@ -6,6 +6,8 @@ using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
 using crowdFunding.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System;
 using System.Diagnostics;
 using System.Linq;
 
@@ -34,6 +36,7 @@ namespace crowdFunding.Web.Controllers
         {
             return View();
         }
+
         [HttpGet("edit")]
         public IActionResult Edit(int? id)
         {
@@ -59,19 +62,23 @@ namespace crowdFunding.Web.Controllers
         [HttpGet("{id}")]
         public IActionResult Details(int? id)
         {
+            var proj = projectService.GetProjectById(id);
+
+            if (proj == null) return View(null);
+
             var viewModel = new ProjectViewModel()
             {
-                Project = projectService.GetProjectById(id),
+                Project = proj,
 
-                RewardPackages = context.Set<RewardPackage>()
-                .ToList(),
+                RewardPackages = proj.RewardPackages,
 
-                Rewards = context.Set<Reward>()
-                .ToList(),
-
-                User = context.Set<User>().SingleOrDefault()
-
+                User = proj.User,
             };
+            
+            foreach (var rw in proj.RewardPackages)
+            {
+                viewModel.Rewards = rw.Rewards;
+            }
 
             return View(viewModel);
         }

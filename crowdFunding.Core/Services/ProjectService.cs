@@ -173,6 +173,9 @@ namespace crowdFunding.Core.Services
             }).Include(p => p.Photos)
             .Include(p => p.Videos)
             .Include(p => p.Posts)
+            .Include(p => p.User)
+            .Include(p => p.RewardPackages)
+                .ThenInclude(p => p.Rewards)
             .SingleOrDefault();
 
             return project;
