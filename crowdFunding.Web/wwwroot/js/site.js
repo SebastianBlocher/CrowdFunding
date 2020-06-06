@@ -65,9 +65,9 @@ homePageCreateButton.on('click', () => {
 
     if (localStorage.getItem('userId') == null) {
 
-        $('#myLoginModal').modal('show');
+        $('#myCreateLoginModal').modal('show');
     }
-});//na kanw neo modal
+});
 
 //**************************************************
 //Edit User JS
