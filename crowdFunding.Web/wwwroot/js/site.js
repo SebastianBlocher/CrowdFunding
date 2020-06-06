@@ -1,9 +1,6 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-// Write your JavaScript code.
-
-
 //**************************************************
 //Login User JS
 //**************************************************
@@ -18,6 +15,18 @@ userLoginSuccessAlert.hide();
 
 let userLoginFailedAlert = $('.js-userlogin-fail-alert');
 userLoginFailedAlert.hide();
+
+$("#login-FirstName").keyup(function (event) {
+    if (event.keyCode === 13) {
+        $("#jsLoginButton").click();
+    }
+});
+
+$("#login-Email").keyup(function (event) {
+    if (event.keyCode === 13) {
+        $("#jsLoginButton").click();
+    }
+});
 
 let userLoginButton = $('#jsLoginButton');
 userLoginButton.on('click', () => {
@@ -59,6 +68,86 @@ userLoginButton.on('click', () => {
     })
 });
 
+//**************************************************
+//Log Out User JS
+//**************************************************
+let userLogOutButton = $('#jsLogOut');
+userLogOutButton.on('click', () => {
+
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+
+    var url = "/Home/Index/";
+    window.location.href = url;
+});
+
+//**************************************************
+//Create New Project Check for Logged In User
+//**************************************************
+let homePageCreateButton = $('#js-createNewProject');
+homePageCreateButton.on('click', () => {
+
+
+        $('#myCreateLoginModal').modal('show');
+    }
+    else {
+        //Html.ActionLink("createProject", "Register", "Project", null, null)
+        //return RedirectToAction("Register", "Project");
+        var url = $("#RedirectTo").val();
+        location.href = url;
+    }
+});
+
+
+//**************************************************
+//Edit Profile JS
+//**************************************************
+let editprofileButton = $('#jsEditProfile');
+editprofileButton.on('click', () => {
+    
+    let userid = localStorage.getItem('userId');
+
+    var url = "/User/Edit/" + parseInt(userid);
+    window.location.href = url;
+});
+
+
+//**************************************************
+//Disable User JS
+//**************************************************
+let disableUserButton = $('#jsDisableUser');
+disableUserButton.on('click', () => {
+
+    let userid = localStorage.getItem('userId');
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/user/' + parseInt(userid),
+    }).done(user => {
+        
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+
+        var url = "/Home/Index/";
+        window.location.href = url;
+
+    }).fail(failureResponse => {
+
+    })
+})
+
+//**************************************************
+//My Profile JS
+//**************************************************
+let myprofileButton = $('#jsMyProfile');
+myprofileButton.on('click', () => {
+    
+    let userid = localStorage.getItem('userId');
+
+    var url = "/User/MyProfile/" + parseInt(userid);
+    window.location.href = url;
+});
+
 
 //**************************************************
 //Edit User JS
@@ -74,7 +163,7 @@ userEditButton.on('click', () => {
     userEditSuccessAlert.hide();
     userEditFailedAlert.hide();
 
-    let userid = document.getElementById("userId").innerHTML;
+    let userid = localStorage.getItem('userId');
 
     let firstname = $('.js-useredit-firstname');
     let lastname = $('.js-useredit-lastname');
@@ -102,6 +191,11 @@ userEditButton.on('click', () => {
         userEditSuccessAlert.html(`Customer with id ${user.userId} was updated.`);
         userEditSuccessAlert.show().delay(2000);
         userEditSuccessAlert.fadeOut();
+
+        localStorage.setItem('userName', user.firstName);
+
+        location.reload();
+
     }).fail(failureResponse => {
         userEditFailedAlert.show();
         userEditFailedAlert.show().delay(2000);
@@ -154,7 +248,11 @@ userCreateButton.on('click', () => {
         localStorage.removeItem('userName');
 
         localStorage.setItem('userId', user.userId);
-        localStorage.setItem('userName', user.firstname);
+        localStorage.setItem('userName', user.firstName);
+
+        var url = "/Home/Index/";
+        window.location.href = url;
+
     }).fail(failureResponse => {
         userCreateFailedAlert.html(`${failureResponse.responseCode} - User creation failed, ${failureResponse.responseText}.`);
         userCreateFailedAlert.show().delay(2000);
@@ -218,8 +316,7 @@ let logIn = $('#jsLogIn');
 let signUp = $('#jsSignUp');
 let myProfile = $('#jsMyProfile');
 let editProfile = $('#jsEditProfile');
-let createdProjects = $('#jsCreatedProjects');
-let backedProjects = $('#jsBackedProjects');
+let logOutButton = $('#jsLogOut');
 
 
 
@@ -227,8 +324,7 @@ if (localStorage.getItem('userId') != null) {
     $(user).text(localStorage.getItem('userName'));
     myProfile.show();
     editProfile.show();
-    createdProjects.show();
-    backedProjects.show();
+    logOutButton.show();
 }
 else {
     logIn.show();
@@ -291,8 +387,7 @@ projectEditButton.on('click', () => {
     projectEditSuccessAlert.hide();
     projectEditFailedAlert.hide();
 
-
-    let projectid = localStorage.getItem("projectid");
+    //let projectid = localStorage.getItem("projectid");
     let name = $('.js-projectedit-projectname');
     let description = $('.js-projectedit-description');
     let category = $('.js-projectedit-category');

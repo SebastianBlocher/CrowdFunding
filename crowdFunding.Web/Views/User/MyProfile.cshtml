@@ -1,8 +1,9 @@
 ﻿@model UserViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "MyProfile";
 }
+
 
 @if (Model.User == null)
 {
@@ -70,6 +71,8 @@
         </div>
     </div>
 
+
+
     <div class="row user_row mt-3" id="js-backed-list-row">
 
         @foreach (var p in Model.User.BackedProjectsList)
@@ -86,11 +89,11 @@
                         <!-- Text -->
                         <p class="card-text mt-2">@p.Description</p>
                         <ul class="list-group list-group-flush">
-                            @*<li class="list-group-item">
-                                by <a href="@Url.Action("Details", "User", new { id = p.ProjectCreatorId })">
+                            <li class="list-group-item">
+                                @*by <a href="@Url.Action("Details", "User", new { id = p.ProjectCreatorId })">
                                     @p.ProjectCreatorFirstName @p.ProjectCreatorLastName
-                                </a>, backed by @p.NumberOfBackers
-                            </li>*@
+                                </a>, backed by @p.NumberOfBackers*@
+                            </li>
                         </ul>
                         <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
                     </div>
@@ -130,3 +133,5 @@
         }
     </div>
 </div>
+
+
