@@ -14,13 +14,13 @@ namespace crowdFunding.Core.Services.Options.Create
         public decimal? AmountRequired { get; set; }
         public DateTime DueTo { get; set; }
         public DateTime CreatedOn { get; set; }
-        public List<Photo> Photos { get; set; }
-        public List<Video> Videos { get; set; }
+        public List<string> Photos { get; set; }
+        public List<string> Videos { get; set; }
 
         public CreateProjectOptions()
         {
-            Photos = new List<Photo>();
-            Videos = new List<Video>();
+            Photos = new List<string>();
+            Videos = new List<string>();
             CreatedOn = DateTime.Today;
             DueTo = new DateTime();
         }
