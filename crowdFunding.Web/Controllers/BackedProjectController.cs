@@ -27,7 +27,7 @@ namespace crowdFunding.Web.Controllers
             int projectId,
             [FromBody]CreateBackedProjectOptions options)
         {
-            var result = backedProjectsService.CreateBackedProject(userId, projectId, options);
+            var result = backedProjectsService.CreateBackedProject(options);
 
             if (!result.Success)
             {

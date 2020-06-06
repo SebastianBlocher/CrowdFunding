@@ -23,8 +23,7 @@ namespace crowdFunding.Core.Services
             projectService_ = projectService;
         }
 
-        public Result<BackedProjects> CreateBackedProject(int userId,
-            int projectId,
+        public Result<BackedProjects> CreateBackedProject(
             CreateBackedProjectOptions options)
         {
             if (options == null)
@@ -34,7 +33,7 @@ namespace crowdFunding.Core.Services
             }
 
             var user = userService_
-            .GetById(userId)
+            .GetById(options.UserId)
             .Include(x => x.BackedProjectsList)
             .SingleOrDefault();
 
@@ -45,7 +44,7 @@ namespace crowdFunding.Core.Services
             }
 
             var project = projectService_
-                .GetProjectById(projectId);                
+                .GetProjectById(options.ProjectId);                
 
             if (project == null)
             {

@@ -9,7 +9,7 @@
 //**************************************************
 let loginButton = $('#jsLogIn');
 loginButton.on('click', () => {
-    
+
     $('#myLoginModal').modal('show');
 })
 
@@ -21,7 +21,7 @@ userLoginFailedAlert.hide();
 
 let userLoginButton = $('#jsLoginButton');
 userLoginButton.on('click', () => {
-    
+
     userLoginSuccessAlert.hide();
     userLoginFailedAlert.hide();
 
@@ -32,7 +32,7 @@ userLoginButton.on('click', () => {
         firstName: firstname.val(),
         email: email.val(),
     }
-    
+
     $.ajax({
         type: 'POST',
         url: '/user/login',
@@ -90,7 +90,7 @@ userEditButton.on('click', () => {
         country: country.val(),
         description: description.val()
     }
-    
+
     $.ajax({
         type: 'PATCH',
         url: '/user/update',
@@ -149,7 +149,7 @@ userCreateButton.on('click', () => {
         userCreateSuccessAlert.html(`A user with id ${user.userId} was created.`);
         userCreateSuccessAlert.show().delay(2000);
         userCreateSuccessAlert.fadeOut();
-        
+
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
 
@@ -194,7 +194,7 @@ function goLeft() {
 }
 
 $('.nav-link').on('click', (event) => {
-    
+
     //event.target
 });
 
@@ -207,7 +207,6 @@ let searchButton = $('.searchBtn');
 
 
 searchInput.on('input', () => {
-    console.log("test");
     $(searchButton).attr("href", "project/search?name=" + searchInput.val());
 });
 
@@ -292,7 +291,7 @@ projectEditButton.on('click', () => {
     projectEditSuccessAlert.hide();
     projectEditFailedAlert.hide();
 
-  
+
     let projectid = localStorage.getItem("projectid");
     let name = $('.js-projectedit-projectname');
     let description = $('.js-projectedit-description');
@@ -314,34 +313,38 @@ projectEditButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(project => {
-      projectEditSuccessAlert.show().delay(2000);
-      }).fail(failureResponse => {
+        projectEditSuccessAlert.show().delay(2000);
+    }).fail(failureResponse => {
         projectEditFailedAlert.show();
-        
+
     })
 });
 
+//-------Back Project-------//
+let backProjectButton = $('.js-back-project-button');
+backProjectButton.on('click', () => {
+    let userid = localStorage.getItem("userid");
+    let projectid = document.getElementById("js-back-projectId");
+    let name = $('.js-back-projectName');
+    let amount = $('.js-back-project-amount');
 
-////------- User Profile--------//
-
-//let aboutButton = $('#js-about-button');
-//aboutButton.on('click', () => {
-;
-    
-//})
-
-////let backedListButton = $('#js-backedlist-button');
-////backedListButton.on('click', () => {
-
-
-////})
-
-//let createdListButton = $('#js-createdlist-button');
-//createdListButton.on('click', () => {
-
-//})
-
-//----------------------------------//
-
-
-
+    let data = {
+        userid: parseInt(userid),
+        projectid: projectid.val(),
+        name: name.val(),
+        amount: parseFloat(amount.val())
+    }
+    debugger;
+    $.ajax({
+        type: 'POST',
+        url: '/backedProject/create',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    });
+    //    .done(_project => {
+    //    createSuccesAlert.show();
+    //}).fail(_failureResponse => {
+    //    createFailedAlert.show();
+    //});
+});
