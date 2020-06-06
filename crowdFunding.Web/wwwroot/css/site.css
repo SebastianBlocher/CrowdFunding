@@ -283,7 +283,7 @@ body {
     height: 100%;
 }
 
-#js-about-row {
+/*#js-about-row {
     position: absolute;
     top: 0;
     left: 0;
@@ -291,6 +291,11 @@ body {
     bottom: 0;
     right: 0;
     height: 100%;
-}
+}*/
 
+/*@media screen and (max-width: 767px) {
+    .mobile-space {
+        margin-left: 155px;
+    }
+}*/
 

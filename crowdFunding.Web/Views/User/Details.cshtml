@@ -43,7 +43,18 @@
     </div>
 </div>
 
-    <div class="row" id="js-backed-list-row">
+<div class="row mt-3" id="js-about-row">
+    <div class="col-md-3"></div>
+    <h3 class="user_description mobile-space mt-2">
+        Description
+    </h3>
+    <div class="col-md-1"></div>
+    <p class="user_desc mt-2">@Model.User.Description</p>
+</div>
+
+<div class="overlaping position-relative">
+
+    <div class="row mt-3" id="js-backed-list-row">
 
         @foreach (var p in Model.User.BackedProjectsList)
         {
@@ -70,51 +81,38 @@
                 </div>
             </div>
         }
-
     </div>
 
+    <div class="row mt-3" id="js-created-list-row">
 
-
-
-<div class="row" id="js-about-row">
-    <div class="col-md-3"></div>
-    <h3 class="user_description mobile-space mt-2">
-        Description
-    </h3>
-    <div class="col-md-1"></div>
-    <p class="user_desc mt-2">@Model.User.Description</p>
-</div>
-
-<div class="row" id="js-created-list-row">
-
-    @foreach (var p in Model.User.CreatedProjectsList)
-    {
-        <div class="col-md-4">
-            <div class="card mb-2 mt-4 shadow mb-5 bg-white rounded">
-                <!-- Card image -->
-                <img class="card-img-top img-fluid project_photo" src="@p.Photos.ElementAt(0).Url"
-                     alt="Image can not be displayed" width="400" height="250">
-                <!-- Card content -->
-                <div class="card-body">
-                    <!-- Title -->
-                    <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
-                    <!-- Text -->
-                    <p class="card-text mt-2">@p.Description</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            by <a href="@Url.Action("Details", "User", new { id = Model.User.UserId })">
-                                @Model.User.FirstName @Model.User.LastName
-                            </a>
-                        </li>
-                        <li class="list-group-item">@p.AmountGathered €</li>
-                        <li class="list-group-item">@p.Percentage() funded</li>
-                    </ul>
-                    <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+        @foreach (var p in Model.User.CreatedProjectsList)
+        {
+            <div class="col-md-4">
+                <div class="card mb-2 mt-4 shadow mb-5 bg-white rounded">
+                    <!-- Card image -->
+                    <img class="card-img-top img-fluid project_photo" src="@p.Photos.ElementAt(0).Url"
+                         alt="Image can not be displayed" width="400" height="250">
+                    <!-- Card content -->
+                    <div class="card-body">
+                        <!-- Title -->
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
+                        <!-- Text -->
+                        <p class="card-text mt-2">@p.Description</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                by <a href="@Url.Action("Details", "User", new { id = Model.User.UserId })">
+                                    @Model.User.FirstName @Model.User.LastName
+                                </a>
+                            </li>
+                            <li class="list-group-item">@p.AmountGathered €</li>
+                            <li class="list-group-item">@p.Percentage() funded</li>
+                        </ul>
+                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-
+        }
+    </div>
 </div>
 
 
