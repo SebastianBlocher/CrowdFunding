@@ -104,7 +104,7 @@ let editprofileButton = $('#jsEditProfile');
 editprofileButton.on('click', () => {
     
     let userid = localStorage.getItem('userId');
-
+    
     var url = "/User/Edit/" + parseInt(userid);
     window.location.href = url;
 });
@@ -317,7 +317,6 @@ let editProfile = $('#jsEditProfile');
 let logOutButton = $('#jsLogOut');
 
 
-
 if (localStorage.getItem('userId') != null) {
     $(user).text(localStorage.getItem('userName'));
     myProfile.show();
@@ -340,29 +339,29 @@ let projectCreateButton = $('.js-projectcreate-submit-button');
 projectCreateButton.on('click', () => {
     createSuccesAlert.hide();
     createFailedAlert.hide();
-    debugger;
-    let userid = localStorage.getItem("userid");
+    
+    let userid = localStorage.getItem("userId");
     let name = $('.js-projectcreate-projectname');
     let description = $('.js-projectcreate-description');
     let category = $('.js-project-create-category');
     let amountrequired = $('.js-projectcreate-amountrequired');
+
     let dueto = new Date($('#js-projectcreate-dueto').val());
-    let photos = $('#js-projectcreate-photos');
-    let videos = $('#js-projectcreate-videos');
-    debugger;
-
-
+    
+    let photos = $('#js-projectcreate-photos').val();
+    let videos = $('#js-projectcreate-videos').val();
+    
     let data = {
         userid: parseInt(userid),
         name: name.val(),
         description: description.val(),
         category: parseInt(category.val()),
         amountRequired: parseFloat(amountrequired.val()),
-        dueTo: dueto.toISOString(),
-        photos: JSON.parse("[" + photos.val() + "]"),
-        videos: videos.url.val()
-    }
-    debugger;
+        dueTo: dueto,
+        photos: [(photos)],
+        videos: [(videos)]
+    };
+    
     $.ajax({
         type: 'POST',
         url: '/project/create',
@@ -374,8 +373,6 @@ projectCreateButton.on('click', () => {
     }).fail(_failureResponse => {
         createFailedAlert.show();
     });
-    debugger;
-
 });
 
 //-------Edit Project-------//
@@ -432,7 +429,7 @@ backProjectButton.on('click', () => {
         name: name.val(),
         amount: parseFloat(amount.val())
     }
-    debugger;
+    
     $.ajax({
         type: 'POST',
         url: '/backedProject/create',

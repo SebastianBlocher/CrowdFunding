@@ -99,12 +99,20 @@ namespace crowdFunding.Core.Services
 
             foreach (var photo in options.Photos)
             {
-                project.Photos.Add(photo);
+                var a = new Photo()
+                {
+                    Url = photo,
+                };
+                project.Photos.Add(a);
             }
 
             foreach (var video in options.Videos)
             {
-                project.Videos.Add(video);
+                var v = new Video()
+                {
+                    Url = video,
+                };
+                project.Videos.Add(v);
             }
             user.CreatedProjectsList.Add(project);
 
