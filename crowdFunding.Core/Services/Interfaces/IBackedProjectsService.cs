@@ -5,6 +5,7 @@ namespace crowdFunding.Core.Services.Interfaces
 {
     public interface IBackedProjectsService
     {
-        Result<BackedProjects> CreateBackedProject(int userId,int projectId, CreateBackedProjectOptions options);               
+        //Result<BackedProjects> CreateBackedProject(int userId,int projectId, CreateBackedProjectOptions options);
+        Result<BackedProjects> CreateBackedProject(CreateBackedProjectOptions options);
     }
 }

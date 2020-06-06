@@ -26,6 +26,7 @@ namespace crowdFunding.Core.Model
             RewardPackages = new List<RewardPackage>();
             NumberOfBackers = 0;
             AmountGathered = 0;
+            DueTo = new DateTime();
             Posts = new List<Posts>();
             Photos = new List<Photo>();
             Videos = new List<Video>();

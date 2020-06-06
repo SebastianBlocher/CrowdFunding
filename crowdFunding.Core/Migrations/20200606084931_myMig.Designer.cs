@@ -10,8 +10,8 @@ using crowdFunding.Core.Data;
 namespace crowdFunding.Core.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    [Migration("20200605201819_photo")]
-    partial class photo
+    [Migration("20200606084931_myMig")]
+    partial class myMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
