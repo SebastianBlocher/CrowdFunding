@@ -1,4 +1,5 @@
 ﻿using crowdFunding.Core.Model;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 
@@ -21,6 +22,7 @@ namespace crowdFunding.Core.Services.Options.Create
             Photos = new List<Photo>();
             Videos = new List<Video>();
             CreatedOn = DateTime.Today;
+            DueTo = new DateTime();
         }
     }   
 }

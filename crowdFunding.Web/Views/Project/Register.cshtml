@@ -4,19 +4,11 @@
 
 }
 
-@if (Model == null)
-{
-    <div class="alert alert-warning" role="alert">
-        Project not found
-    </div>
-
-    return;
-}
 
 <form method="post" class="js-project-create-form">
 
     <h4>
-        Please enter your projects' info
+        Please enter your projects' information
     </h4>
 
     @*<div class="form-group">
@@ -27,23 +19,30 @@
 
     <div class="form-group">
         <label for="Project Title">Project Title</label>
-        <input class="js-projectcreate-projectname form-control" id="ProjectTitle" placeholder="Enter your project's Title.">
+        <input class="js-projectcreate-projectname form-control" id="ProjectTitle" placeholder="Enter your project's title">
+
+    </div>
+
+    <div class="form-group">
+        <label for="dueto">Due Date</label>
+        <input type="date" id="js-projectcreate-dueto" name="Due Date">
 
     </div>
 
 
-    <select class="js-project-create-category">
+    <select class="js-project-create-category" name="Category:">
         <option value="0">Default</option>
         <option value="1">Arts</option>
         <option value="2">Comics Illustration</option>
         <option value="3"> Design Tech </option>
         <option value="4">  Film </option>
-        <option value="5">  Food_Craft </option>
+        <option value="5">  Food & Craft </option>
         <option value="6">  Games </option>
         <option value="7">  Music </option>
         <option value="8">  Publishing </option>
 
     </select>
+    <br/>
 
     <div class="form-group">
         <label for="Description">Project Description</label>
@@ -69,3 +68,5 @@
         Project could not be created!
     </div>
 </form>
+
+
