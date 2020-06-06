@@ -100,6 +100,8 @@ namespace crowdFunding.Core.Services
             }
 
             user.IsActive = false;
+            user.FirstName = "";
+            user.Email = "";
 
             if (user.CreatedProjectsList != null)
             {

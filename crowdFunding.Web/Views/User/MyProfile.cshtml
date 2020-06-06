@@ -1,0 +1,137 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "MyProfile";
+}
+
+
+@if (Model.User == null)
+{
+    <div class="row text-center">
+        <div class="col-md-3"></div>
+        <div class="box">
+            <div class="content-project">
+                <div class="not-found-image">
+                    <img src="https://www.cdgi.com/wp-content/uploads/2019/05/404-Pages-1112x556.jpg" width="500" height="350" id="not-found-img" class="img-fluid" alt="Image can not be displayed">
+                </div>
+                <div class="alert alert-warning not-found-message text-center">
+                    Oops! We can't find the user you are looking for
+                </div>
+                <a class="btn btn-warning" href="@Url.Action("Index", "Home")" role="button">Take me home</a>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+    return;
+}
+
+
+<div class="row">
+    <div class="col-4"></div>
+    <div class="profile_bio center mb6">
+        <h2 class="mb3">@Model.User.FirstName @Model.User.LastName</h2>
+        <i class="fas fa-user fa-4x mb-3" style="color: #2B14A6;"></i>
+        <p class="normal-type mb1">
+            <span class="backed">
+                Backed @Model.User.BackedProjectsList.Count projects
+            </span>
+            <span class="divider">
+                ·
+            </span>
+            <span class="location">
+                @Model.User.Country
+            </span>
+            <span class="divider">
+                ·
+            </span>
+            <span class="joined">
+                Joined on @Model.User.CreatedOn.ToString("d")
+            </span>
+        </p>
+
+        <button type="button" id="js-about-button" class="btn btn-dark">About</button>
+        <span><button type="button" id="js-backedlist-button" class="btn btn-dark">Backed<span class="count"><sup>@Model.User.BackedProjectsList.Count</sup></span></button></span>
+        <span><button type="button" id="js-createdlist-button" class="btn btn-dark">Created<span class="count"><sup>@Model.User.CreatedProjectsList.Count</sup></span></button></span>
+
+    </div>
+</div>
+
+<div class="overlaping position-relative">
+    <div class="row user_row mt-3" id="js-about-row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <h3 class="user_description mobile-space mt-5">
+                Description
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <p class="user_desc mt-5">@Model.User.Description</p>
+        </div>
+    </div>
+
+
+
+    <div class="row user_row mt-3" id="js-backed-list-row">
+
+        @foreach (var p in Model.User.BackedProjectsList)
+        {
+            <div class="col-md-4">
+                <div class="card mt-5 shadow mb-5 bg-white rounded">
+                    <!-- Card image -->
+                    @*<img class="card-img-top img-fluid project_photo" src="@p.Photo"
+                         alt="Image can not be displayed" width="400" height="250">*@
+                    <!-- Card content -->
+                    <div class="card-body">
+                        <!-- Title -->
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
+                        <!-- Text -->
+                        <p class="card-text mt-2">@p.Description</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                @*by <a href="@Url.Action("Details", "User", new { id = p.ProjectCreatorId })">
+                                    @p.ProjectCreatorFirstName @p.ProjectCreatorLastName
+                                </a>, backed by @p.NumberOfBackers*@
+                            </li>
+                        </ul>
+                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row user_row mt-3" id="js-created-list-row">
+
+        @foreach (var p in Model.User.CreatedProjectsList)
+        {
+            <div class="col-md-4">
+                <div class="card mt-5 shadow mb-5 bg-white rounded">
+                    <!-- Card image -->
+                    <img class="card-img-top img-fluid project_photo" src="@p.Photos.ElementAt(0).Url"
+                         alt="Image can not be displayed" width="400" height="250">
+                    <!-- Card content -->
+                    <div class="card-body">
+                        <!-- Title -->
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
+                        <!-- Text -->
+                        <p class="card-text mt-2">@p.Description</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                by <a href="@Url.Action("Details", "User", new { id = Model.User.UserId })">
+                                    @Model.User.FirstName @Model.User.LastName
+                                </a>
+                            </li>
+                            <li class="list-group-item">@p.AmountGathered €</li>
+                            <li class="list-group-item">@p.Percentage() funded</li>
+                        </ul>
+                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

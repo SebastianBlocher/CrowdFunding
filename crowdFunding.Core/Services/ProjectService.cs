@@ -97,7 +97,7 @@ namespace crowdFunding.Core.Services
                 User = user
             }; 
 
-            foreach(var photo in options.Photos)
+            foreach (var photo in options.Photos)
             {
                 project.Photos.Add(photo);
             }
@@ -106,7 +106,6 @@ namespace crowdFunding.Core.Services
             {
                 project.Videos.Add(video);
             }
-
             user.CreatedProjectsList.Add(project);
 
             var rows = 0;
