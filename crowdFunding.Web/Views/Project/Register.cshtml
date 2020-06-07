@@ -17,29 +17,29 @@
         </div>*@
 
         <div class="form-group">
-            <label for="Project Title">Project Title</label>
+            <label class="form-font" for="Project Title">Project Title</label>
             <input class="js-projectcreate-projectname form-control" id="ProjectTitle" placeholder="Enter your project's title">
 
         </div>
 
         <div class="form-group">
-            <label for="dueto">Due Date:</label>
-            <input type="date" id="js-projectcreate-dueto" placeholder="Due Date">
+            <label class="form-font" for="dueto">Due Date:</label>
+            <input class="create-project-form" type="date" id="js-projectcreate-dueto" placeholder="Due Date">
         </div>
 
         <div class="form-group">
-            <label for="category">Category:</label>
-            <select class="js-project-create-category" placeholder="Category:">
+            <label class="form-font" for="category">Category:</label>
+            <select class="js-project-create-category create-project-form" placeholder="Category:">
 
-                <option value="0">Default</option>
+                <option value="0">-</option>
                 <option value="1">Arts</option>
-                <option value="2">Comics Illustration</option>
-                <option value="3"> Design Tech </option>
-                <option value="4">  Film </option>
-                <option value="5">  Food & Craft </option>
-                <option value="6">  Games </option>
-                <option value="7">  Music </option>
-                <option value="8">  Publishing </option>
+                <option value="2">Comics & Illustration</option>
+                <option value="3">Design & Tech</option>
+                <option value="4">Film</option>
+                <option value="5">Food & Craft</option>
+                <option value="6">Games</option>
+                <option value="7">Music</option>
+                <option value="8">Publishing</option>
 
             </select>
         </div>
@@ -64,25 +64,25 @@
         </div>
         <br />*@
         <div class="form-group">
-            <label for="url">Enter an https:// URL: for your Project's Photo</label>
+            <label class="form-font" for="url">Add a photo:</label>
 
-            <input type="url" name="url" id="js-projectcreate-photos"
+            <input type="url" class="create-project-form" name="url" id="js-projectcreate-photos"
                    placeholder="https://example.com"
                    pattern="https://.*" size="30"
                    required>
         </div>
 
         <div class="form-group">
-            <label for="url">Enter an https:// URL:</label>
+            <label class="form-font" for="url">Add a video:</label>
 
-            <input type="url" name="url" id="js-projectcreate-videos"
+            <input type="url" class="create-project-form" name="url" id="js-projectcreate-videos"
                    placeholder="https://example.com"
                    pattern="https://.*" size="30"
                    required>
         </div>
 
         <div class="form-group">
-            <label for="Description">Project Description</label>
+            <label class="form-font" for="Description">Project Description</label>
             <textarea class="js-projectcreate-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3"></textarea>
 
         </div>
@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <button type="button" class="js-projectcreate-submit-button btn btn-primary">
+        <button type="button" class="js-projectcreate-submit-button btn btn-primary mb-3">
             Create
         </button>
 

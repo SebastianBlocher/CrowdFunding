@@ -27,20 +27,14 @@
 }
 
 
-<div class="row">
-    <div class="col-4"></div>
+<div class="row text-center">
+    <div class="col-5"></div>
     <div class="profile_bio center mb6">
         <h2 class="mb3">@Model.User.FirstName @Model.User.LastName</h2>
         <i class="fas fa-user fa-4x mb-3" style="color: #2B14A6;"></i>
         <p class="normal-type mb1">
             <span class="backed">
                 Backed @Model.User.BackedProjectsList.Count projects
-            </span>
-            <span class="divider">
-                ·
-            </span>
-            <span class="location">
-                @Model.User.Country
             </span>
             <span class="divider">
                 ·
@@ -57,77 +51,41 @@
     </div>
 </div>
 
+
+<div class="row user_row mt-3" id="js-about-row">
+
+    <table class="table table-striped mt-5 user-table">
+        <tbody>
+            <tr>
+                <th scope="row">First Name</th>
+                <td>@Model.User.FirstName</td>
+            </tr>
+            <tr>
+                <th class="th-custom" scope="row">Last Name</th>
+                <td class="td-custom">@Model.User.LastName</td>
+            </tr>
+            <tr>
+                <th scope="row">E-mail</th>
+                <td>@Model.User.Email</td>
+            </tr>
+            <tr>
+                <th class="th-custom" scope="row">Country</th>
+                <td class="td-custom">@Model.User.Country</td>
+            </tr>
+            <tr>
+                <th scope="row">Biography</th>
+                <td>@Model.User.Description</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a type="button" href="@Url.Action("Edit", "User", new { id = Model.User.UserId })" class="js-useredit-button mt-5 btn btn-dark">
+        Edit Profile
+    </a>
+</div>
+
+
 <div class="overlaping position-relative">
-    <div class="row user_row mt-3" id="js-about-row">
-
-        <div class="col-md-2">
-            <h3 class="user_firstname mobile-space mt-5">
-                First Name
-            </h3>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <p class="user_firstname mt-5">@Model.User.FirstName</p>
-        </div>
-        <div class="col-md-2">
-            <h3 class="user_lastname mobile-space mt-5">
-                Last Name
-            </h3>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <p class="user_lastname mt-5">@Model.User.LastName </p>
-        </div>
-        <div class="col-md-2">
-            <h3 class="user_email mobile-space mt-5">
-                E-mail
-            </h3>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <p class="user_email mt-5">@Model.User.Email</p>
-        </div>
-        <div class="col-md-2">
-            <h3 class="user_country mobile-space mt-5">
-                Country
-            </h3>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <p class="user_country mt-5">@Model.User.Country</p>
-        </div>
-        <div class="col-md-2">
-            <h3 class="user_createdon mobile-space mt-5">
-                Created On
-            </h3>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <p class="user_createdon mt-5">@Model.User.CreatedOn.DateTime.ToShortDateString()</p>
-        </div>
-        <div class="col-md-2">
-            <h3 class="desc mobile-space mt-5">
-                Description
-            </h3>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <p class="desc mt-5">@Model.User.Description</p>
-        </div>
-        <div class="col-md-2">
-            <h3 class="useredit mobile-space mt-5">
-            </h3>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <a type="button" href="@Url.Action("Edit", "User", new { id = Model.User.UserId })" class="js-useredit-button btn btn-primary">
-                Edit Profile
-            </a>
-        </div>
-
-    </div>
-
-
 
     <div class="row user_row mt-3" id="js-backed-list-row">
 
@@ -146,12 +104,13 @@
                         <p class="card-text mt-2">@p.Description</p>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                by <a href="@Url.Action("Details", "User", new { id = p.ProjectCreatorId })">
+                                by
+                                <a href="@Url.Action("Details", "User", new { id = p.ProjectCreatorId })">
                                     @p.ProjectCreatorFirstName @p.ProjectCreatorLastName
                                 </a>, backed by @p.NumberOfBackers
                             </li>
                         </ul>
-                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="text-dark mt-4"><u>@p.Category</u></a>
                     </div>
                 </div>
             </div>
@@ -175,17 +134,12 @@
                             <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
                             <!-- Text -->
                             <p class="card-text mt-2">@p.Description</p>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    by <a href="@Url.Action("Details", "User", new { id = Model.User.UserId })">
-                                        @Model.User.FirstName @Model.User.LastName
-                                    </a>
-                                </li>
+                            <ul class="list-group list-group-flush">                               
                                 <li class="list-group-item">@p.AmountGathered €</li>
                                 <li class="list-group-item">@p.Percentage() funded</li>
-                            </ul>
-                            <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
-                            <a href="@Url.Action("Edit", "Project", new { id = p.ProjectId})" class="btn btn-primary" type="button">Edit</a>
+                                <li class="list-group-item"><a href="@Url.Action("Search", "Project", new { category = p.Category})" class="text-dark mt-4"><u>@p.Category</u></a></li>
+                                <li class="list-group-item"><a href="@Url.Action("Edit", "Project", new { id = p.ProjectId})" class="btn btn-primary" type="button">Edit your project</a></li>
+                            </ul>                           
                         </div>
                     </div>
                 </div>
@@ -193,5 +147,3 @@
         }
     </div>
 </div>
-
-

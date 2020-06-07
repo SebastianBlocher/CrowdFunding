@@ -49,6 +49,7 @@
         </div>
         <h5 class="card-title mt-3">@Model.Project.AmountGathered €</h5>
         <p class="card-text mt-3">@Model.Project.NumberOfBackers Backers</p>
+        <a href="@Url.Action("Search", "Project", new { category = Model.Project.Category})" class="text-dark mt-4"><u>@Model.Project.Category</u></a>
         <p class="card-text mt-3"><i><strong>Due to @Model.Project.DueTo.ToString("d")</strong></i></p>
     </div>
 </div>

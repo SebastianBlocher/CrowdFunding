@@ -227,7 +227,7 @@ body {
     margin-bottom:25px;
 }
 .normal-type {
-    font-size: 0.8em;
+    font-size: 0.85em;
     color: #34495E
 }
 
@@ -325,4 +325,66 @@ body {
 
 .project-photos{
     margin-bottom:20px
+}
+
+.table td {
+    text-align: center;
+    background: #246a76;
+    color: white;
+}
+
+.td-custom {
+    background: #1d97a1 !important;
+    color: white;
+}
+
+.table th {
+    text-align: center;
+    background: #246a76;
+    color: white;
+}
+
+.th-custom {
+    background: #1d97a1 !important;
+    color: white;
+}
+
+.user-table {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.js-useredit-button {
+    margin-left: 15px;
+}
+
+.form-text{
+    margin-left: 2px;
+}
+
+.small, small {
+    font-size: 91%;
+}
+
+.form-control {
+    margin-bottom: 16px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.form-font {
+    font-size: 1.15rem;
+}
+
+.create-project-form {
+    margin-bottom: 16px;
+    margin-left: 16px;
+    padding: 9px;    
+}
+
+.js-projectcreate-projectname{
+    margin-bottom: 8px;
+}
+
+#js-projectcreate-dueto{
+    padding-right: 2px !important;
 }
