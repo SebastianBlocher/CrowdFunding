@@ -87,8 +87,6 @@ userLogOutButton.on('click', () => {
 let homePageCreateButton = $('#js-createNewProject');
 homePageCreateButton.on('click', () => {
 
-
-
     if (!localStorage.getItem("userId")) {
         $('#myCreateLoginModal').modal('show');
     }
@@ -104,7 +102,7 @@ homePageCreateButton.on('click', () => {
 //**************************************************
 let editprofileButton = $('#jsEditProfile');
 editprofileButton.on('click', () => {
-    
+
     let userid = localStorage.getItem('userId');
 
     var url = "/User/Edit/" + parseInt(userid);
@@ -124,7 +122,7 @@ disableUserButton.on('click', () => {
         type: 'DELETE',
         url: '/user/' + parseInt(userid),
     }).done(user => {
-        
+
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
 
@@ -141,7 +139,7 @@ disableUserButton.on('click', () => {
 //**************************************************
 let myprofileButton = $('#jsMyProfile');
 myprofileButton.on('click', () => {
-    
+
     let userid = localStorage.getItem('userId');
 
     var url = "/User/MyProfile/" + parseInt(userid);
@@ -299,10 +297,8 @@ $('.nav-link').on('click', (event) => {
 //**************************************************
 //Search Project JS
 //**************************************************
-
 let searchInput = $('#searchIn');
 let searchButton = $('.searchBtn');
-
 
 searchInput.on('input', () => {
     $(searchButton).attr("href", "project/search?name=" + searchInput.val());
@@ -317,7 +313,6 @@ let signUp = $('#jsSignUp');
 let myProfile = $('#jsMyProfile');
 let editProfile = $('#jsEditProfile');
 let logOutButton = $('#jsLogOut');
-
 
 
 if (localStorage.getItem('userId') != null) {
@@ -342,18 +337,17 @@ let projectCreateButton = $('.js-projectcreate-submit-button');
 projectCreateButton.on('click', () => {
     createSuccesAlert.hide();
     createFailedAlert.hide();
-    debugger;
-    let userid = localStorage.getItem("userid");
+
+    let userid = localStorage.getItem("userId");
     let name = $('.js-projectcreate-projectname');
     let description = $('.js-projectcreate-description');
     let category = $('.js-project-create-category');
     let amountrequired = $('.js-projectcreate-amountrequired');
-    let dueto = $('#js-projectcreate-dueto');
-    dueto = new Date();
-    let photos = $('#js-projectcreate-photos');
-    let videos = $('#js-projectcreate-videos');
-    debugger;
 
+    let dueto = new Date($('#js-projectcreate-dueto').val());
+
+    let photos = $('#js-projectcreate-photos').val();
+    let videos = $('#js-projectcreate-videos').val();
 
     let data = {
         userid: parseInt(userid),
@@ -361,11 +355,11 @@ projectCreateButton.on('click', () => {
         description: description.val(),
         category: parseInt(category.val()),
         amountRequired: parseFloat(amountrequired.val()),
-        dueTo: dueto.toISOString(),
-        photos: photos.url.val(),
-        videos: videos.url.val()
-    }
-    debugger;
+        dueTo: dueto,
+        photos: [(photos)],
+        videos: [(videos)]
+    };
+
     $.ajax({
         type: 'POST',
         url: '/project/create',
@@ -377,8 +371,6 @@ projectCreateButton.on('click', () => {
     }).fail(_failureResponse => {
         createFailedAlert.show();
     });
-    debugger;
-
 });
 
 //-------Edit Project-------//
@@ -435,7 +427,7 @@ backProjectButton.on('click', () => {
         name: name.val(),
         amount: parseFloat(amount.val())
     }
-    debugger;
+
     $.ajax({
         type: 'POST',
         url: '/backedProject/create',
@@ -456,7 +448,7 @@ aboutRow.hide();
 let footer = $('#js-footer');
 let header = $('#js-header');
 
-let createdRow = $('#js-created-list-row');   
+let createdRow = $('#js-created-list-row');
 createdRow.hide();
 
 let backedRow = $('#js-backed-list-row');

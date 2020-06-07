@@ -20,7 +20,7 @@
             {
                 <div class="card card_home">
                     <div class="inHeader">
-                        <img class="card-img-top" src="~/images/cat1.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="@p.Photos[0].Url" alt="Card image cap">
                         <div class="pos">
                             @p.Name
                         </div>
@@ -29,7 +29,7 @@
                         <p class="card-text">@p.Description</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary btn-sm">Details</a>
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })" class="btn btn-primary btn-sm">Details</a>
                     </div>
                 </div>
             }

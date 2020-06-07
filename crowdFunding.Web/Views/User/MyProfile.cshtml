@@ -5,7 +5,7 @@
 }
 
 
-@if (Model.User == null)
+@if (Model == null)
 {
     <div class="row text-center">
         <div class="col-md-3"></div>
@@ -59,16 +59,72 @@
 
 <div class="overlaping position-relative">
     <div class="row user_row mt-3" id="js-about-row">
-        <div class="col-md-1"></div>
+
         <div class="col-md-2">
-            <h3 class="user_description mobile-space mt-5">
+            <h3 class="user_firstname mobile-space mt-5">
+                First Name
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <p class="user_firstname mt-5">@Model.User.FirstName</p>
+        </div>
+        <div class="col-md-2">
+            <h3 class="user_lastname mobile-space mt-5">
+                Last Name
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <p class="user_lastname mt-5">@Model.User.LastName </p>
+        </div>
+        <div class="col-md-2">
+            <h3 class="user_email mobile-space mt-5">
+                E-mail
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <p class="user_email mt-5">@Model.User.Email</p>
+        </div>
+        <div class="col-md-2">
+            <h3 class="user_country mobile-space mt-5">
+                Country
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <p class="user_country mt-5">@Model.User.Country</p>
+        </div>
+        <div class="col-md-2">
+            <h3 class="user_createdon mobile-space mt-5">
+                Created On
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <p class="user_createdon mt-5">@Model.User.CreatedOn.DateTime.ToShortDateString()</p>
+        </div>
+        <div class="col-md-2">
+            <h3 class="desc mobile-space mt-5">
                 Description
             </h3>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-8">
-            <p class="user_desc mt-5">@Model.User.Description</p>
+            <p class="desc mt-5">@Model.User.Description</p>
         </div>
+        <div class="col-md-2">
+            <h3 class="useredit mobile-space mt-5">
+            </h3>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <a type="button" href="@Url.Action("Edit", "User", new { id = Model.User.UserId })" class="js-useredit-button btn btn-primary">
+                Edit Profile
+            </a>
+        </div>
+
     </div>
 
 
@@ -80,8 +136,8 @@
             <div class="col-md-4">
                 <div class="card mt-5 shadow mb-5 bg-white rounded">
                     <!-- Card image -->
-                    @*<img class="card-img-top img-fluid project_photo" src="@p.Photo"
-                         alt="Image can not be displayed" width="400" height="250">*@
+                    <img class="card-img-top img-fluid project_photo" src="@p.Photo"
+                         alt="Image can not be displayed" width="400" height="250">
                     <!-- Card content -->
                     <div class="card-body">
                         <!-- Title -->
@@ -90,9 +146,9 @@
                         <p class="card-text mt-2">@p.Description</p>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                @*by <a href="@Url.Action("Details", "User", new { id = p.ProjectCreatorId })">
+                                by <a href="@Url.Action("Details", "User", new { id = p.ProjectCreatorId })">
                                     @p.ProjectCreatorFirstName @p.ProjectCreatorLastName
-                                </a>, backed by @p.NumberOfBackers*@
+                                </a>, backed by @p.NumberOfBackers
                             </li>
                         </ul>
                         <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
@@ -106,30 +162,34 @@
 
         @foreach (var p in Model.User.CreatedProjectsList)
         {
-            <div class="col-md-4">
-                <div class="card mt-5 shadow mb-5 bg-white rounded">
-                    <!-- Card image -->
-                    <img class="card-img-top img-fluid project_photo" src="@p.Photos.ElementAt(0).Url"
-                         alt="Image can not be displayed" width="400" height="250">
-                    <!-- Card content -->
-                    <div class="card-body">
-                        <!-- Title -->
-                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
-                        <!-- Text -->
-                        <p class="card-text mt-2">@p.Description</p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                by <a href="@Url.Action("Details", "User", new { id = Model.User.UserId })">
-                                    @Model.User.FirstName @Model.User.LastName
-                                </a>
-                            </li>
-                            <li class="list-group-item">@p.AmountGathered €</li>
-                            <li class="list-group-item">@p.Percentage() funded</li>
-                        </ul>
-                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+            if (p.Photos != null && p.Photos.Count != 0)
+            {
+                <div class="col-md-4">
+                    <div class="card mt-5 shadow mb-5 bg-white rounded">
+                        <!-- Card image -->
+                        <img class="card-img-top img-fluid project_photo" src="@p.Photos.ElementAt(0).Url"
+                             alt="Image can not be displayed" width="400" height="250">
+                        <!-- Card content -->
+                        <div class="card-body">
+                            <!-- Title -->
+                            <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
+                            <!-- Text -->
+                            <p class="card-text mt-2">@p.Description</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    by <a href="@Url.Action("Details", "User", new { id = Model.User.UserId })">
+                                        @Model.User.FirstName @Model.User.LastName
+                                    </a>
+                                </li>
+                                <li class="list-group-item">@p.AmountGathered €</li>
+                                <li class="list-group-item">@p.Percentage() funded</li>
+                            </ul>
+                            <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+                            <a href="@Url.Action("Edit", "Project", new { id = p.ProjectId})" class="btn btn-primary" type="button">Edit</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>

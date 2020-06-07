@@ -48,6 +48,11 @@ namespace crowdFunding.Web.Controllers
         [HttpGet("edit/{id}")]
         public IActionResult Edit(int? id)
         {
+            if (id == null)
+            {
+                return View(null);
+            }
+
             var user = userService.GetById(id).SingleOrDefault();
 
             return View(user);
@@ -56,6 +61,11 @@ namespace crowdFunding.Web.Controllers
         [HttpGet("{id}")]
         public IActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return View(null);
+            }
+
             var viewModel = new UserViewModel()
             {
                 User = userService.GetById(id)
@@ -71,12 +81,18 @@ namespace crowdFunding.Web.Controllers
         [HttpGet("MyProfile/{id}")]
         public IActionResult MyProfile(int? id)
         {
+            if (id == null)
+            {
+                return View(null);
+            }
+
             var viewModel = new UserViewModel()
             {
                 User = userService
                     .GetById(id)
-                    .Include(x => x.CreatedProjectsList)
                     .Include(y => y.BackedProjectsList)
+                    .Include(x => x.CreatedProjectsList)
+                        .ThenInclude(p => p.Photos)
                     .SingleOrDefault(),
             };
 
