@@ -300,11 +300,22 @@ $('.nav-link').on('click', (event) => {
 
 let searchInput = $('#searchIn');
 let searchButton = $('.searchBtn');
-
+//$(searchButton).attr("href", "");
+$(searchButton).attr("href", "project/search?name= ");
 
 searchInput.on('input', () => {
-    $(searchButton).attr("href", "project/search?name=" + searchInput.val());
+    //$(searchButton).attr("href", "project/search?name=" + searchInput.val());
+    $(searchButton).prop("href", "project/search?name=" + searchInput.val());
 });
+
+//searchButton.on('click', () => {
+//    location.href = '@Url.Action("Search", "Project", new {name = searchInput.val()})'
+//        //("href", "project/search?name=" + searchInput.val());
+//    //$(searchButton).prop("href", "project/search?name=" + searchInput.val());
+//});
+//<a href="@Url.Action(" Details", "User", new { id = Model.Project.User.UserId })" >
+//                @Model.Project.User.FirstName @Model.Project.User.LastName
+//            </a >
 
 //**************************************************
 //User in Navbar
@@ -417,17 +428,23 @@ projectEditButton.on('click', () => {
 
 //-------Back Project-------//
 let backProjectButton = $('.js-back-project-button');
+let backedSuccessAlert = $('.js-back-success-alert');
+//backedSuccessAlert.hide();
+let backedFailedAlert = $('.js-back-failed-alert');
+//backedFailedAlert.hide();
+
 backProjectButton.on('click', () => {
-    let userid = localStorage.getItem('userid');
-    let projectid = document.getElementById("js-back-projectId");
-    let name = $('.js-back-projectName');
+    //console.log("test");
+    let userid = localStorage.getItem('userId');
+    let projectid = $('#js-back-projectId');
+    let name = $('.js-back-project-name');
     let amount = $('.js-back-project-amount');
 
     let data = {
         userid: parseInt(userid),
-        projectid: projectid.val(),
-        name: name.val(),
-        amount: parseFloat(amount.val())
+        projectid: projectid.text(),
+        //name: name.text(),
+        amount: parseFloat(amount.text().slice(0, -2))
     }
 
     $.ajax({
@@ -437,9 +454,11 @@ backProjectButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
-        createSuccesAlert.show();
+        backedSuccessAlert.fadeIn(1500);
+        backedSuccessAlert.fadeOut(1500);
     }).fail(_failureResponse => {
-        createFailedAlert.show();
+        backedFailedAlert.show().delay(3000);
+        backedFailedAlert.fadeOut();
     });
 });
 ////------- User Profile--------//

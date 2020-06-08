@@ -70,7 +70,7 @@
                 </div>
             }
 
-            @for (int i=1; i < Model.Project.Videos.Count(); i++)
+            @for (int i = 1; i < Model.Project.Videos.Count(); i++)
             {
                 <div class="iframe-container">
                     <iframe width='500' height='400' src='@Model.Project.Videos.ElementAt(i).Url' frameborder="0"></iframe>
@@ -127,9 +127,21 @@
                         </div>
                     </div>
                     <br />
-                    <a href="#" class="js-back-project-button btn btn-primary btn-md mt-2">Buy Package</a>
+                    <button type="button" class="js-back-project-button btn btn-primary btn-md mt-2">
+                        Buy Package
+                    </button>
+                    @*<a href="#" class="js-back-project-button btn btn-primary btn-md mt-2">Buy Package</a>*@
                 </div>
             </div>
         }
+    </div>
+</div>
+<div class="row" style="justify-content:center;">
+    <div class="alert alert-success js-back-success-alert" role="alert" style="display:none;">
+        Project has been backed successfully!
+    </div>
+
+    <div class="alert alert-danger js-back-failed-alert" role="alert" style="display:none;">
+        Failed to back project!
     </div>
 </div>
