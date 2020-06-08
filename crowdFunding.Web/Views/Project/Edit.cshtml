@@ -13,13 +13,10 @@
 
     return;
 }
-<h1>Edit</h1>
 
 <form method="post" class="js-project-edit-form">
 
-    <h4>
-        Change your projects' information:
-    </h4>
+    <h5 class="project-header">Edit your project</h5>
 
     <div class="form-group">
         <label for="Project Title">Project Title</label>
@@ -28,8 +25,8 @@
     </div>
 
     <div class="form-group">
-        <label for="dueto">Due Date:</label>
-        <input type="date" id="js-projectedit-dueto" placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
+        <label class="form-font" for="dueto">Due Date:</label>
+        <input class="create-project-form" type="date" id="js-projectedit-dueto" placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
     </div>
 
 
@@ -62,9 +59,9 @@
                         <label for="Project Title">Reward 5</label>
                         <input class="rewardAmount form-control" id="reward5">
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>                        
                     </div>
                 </div>
             </div>
@@ -93,25 +90,25 @@
         </div>*@
 
     <div class="form-group">
-        <label for="url">Enter an https:// URL: for your Project's Photo</label>
+        <label for="url">Add a Photo:</label>
 
-        <input type="url" name="url" id="js-projectedit-photos"
+        <input type="url" class="create-project-form" name="url" id="js-projectedit-photos"
                placeholder="https://example.com"
                pattern="https://.*" size="30"
                required value="@Model.Photos[0].Url">
     </div>
 
     <div class="form-group">
-        <label for="url">Enter an https:// URL:</label>
+        <label for="url">Add a Video:</label>
 
-        <input type="url" name="url" id="js-projectedit-videos"
+        <input type="url" class="create-project-form" name="url" id="js-projectedit-videos"
                placeholder="https://example.com"
                pattern="https://.*" size="30"
                required value="@Model.Videos[0].Url">
     </div>
 
     <div class="form-group">
-        <label for="Description">Project Description</label>
+        <label class="form-font" for="Description">Project Description</label>
         <textarea class="js-projectedit-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3">@Model.Description</textarea>
 
     </div>
@@ -126,12 +123,15 @@
             @*<span class="input-group-text">.00</span>*@
         </div>
     </div>
-    <button type="button" class="js-projectedit-submit-button mb-3 btn btn-primary">
-        Update
+
+    <button id="addRewardPackageButton" type="button" class="btn see-rewards rewards mb-3" data-target="modalCreateRewardPackages">
+        Add Reward Package
     </button>
 
-    <button id="addRewardPackageButton" type="button" class="btn btn-primary mb-3" data-target="modalCreateRewardPackages">
-        Add Reward Package
+    <br>
+
+    <button type="button" class="js-projectedit-submit-button mb-3 mt-3 btn btn-primary">
+        Update
     </button>
 
     <div class="alert alert-success js-projectedit-success-alert" role="alert">

@@ -218,7 +218,7 @@ body {
 }
 
 .modal-footer {
-    background: #34495E;
+    background: #34495E;    
 }
 
 .card-title-user{
@@ -417,3 +417,4 @@ body {
 .navbar {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 }
+
