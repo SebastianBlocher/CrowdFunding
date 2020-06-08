@@ -8,7 +8,7 @@ namespace crowdFunding.Core.Services.Interfaces
 {
     public interface IRewardPackageService
     {
-        Result<RewardPackage> CreateRewardPackage(int projectId, CreateRewardPackageOptions options);
+        Result<RewardPackage> CreateRewardPackage(CreateRewardPackageOptions options);
         IQueryable<RewardPackage> SearchRewardPackage(SearchRewardPackageOptions options);
         Result<RewardPackage> UpdateRewardPackage(int rewardPackageId, UpdateRewardPackageOptions options);
         RewardPackage GetRewardPackageById(int? rewardPackageId);
