@@ -195,7 +195,7 @@ namespace crowdFunding.Core.Services
             return project;
         }
 
-        public Result<Project> UpdateProject(int projectId,
+        public Result<Project> UpdateProject(
             UpdateProjectOptions options)
         {
             var result = new Result<Project>();
@@ -210,13 +210,13 @@ namespace crowdFunding.Core.Services
 
             var project = context_
                 .Set<Project>()
-                .Where(x => x.ProjectId == projectId)
+                .Where(x => x.ProjectId == options.ProjectId)
                 .SingleOrDefault();
 
             if (project == null)
             {
                 result.ErrorCode = StatusCode.NotFound;
-                result.ErrorText = $"Project with id {projectId} was not found";
+                result.ErrorText = $"Project with id {options.ProjectId} was not found";
 
                 return result;
             }
@@ -246,6 +246,7 @@ namespace crowdFunding.Core.Services
                 project.DueTo = options.DueTo;
             }
 
+            
             var rows = 0;
 
             try

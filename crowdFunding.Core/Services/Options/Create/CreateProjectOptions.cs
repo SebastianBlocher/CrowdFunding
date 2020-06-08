@@ -15,13 +15,14 @@ namespace crowdFunding.Core.Services.Options.Create
         public DateTime CreatedOn { get; set; }
         public List<string> Photos { get; set; }
         public List<string> Videos { get; set; }
-
+         public List<RewardPackage> RewardPackages { get; set; }
         public CreateProjectOptions()
         {
             Photos = new List<string>();
             Videos = new List<string>();
             CreatedOn = DateTime.Today;
             DueTo = new DateTime();
+            RewardPackages = new List<RewardPackage>();
         }
     }   
 }
