@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-@if (Model == null)
+@if (Model.User == null)
 {
     <div class="row text-center">
         <div class="col-md-3"></div>
@@ -27,7 +27,7 @@
 
 
 <div class="row">
-    <div class="col-5"></div>
+    <div class="col-4"></div>
     <div class="profile_bio center mb6">
         <h2 class="mb3">@Model.User.FirstName @Model.User.LastName</h2>
         <i class="fas fa-user fa-4x mb-3" style="color: #2B14A6;"></i>

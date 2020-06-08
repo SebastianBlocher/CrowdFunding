@@ -388,3 +388,13 @@ body {
 #js-projectcreate-dueto{
     padding-right: 2px !important;
 }
+
+.project-header {
+    text-align: center;
+    color: white;
+    background: #246a76;
+    padding: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 30px;
+}

@@ -39,18 +39,23 @@
         @*<input class="js-projectedit-description form-control" id="ProjectDesc" value="@Model.Description" placeholder="Change your project's description.">*@
     </div>
 
-    <<select class="js-projectedit-category">
-        <option value="0">-</option>
-        <option value="1">Arts</option>
-        <option value="2">Comics & Illustration</option>
-        <option value="3">Design & Tech</option>
-        <option value="4">Film</option>
-        <option value="5">Food & Craft</option>
-        <option value="6">Games</option>
-        <option value="7">Music</option>
-        <option value="8">Publishing</option>
 
-    </select>
+    <div class="form-group">
+        <label class="form-font" for="category">Category:</label>
+        <select class="js-project-create-category create-project-form" placeholder="Category:">
+
+            <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</option>
+            <option value="1">Arts</option>
+            <option value="2">Comics & Illustration</option>
+            <option value="3">Design & Tech</option>
+            <option value="4">Film</option>
+            <option value="5">Food & Craft</option>
+            <option value="6">Games</option>
+            <option value="7">Music</option>
+            <option value="8">Publishing</option>
+
+        </select>
+    </div>
 
     <div class="form-group">
         <label for="Name">Required Amount</label>
