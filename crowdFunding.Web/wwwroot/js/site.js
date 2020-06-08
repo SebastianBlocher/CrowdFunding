@@ -393,7 +393,7 @@ addRewardsButton.on('click', () => {
         amount: parseFloat($('#rewardAmount').val()),
         rewardOptions: rewardOptions
     };
-    
+
     $.ajax({
         type: 'POST',
         url: '/rewardpackage/create',
@@ -403,7 +403,7 @@ addRewardsButton.on('click', () => {
     }).done(_project => {
         $('#modalCreateRewardPackages').modal('hide');
     }).fail(_failureResponse => {
-        
+
     });
 
     rewardPackages.push(JSON.stringify(data));
@@ -433,19 +433,7 @@ projectCreateButton.on('click', () => {
     let photos = $('#js-projectcreate-photos').val();
     let videos = $('#js-projectcreate-videos').val();
 
-    //REWARD PACKAGES//
-    //let array = {};
-    //array.rewardpackages = [];
-    //array.rewardpackages.push({
-    //    Id: $("#rewardId").val(),
-    //    Name: $(".rewardName").val(),
-    //    Description: $(".rewardDescription").val(),
-    //    Amount: $(".rewardAmount").val()
-    //});
 
-    //for (var i = 0; i < rewardpackages.length; i++) {
-    //    var object = rewardpackages[i];
-    //}
 
     let data = {
         userId: parseInt(userid),
@@ -456,8 +444,9 @@ projectCreateButton.on('click', () => {
         dueTo: dueto,
         photos: [(photos)],
         videos: [(videos)],
+
     };
-    
+
     $.ajax({
         type: 'POST',
         url: '/project/create',
@@ -465,9 +454,11 @@ projectCreateButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
-        createSuccesAlert.show();
+        createSuccesAlert.show().delay(2000);
+        createSuccessAlert.fadeOut();
     }).fail(_failureResponse => {
-        createFailedAlert.show();
+        createFailedAlert.show().delay(2000);
+        createFailedAlert.fadeOut();
     });
 });
 
@@ -513,12 +504,38 @@ projectEditButton.on('click', () => {
         dataType: 'json'
     }).done(project => {
         projectEditSuccessAlert.show().delay(2000);
+        projectEditSuccessAlert.fadeOut();
     }).fail(failureResponse => {
-        projectEditFailedAlert.show();
+        projectEditFailedAlert.show().delay(2000);
+        projectEditFailedAlert.fadeOut();
 
     })
 });
 debugger;
+//**************************************************
+//Disable Project JS
+//**************************************************
+let disableProjectButton = $('#jsDisableProject');
+disableProjectButton.on('click', () => {
+
+    let projectid = $('#prid');
+    debugger;
+    $.ajax({
+        type: 'DELETE',
+        url: '/project/delete?id=' +parseInt(projectid.val())
+    }).done(project => {
+
+       
+
+
+        var url = "/Home/Index/";
+        window.location.href = url;
+
+    }).fail(failureResponse => {
+
+    })
+    debugger;
+})
 
 //-------Back Project-------//
 let backProjectButton = $('.js-back-project-button');
