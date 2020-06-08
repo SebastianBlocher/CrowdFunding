@@ -303,10 +303,22 @@ let searchButton = $('.searchBtn');
 //$(searchButton).attr("href", "");
 $(searchButton).attr("href", "project/search?name= ");
 
-searchInput.on('input', () => {
-    //$(searchButton).attr("href", "project/search?name=" + searchInput.val());
-    $(searchButton).prop("href", "project/search?name=" + searchInput.val());
+searchInput.keyup(function (event) {
+    if (event.keyCode === 13) {
+        searchButton.click();
+    }
 });
+
+searchButton.on('click', () => {
+    var url = "project/search?name=" + searchInput.val();
+    window.location.href = url;
+});
+
+
+//searchInput.on('input', () => {
+//    //$(searchButton).attr("href", "project/search?name=" + searchInput.val());
+//    $(searchButton).prop("href", "project/search?name=" + searchInput.val());
+//});
 
 //searchButton.on('click', () => {
 //    location.href = '@Url.Action("Search", "Project", new {name = searchInput.val()})'
@@ -466,13 +478,18 @@ successModal = $('#successModal');
 failureModal = $('#failureModal');
 
 backProjectButton.on('click', () => {
+    console.log($(this).attr("id"));
+    debugger
+
+
+
     if (!localStorage.getItem("userId")) {
         $('#myCreateLoginModal').modal('show');
     } else {
         let userid = localStorage.getItem('userId');
         let projectid = $('#js-back-projectId');
         let name = $('.js-back-project-name');
-        let amount = $('.js-back-project-amount');
+        let amount = $('.rp.RewardPackageId');
 
         let data = {
             userid: parseInt(userid),
