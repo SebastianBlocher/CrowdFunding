@@ -80,7 +80,8 @@ namespace crowdFunding.Core.Services
                     "Reward Package was succesfully purchased");
             }
 
-            project.NumberOfBackers += 1;            
+            project.NumberOfBackers += 1;
+            backedProject.NumberOfBackers += 1;
 
             project.AmountGathered += options.Amount;
 

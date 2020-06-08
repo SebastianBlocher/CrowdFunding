@@ -151,7 +151,7 @@ namespace crowdFunding.Core.Services
 
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
-                query = query.Where(p => p.Name == options.Name);
+                query = query.Where(p => p.Name.Contains(options.Name));
             }
 
             if (!string.IsNullOrWhiteSpace(options.Description))

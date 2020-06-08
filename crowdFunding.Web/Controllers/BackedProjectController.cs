@@ -22,10 +22,8 @@ namespace crowdFunding.Web.Controllers
             backedProjectsService = backedProjectsService_;
         }
 
-        [HttpPost]
-        public IActionResult Create(int userId,
-            int projectId,
-            [FromBody]CreateBackedProjectOptions options)
+        [HttpPost("create")]
+        public IActionResult Create([FromBody]CreateBackedProjectOptions options)
         {
             var result = backedProjectsService.CreateBackedProject(options);
 
@@ -36,6 +34,6 @@ namespace crowdFunding.Web.Controllers
             }
 
             return Json(result.Data);
-        }     
-     }
+        }
+    }
 }
