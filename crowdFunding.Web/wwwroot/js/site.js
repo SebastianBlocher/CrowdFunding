@@ -462,34 +462,43 @@ let backedSuccessAlert = $('.js-back-success-alert');
 //backedSuccessAlert.hide();
 let backedFailedAlert = $('.js-back-failed-alert');
 //backedFailedAlert.hide();
+successModal = $('#successModal');
+failureModal = $('#failureModal');
 
 backProjectButton.on('click', () => {
-    //console.log("test");
-    let userid = localStorage.getItem('userId');
-    let projectid = $('#js-back-projectId');
-    let name = $('.js-back-project-name');
-    let amount = $('.js-back-project-amount');
+    if (!localStorage.getItem("userId")) {
+        $('#myCreateLoginModal').modal('show');
+    } else {
+        let userid = localStorage.getItem('userId');
+        let projectid = $('#js-back-projectId');
+        let name = $('.js-back-project-name');
+        let amount = $('.js-back-project-amount');
 
-    let data = {
-        userid: parseInt(userid),
-        projectid: projectid.text(),
-        //name: name.text(),
-        amount: parseFloat(amount.text().slice(0, -2))
+        let data = {
+            userid: parseInt(userid),
+            projectid: projectid.text(),
+            //name: name.text(),
+            amount: parseFloat(amount.text().slice(0, -2))
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/backedProject/create',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json'
+        }).done(_project => {
+            successModal.modal('show');
+            successModal.data('hideInterval', setTimeout(function () {
+                successModal.modal('hide');
+            }, 3000));
+        }).fail(_failureResponse => {
+            failureModal.modal('show');
+            failureModal.data('hideInterval', setTimeout(function () {
+                failureModal.modal('hide');
+            }, 3000));
+        });
     }
-
-    $.ajax({
-        type: 'POST',
-        url: '/backedProject/create',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        dataType: 'json'
-    }).done(_project => {
-        backedSuccessAlert.fadeIn(1500);
-        backedSuccessAlert.fadeOut(1500);
-    }).fail(_failureResponse => {
-        backedFailedAlert.show().delay(3000);
-        backedFailedAlert.fadeOut();
-    });
 });
 ////------- User Profile--------//
 

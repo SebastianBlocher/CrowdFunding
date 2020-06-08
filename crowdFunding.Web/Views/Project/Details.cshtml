@@ -26,6 +26,44 @@
     return;
 }
 
+@*Create Project - not logged in modal popup*@
+<div class="modal fade" tabindex="-1" role="dialog" id="myCreateLoginModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#7ccedc">
+                <h5 class="modal-title">Cannot create your ideas if you are not logged in!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>If you are already a user, please Login.</a>
+            </div>
+            <div class="modal-footer" style="background-color:#7ccedc">
+                <a href="@Url.Action("Index", "Home")" type="button" class="btn btn-primary" style="margin-right:200px">Home</a>
+                <a href="@Url.Action("Register", "User")" type="button" class="btn btn-primary">Sign Up</a>
+                <a class="btn btn-primary" type="button" data-dismiss="modal" data-toggle="modal" href="#myLoginModal">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="alert alert-success js-back-success-alert" role="alert">
+            Project has been backed successfully!
+        </div>
+    </div>
+</div>
+
+<div id="failureModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="alert alert-danger js-back-failed-alert" role="alert">
+            Failed to back project!
+        </div>
+    </div>
+</div>
+
 <p style="visibility: hidden" id="js-back-projectId">
     @Model.Project.ProjectId
 </p>
@@ -47,7 +85,7 @@
         <div class="progress mb-3" style="height:6px;">
             <div class="progress-bar bg-success" role="progressbar" style="width: @Model.Project.Percentage()" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <h5 class="card-title mt-3">@Model.Project.AmountGathered €</h5>
+        <h5 class="card-title mt-3">@Model.Project.AmountGathered / @Model.Project.AmountRequired €</h5>
         <p class="card-text mt-3">@Model.Project.NumberOfBackers Backers</p>
         <a href="@Url.Action("Search", "Project", new { category = Model.Project.Category})" class="text-dark mt-4"><u>@Model.Project.Category</u></a>
         <p class="card-text mt-3"><i><strong>Due to @Model.Project.DueTo.ToString("d")</strong></i></p>
@@ -146,14 +184,5 @@
                 </div>
             }
         }
-    </div>
-</div>
-<div class="row" style="justify-content:center;">
-    <div class="alert alert-success js-back-success-alert" role="alert" style="display:none;">
-        Project has been backed successfully!
-    </div>
-
-    <div class="alert alert-danger js-back-failed-alert" role="alert" style="display:none;">
-        Failed to back project!
     </div>
 </div>
