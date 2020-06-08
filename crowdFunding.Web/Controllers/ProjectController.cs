@@ -40,7 +40,7 @@ namespace crowdFunding.Web.Controllers
             return View();
         }
 
-        [HttpGet("edit")]
+        [HttpGet("edit/{id}")]
         public IActionResult Edit(int? id)
         {
             var project = projectService.GetProjectById(id);
@@ -86,12 +86,11 @@ namespace crowdFunding.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPatch("{id}/edit")]
-        public IActionResult Update(int id,
-            [FromBody]UpdateProjectOptions options)
+        //[HttpPatch("{id}/edit")]
+        [HttpPatch("update")]
+         public IActionResult Update([FromBody]UpdateProjectOptions options)
         {
-            var result = projectService.UpdateProject(id,
-               options);
+            var result = projectService.UpdateProject(options);
 
             if (!result.Success)
             {
@@ -99,7 +98,7 @@ namespace crowdFunding.Web.Controllers
                     result.ErrorText);
             }
 
-            return Json(result.Data); ;
+            return Json(result.Data); 
         }
 
         [HttpDelete("{id}/delete")]

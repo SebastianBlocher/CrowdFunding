@@ -15,57 +15,100 @@
 }
 <h1>Edit</h1>
 
+@*<a style="visibility: hidden" id="prid" value="@Model.ProjectId">
+   skatoules
+</a>*@
 <form method="post" class="js-project-edit-form">
 
-    <p style="visibility: hidden" id="projectid">
-        @Model.ProjectId
-    </p>
+    <h4>
+        Change your projects' information:
+    </h4>
 
     <div class="form-group">
-        <label for="Name">Project Name</label>
-        <input class="js-projectedit-projectname form-control" id="ProjectName" value="@Model.Name" placeholder="Change your project's name.">
+        <label for="Project Title">Project Title</label>
+        <input class="js-projectedit-projectname form-control" id="ProjectTitle" placeholder=" Change your project's title" value="@Model.Name">
+
     </div>
 
     <div class="form-group">
-        <label for="Name">Project Description</label>
-        <input class="js-projectedit-description form-control" id="ProjectDesc" value="@Model.Description" placeholder="Change your project's description.">
+        <label for="dueto">Due Date:</label>
+        <input type="date" id="js-projectedit-dueto" placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
+    </div>
+    @*@Html.TextBoxFor(model => model.DueTo, new { @type = "date", @class = "form-control datepicker", @Value = Model.DueTo })*@
+    @*<input id="party" type="datetime-local" name="partydate" value="@Model.DueTo">*@
+
+    <div class="form-group">
+        <label for="category">Category:</label>
+        <select class="js-projectedit-category" placeholder="Category:" value="@Model.Category">
+            <option selected="selected">@Model.Category</option>
+            <option value="0">Default</option>
+            <option value="1">Arts</option>
+            <option value="2">Comics Illustration</option>
+            <option value="3">Design Tech </option>
+            <option value="4">Film </option>
+            <option value="5">Food & Craft </option>
+            <option value="6">Games </option>
+            <option value="7">Music </option>
+            <option value="8">Publishing </option>
+
+        </select>
+    </div>
+
+    @*<div class="form-group">
+        <label for="dueto">Due Date:</label>
+        <input type="date" id="rewardName"placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
+    </div>*@
+
+    <div class="form-group">
+        <label for="url">Enter an https:// URL: for your Project's Photo</label>
+
+        <input type="url" name="url" id="js-projectedit-photos"
+               placeholder="https://example.com"
+               pattern="https://.*" size="30"
+               required value="@Model.Photos[0].Url">
     </div>
 
     <div class="form-group">
-        <textlabel for="Name">Project Description</textlabel>
-        <textarea id="ProjectDesc" name="ProjectDesc" rows="4" cols="50" value:"@Model.Description">
-            Change your project's description...
-        </textarea>
-        @*<input class="js-projectedit-description form-control" id="ProjectDesc" value="@Model.Description" placeholder="Change your project's description.">*@
+        <label for="url">Enter an https:// URL:</label>
+
+        <input type="url" name="url" id="js-projectedit-videos"
+               placeholder="https://example.com"
+               pattern="https://.*" size="30"
+               required value="@Model.Videos[0].Url">
     </div>
-
-    <<select class="js-projectedit-category">
-        <option value="0">Default</option>
-        <option value="1">Arts</option>
-        <option value="2">Comics Illustration</option>
-        <option value="3"> Design Tech </option>
-        <option value="4">  Film </option>
-        <option value="5">  Food_Craft </option>
-        <option value="6">  Games </option>
-        <option value="7">  Music </option>
-        <option value="8">  Publishing </option>
-
-    </select>
 
     <div class="form-group">
-        <label for="Name">Required Amount</label>
-        <input class="js-projectcreate-amountrequired form-control" id="ProjectAm" value="@Model.AmountRequired" placeholder="Change the required amount you need.">
+        <label for="Description">Project Description</label>
+        <textarea class="js-projectedit-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3">@Model.Description</textarea>
+
     </div>
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">€</span>
+        </div>
+        <input type="text" class="js-projectedit-amountrequired form-control" aria-label="Amount Required" value="@Model.AmountRequired">
+        <div class="input-group-append">
+            @*<span class="input-group-text">.00</span>*@
+        </div>
+    </div>
+
     <button type="button" class="js-projectedit-submit-button btn btn-primary">
-        Update
+        Edit
     </button>
 
-    <div class="alert alert-success s-projectedit-success-alert" role="alert">
-        Project was successfully updated!
+    <div class="alert alert-success js-projectedit-success-alert" role="alert">
+        Project was successfully update!
     </div>
 
     <div class="alert alert-danger js-projectedit-fail-alert" role="alert">
         Project could not be updated!
     </div>
 
+    <div class="form-group" style="visibility:hidden">
+
+        <input class="js-projectedit-projectname form-control" id="prid" value="@Model.ProjectId">
+
+    </div>
 </form>
