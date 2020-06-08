@@ -4,20 +4,18 @@
     ViewData["Title"] = "Register";
 
 }
-    <form method="post" class="js-project-create-form">        
-            <h5 class="project-header">Please enter your projects' information</h5>        
+<form method="post" class="js-project-create-form">
+    <h5 class="project-header">Please enter your projects' information</h5>
 
-        <div class="form-group">
-            <label class="form-font" for="Project Title">Project Title</label>
-            <input class="js-projectcreate-projectname form-control" id="ProjectTitle" placeholder="Enter your project's title">
+    <div class="form-group">
+        <label class="form-font" for="Project Title">Project Title</label>
+        <input class="js-projectcreate-projectname form-control" id="ProjectTitle" placeholder="Enter your project's title">
 
-        </div>
-        @*<div class="form-group">
+    </div>
+    @*<div class="form-group">
             <label for="Project Title">Project Title</label>
             <input class="rewardName form-control" id="ProjectTitle" placeholder="Enter your rewards name">
-
         </div>
-
         <div class="form-group">
             <label for="Project Title">Project Title</label>
             <input class="rewardDescription form-control" id="ProjectTitle" placeholder="Reward Descr">
@@ -26,75 +24,76 @@
         <div class="form-group">
             <label for="Project Title">Project Title</label>
             <input class="rewardAmount form-control" id="ProjectTitle" placeholder="Reward Am">*@
+    @*</div>*@
 
-       @*</div>*@
-        <div class="form-group">
-            <label class="form-font" for="dueto">Due Date:</label>
-            <input class="create-project-form" type="date" id="js-projectcreate-dueto" placeholder="Due Date">
+    <div class="form-group">
+        <label class="form-font" for="dueto">Due Date:</label>
+        <input class="create-project-form" type="date" id="js-projectcreate-dueto" placeholder="Due Date">
+    </div>
+
+    <div class="form-group">
+        <label class="form-font" for="category">Category:</label>
+        <select class="js-project-create-category create-project-form" placeholder="Category:">
+
+            <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</option>
+            <option value="1">Arts</option>
+            <option value="2">Comics & Illustration</option>
+            <option value="3">Design & Tech</option>
+            <option value="4">Film</option>
+            <option value="5">Food & Craft</option>
+            <option value="6">Games</option>
+            <option value="7">Music</option>
+            <option value="8">Publishing</option>
+
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="form-font" for="url">Add a photo:</label>
+
+        <input type="url" class="create-project-form" name="url" id="js-projectcreate-photos"
+               placeholder="https://example.com"
+               pattern="https://.*" size="30"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label class="form-font" for="url">Add a video:</label>
+
+        <input type="url" class="create-project-form" name="url" id="js-projectcreate-videos"
+               placeholder="https://example.com"
+               pattern="https://.*" size="30"
+               required>
+    </div>
+
+    <div class="form-group">
+        <label class="form-font" for="Description">Project Description</label>
+        <textarea class="js-projectcreate-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3"></textarea>
+
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">€</span>
         </div>
-
-        <div class="form-group">
-            <label class="form-font" for="category">Category:</label>
-            <select class="js-project-create-category create-project-form" placeholder="Category:">
-
-                <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</option>
-                <option value="1">Arts</option>
-                <option value="2">Comics & Illustration</option>
-                <option value="3">Design & Tech</option>
-                <option value="4">Film</option>
-                <option value="5">Food & Craft</option>
-                <option value="6">Games</option>
-                <option value="7">Music</option>
-                <option value="8">Publishing</option>
-
-            </select>
+        <input type="text" class="js-projectcreate-amountrequired form-control" aria-label="Amount Required">
+        <div class="input-group-append">
+            <span class="input-group-text">.00</span>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label class="form-font" for="url">Add a photo:</label>
+    <button type="button" class="js-projectcreate-submit-button btn btn-primary mb-3">
+        Create
+    </button>
 
-            <input type="url" class="create-project-form" name="url" id="js-projectcreate-photos"
-                   placeholder="https://example.com"
-                   pattern="https://.*" size="30"
-                   required>
-        </div>
 
-        <div class="form-group">
-            <label class="form-font" for="url">Add a video:</label>
+    <div class="alert alert-success js-create-success-alert" role="alert">
+        Project was successfully created!
+    </div>
 
-            <input type="url" class="create-project-form" name="url" id="js-projectcreate-videos"
-                   placeholder="https://example.com"
-                   pattern="https://.*" size="30"
-                   required>
-        </div>
-
-        <div class="form-group">
-            <label class="form-font" for="Description">Project Description</label>
-            <textarea class="js-projectcreate-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3"></textarea>
-
-        </div>
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">€</span>
-            </div>
-            <input type="text" class="js-projectcreate-amountrequired form-control" aria-label="Amount Required">
-            <div class="input-group-append">
-                <span class="input-group-text">.00</span>
-            </div>
-        </div>
-
-        <button type="button" class="js-projectcreate-submit-button btn btn-primary mb-3">
-            Create
-        </button>
-
-        <div class="alert alert-success js-create-success-alert" role="alert">
-            Project was successfully created!
-        </div>
-
-        <div class="alert alert-danger js-create-failed-alert" role="alert">
-            Project could not be created!
-        </div>
-    </form>
+    <div class="alert alert-danger js-create-failed-alert" role="alert">
+        Project could not be created!
+    </div>
+</form>
 
 

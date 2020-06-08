@@ -24,7 +24,6 @@ namespace crowdFunding.Core.Services
         }
 
         public Result<RewardPackage> CreateRewardPackage(
-            int projectId,
             CreateRewardPackageOptions options)
         {
             if (options == null)
@@ -53,7 +52,7 @@ namespace crowdFunding.Core.Services
 
             var project = context_
                .Set<Project>()
-               .Where(p => p.ProjectId == projectId)
+               .Where(p => p.ProjectId == options.ProjectId)
                .SingleOrDefault();
 
             if (project == null)
