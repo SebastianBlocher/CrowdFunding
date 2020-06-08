@@ -459,7 +459,6 @@ projectCreateButton.on('click', () => {
         dueTo: dueto,
         photos: [(photos)],
         videos: [(videos)],
-        rewardPackages: [(rewardPackages)]
     };
     
     $.ajax({
@@ -531,8 +530,10 @@ let backedSuccessAlert = $('.js-back-success-alert');
 let backedFailedAlert = $('.js-back-failed-alert');
 //backedFailedAlert.hide();
 
-backProjectButton.on('click', () => {
-    //console.log("test");
+backProjectButton.on('click', e => {
+
+    let rewardPackageId = e.target.id;
+
     let userid = localStorage.getItem('userId');
     let projectid = $('#js-back-projectId');
     let name = $('.js-back-project-name');
