@@ -312,9 +312,6 @@ searchInput.keyup(function (event) {
 searchButton.on('click', () => {
     var url = "/project/search?name=" + searchInput.val();
     window.location.href = url;
-
-    //var url = "/User/Edit/" + parseInt(userid);
-    //window.location.href = url;
 });
 
 //**************************************************
