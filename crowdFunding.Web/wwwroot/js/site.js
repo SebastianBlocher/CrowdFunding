@@ -362,16 +362,7 @@ projectCreateButton.on('click', () => {
     let photos = $('#js-projectcreate-photos').val();
     let videos = $('#js-projectcreate-videos').val();
 
-    //REWARD PACKAGES//
-    //let array = {};
-    //array.rewardpackages = [];
-    //array.rewardpackages.push({
-    //    Id: $("#rewardId").val(),
-    //    Name: $(".rewardName").val(),
-    //    Description: $(".rewardDescription").val(),
-    //    Amount: $(".rewardAmount").val()
-    //});
-
+    
     //for (var i = 0; i < rewardpackages.length; i++) {
     //    var object = rewardpackages[i];
     //}
@@ -385,15 +376,14 @@ projectCreateButton.on('click', () => {
         dueTo: dueto,
         photos: [(photos)],
         videos: [(videos)],
-        //rewardpackages: [()]
+      
+    //    rewardpackages: [
+    //        rewards: {
 
-        //rewardpackages: [
-        //    rewards: {
-
-        //}
-        //]
+    //    }
+    //    ]
     };
-
+    debugger;
     $.ajax({
         type: 'POST',
         url: '/project/create',
@@ -427,7 +417,16 @@ projectEditButton.on('click', () => {
     let dueto = new Date($('#js-projectedit-dueto').val());
     let photos = $('#js-projectedit-photos').val();
     let videos = $('#js-projectedit-videos').val();
-
+    //REWARD PACKAGES//
+    let array = {};
+    array.rewardpackages = [];
+    array.rewardpackages.push({
+        //Id: $("#rewardId").val(),
+        Name: $(".rewardName").val(),
+        Description: $(".rewardDescription").val(),
+        Amount: $(".rewardAmount").val()
+    });
+   
     debugger;
 
     let data = {
@@ -438,7 +437,9 @@ projectEditButton.on('click', () => {
         amountRequired: parseFloat(amountrequired.val()),
         dueTo: dueto,
         photos: [(photos)],
-        videos: [(videos)]
+        videos: [(videos)],
+        rewardpackages: array
+
     }
     debugger;
     $.ajax({
