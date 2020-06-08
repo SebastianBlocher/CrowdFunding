@@ -211,6 +211,8 @@ namespace crowdFunding.Core.Services
             var project = context_
                 .Set<Project>()
                 .Where(x => x.ProjectId == options.ProjectId)
+                .Include(x => x.Photos)
+                .Include(x => x.Videos)
                 .SingleOrDefault();
 
             if (project == null)
@@ -246,7 +248,30 @@ namespace crowdFunding.Core.Services
                 project.DueTo = options.DueTo;
             }
 
-            
+            if (options.Photos !=null)
+            {
+                if (options.Photos.Count > 0 && !string.IsNullOrWhiteSpace(options.Photos[0]))
+                {
+                        var p = new Photo()
+                        {
+                            Url = options.Photos[0],
+                        };
+                        project.Photos.Add(p);
+                }
+            }
+
+            if (options.Videos != null)
+            {
+                if (options.Videos.Count > 0 && !string.IsNullOrWhiteSpace(options.Videos[0]))
+                {
+                    var v = new Video()
+                    {
+                        Url = options.Videos[0],
+                    };
+                    project.Videos.Add(v);
+                }
+            }
+
             var rows = 0;
 
             try

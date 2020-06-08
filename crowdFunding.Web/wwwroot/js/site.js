@@ -336,6 +336,80 @@ else {
     signUp.show();
 }
 
+//**************************************************
+//Add Reward Pagkages with Rewards - name description amount
+//**************************************************
+var rewardOptions = [];
+
+let addRewardPackageButton = $('#addRewardPackageButton');
+addRewardPackageButton.on('click', () => {
+    $('#modalCreateRewardPackages').modal('show');
+});
+
+let addRewardsButton = $('#addRewardsButton');
+addRewardsButton.on('click', () => {
+    let rew1 = $('#reward1').val();
+    let rew2 = $('#reward2').val();
+    let rew3 = $('#reward3').val();
+    let rew4 = $('#reward4').val();
+    let rew5 = $('#reward5').val();
+    let projectid = $('#prid').val();
+
+    if (rew1) {
+        let reward1 = {
+            name: rew1
+        }
+        rewardOptions.push(reward1);
+    }
+    if (rew2) {
+        let reward2 = {
+            name: rew2
+        }
+        rewardOptions.push(reward2);
+    }
+    if (rew3) {
+        let reward3 = {
+            name: rew3
+        }
+        rewardOptions.push(reward3);
+    }
+    if (rew4) {
+        let reward4 = {
+            name: rew4
+        }
+        rewardOptions.push(reward4);
+    }
+    if (rew5) {
+        let reward5 = {
+            name: rew5
+        }
+        rewardOptions.push(reward5);
+    }
+
+    let data = {
+        projectId: parseInt(projectid),
+        name: $('#rewardName').val(),
+        description: $('#rewardDescription').val(),
+        amount: parseFloat($('#rewardAmount').val()),
+        rewardOptions: rewardOptions
+    };
+    
+    $.ajax({
+        type: 'POST',
+        url: '/rewardpackage/create',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    }).done(_project => {
+        $('#modalCreateRewardPackages').modal('hide');
+    }).fail(_failureResponse => {
+        
+    });
+
+    rewardPackages.push(JSON.stringify(data));
+    $('#modalCreateRewardPackages').modal('hide');
+});
+
 // ----- Create project----//
 let createSuccesAlert = $('.js-create-success-alert');
 createSuccesAlert.hide();
@@ -374,7 +448,7 @@ projectCreateButton.on('click', () => {
     //}
 
     let data = {
-        userid: parseInt(userid),
+        userId: parseInt(userid),
         name: name.val(),
         description: description.val(),
         category: parseInt(category.val()),
@@ -382,15 +456,8 @@ projectCreateButton.on('click', () => {
         dueTo: dueto,
         photos: [(photos)],
         videos: [(videos)],
-        //rewardpackages: [()]
-
-        //rewardpackages: [
-        //    rewards: {
-
-        //}
-        //]
     };
-
+    
     $.ajax({
         type: 'POST',
         url: '/project/create',

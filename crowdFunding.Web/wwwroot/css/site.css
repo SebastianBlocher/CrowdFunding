@@ -90,7 +90,7 @@ body {
     transition: all .6s;
 }
 
-.card_home {
+.card_home{
     height: 250px;
     width: 150px;
     /*background-color: blue;*/

@@ -32,18 +32,48 @@
         <input type="date" id="js-projectedit-dueto" placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
     </div>
 
-    @*<div class="form-group">
-            <textlabel for="Name">Project Description</textlabel>
-            <textarea id="ProjectDesc" name="ProjectDesc" rows="4" cols="50" value:"@Model.Description">
-                Change your project's description...
-            </textarea>
-            <input class="js-projectedit-description form-control" id="ProjectDesc" value="@Model.Description" placeholder="Change your project's description.">
-        </div>*@
 
+    <div class="modal" id="modalCreateRewardPackages" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add your reward package.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="Project Title">Name</label>
+                    <input class="rewardAmount form-control" id="rewardName">
+                    <label for="Project Title">Description</label>
+                    <input class="rewardAmount form-control" id="rewardDescription">
+                    <label for="Project Title">Amount</label>
+                    <input class="rewardAmount form-control" id="rewardAmount">
+                    <div class="form-group">
+                        <p>Use as many of the 5 available rewards as you like.</p>
+                        <label for="Project Title">Reward 1</label>
+                        <input class="rewardAmount form-control" id="reward1">
+                        <label for="Project Title">Reward 2</label>
+                        <input class="rewardAmount form-control" id="reward2">
+                        <label for="Project Title">Reward 3</label>
+                        <input class="rewardAmount form-control" id="reward3">
+                        <label for="Project Title">Reward 4</label>
+                        <input class="rewardAmount form-control" id="reward4">
+                        <label for="Project Title">Reward 5</label>
+                        <input class="rewardAmount form-control" id="reward5">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="form-font" for="category">Category:</label>
-        <select class="js-project-create-category create-project-form" placeholder="Category:">
+        <select class="js-projectedit-category create-project-form" placeholder="Category:">
             <option selected="selected">@Model.Category</option>
             <option value="1">Arts</option>
             <option value="2">Comics & Illustration</option>
@@ -57,9 +87,9 @@
     </div>
 
     @*<div class="form-group">
-            <label for="dueto">Due Date:</label>
-            <input type="date" id="rewardName"placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
-        </div>*@
+        <label for="dueto">Due Date:</label>
+        <input type="date" id="rewardName"placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
+    </div>*@
 
     <div class="form-group">
         <label for="url">Enter an https:// URL: for your Project's Photo</label>
@@ -67,7 +97,7 @@
         <input type="url" name="url" id="js-projectedit-photos"
                placeholder="https://example.com"
                pattern="https://.*" size="30"
-               required value="@Model.Photos[0].Url">
+               >
     </div>
 
     <div class="form-group">
@@ -76,7 +106,7 @@
         <input type="url" name="url" id="js-projectedit-videos"
                placeholder="https://example.com"
                pattern="https://.*" size="30"
-               required value="@Model.Videos[0].Url">
+               >
     </div>
 
     <div class="form-group">
@@ -97,6 +127,10 @@
     </div>
     <button type="button" class="js-projectedit-submit-button mb-3 btn btn-primary">
         Update
+    </button>
+
+    <button id="addRewardPackageButton" type="button" class="btn btn-primary mb-3" data-target="modalCreateRewardPackages">
+        Add Reward Package
     </button>
 
     <div class="alert alert-success js-projectedit-success-alert" role="alert">
