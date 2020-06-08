@@ -28,22 +28,22 @@
 
 <form method="post" class="js-user-edit-form">
     <div class="form-group">
-        <label for="First Name">First Name</label>
+        <label class="form-font" for="First Name">First Name</label>
         <input class="js-useredit-firstname form-control" id="FirstName" value="@Model.FirstName" placeholder="Change your first name.">
         <small id="edit-fn" class="form-text text-muted">Confirm your first name.</small>
     </div>
     <div class="form-group">
-        <label for="Last Name">Last Name</label>
+        <label class="form-font" for="Last Name">Last Name</label>
         <input class="js-useredit-lastname form-control" id="LastName" value="@Model.LastName" placeholder="Change your last name.">
         <small id="edit-ln" class="form-text text-muted">Confirm your last name.</small>
     </div>
     <div class="form-group">
-        <label for="Email">Email Address</label>
+        <label class="form-font" for="Email">Email Address</label>
         <input class="js-useredit-email form-control" id="Email" value="@Model.Email" placeholder="Ex. yourmail@mail.com">
         <small id="edit-mail" class="form-text text-muted">Confirm your new e-mail address.</small>
     </div>
     <div class="form-group">
-        <label for="Country">Country</label>
+        <label class="form-font" for="Country">Country</label>
         <select class="js-useredit-country form-control" id="country" name="country">
             <option selected="selected">@Model.Country</option>
             <option value="US">USA (+1)</option>
@@ -261,15 +261,15 @@
         <small id="edit-cntry" class="form-text text-muted">Select country.</small>
     </div>
     <div class="form-group">
-        <label for="Description">Description</label>
-        <input class="js-useredit-description form-control" id="Description" value="@Model.Description" placeholder="Describe yourself.">
-        <small id="edit-dscr" class="form-text text-muted">Update your user description.</small>
+        <label class="form-font" for="Description">Biography</label>       
+        <textarea class="js-useredit-description form-control" id="Description" value="@Model.Description" rows="3" placeholder="Describe yourself."></textarea>
+        <small id="edit-dscr" class="form-text text-muted">Update your biography.</small>
     </div>
     <div>
-        <button type="button" class="js-useredit-submit-button btn btn-primary">
-            Update
+        <button type="button" class="js-useredit-submit-button btn btn-primary mt-3">
+            Edit Profile
         </button>
-        <button type="button" class="btn btn-danger btn-primary" data-toggle="modal" data-target="#myDisableUserModal" style="margin-left:50px">
+        <button type="button" class="btn btn-danger btn-danger float-right mt-3" data-toggle="modal" data-target="#myDisableUserModal" style="margin-left:50px">
             Disable me!
         </button>
         <!-- Modal -->

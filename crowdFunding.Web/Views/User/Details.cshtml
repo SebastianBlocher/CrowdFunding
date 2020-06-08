@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-@if (Model == null)
+@if (Model.User == null)
 {
     <div class="row text-center">
         <div class="col-md-3"></div>
@@ -61,7 +61,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-2">
             <h3 class="user_description mobile-space mt-5">
-                Description
+                Biography
             </h3>
         </div>
         <div class="col-md-1"></div>
@@ -93,8 +93,8 @@
                                     @p.ProjectCreatorFirstName @p.ProjectCreatorLastName
                                 </a>, backed by @p.NumberOfBackers
                             </li>
-                        </ul>
-                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+                            <li class="list-group-item"><a href="@Url.Action("Search", "Project", new { category = p.Category})" class="text-dark mt-4"><u>@p.Category</u></a></li>
+                        </ul>                        
                     </div>
                 </div>
             </div>
@@ -124,8 +124,8 @@
                             </li>
                             <li class="list-group-item">@p.AmountGathered €</li>
                             <li class="list-group-item">@p.Percentage() funded</li>
-                        </ul>
-                        <a href="@Url.Action("Search", "Project", new { category = p.Category})" class="nav-link text-dark mt-4"><u>@p.Category</u></a>
+                            <li class="list-group-item"><a href="@Url.Action("Search", "Project", new { category = p.Category})" class="text-dark mt-4"><u>@p.Category</u></a></li>
+                        </ul>                         
                     </div>
                 </div>
             </div>
