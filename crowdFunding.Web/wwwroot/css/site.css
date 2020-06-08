@@ -218,7 +218,7 @@ body {
 }
 
 .modal-footer {
-    background: #34495E;
+    background: #34495E;    
 }
 
 .card-title-user{
@@ -312,8 +312,8 @@ body {
 }
 
 .see-rewards {
-    background: #5E14A6;
-    color:white;
+    background: #246a76;
+    color: white;
 }
 
 .spinner-text {
@@ -401,3 +401,20 @@ body {
 .by{
     font-size:8px;
 }
+
+.no-projects{
+    margin-top:40px;   
+}
+
+.align-some-text {
+    text-align: center;    
+}
+
+.create-project-button{
+    margin-top: 8px;    
+}
+
+.navbar {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+

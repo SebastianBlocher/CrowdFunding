@@ -18,6 +18,7 @@
                     but we have many other projects you can browse
                 </div>
                 <a class="btn btn-warning" href="@Url.Action("Index", "Home")" role="button">Take me home</a>
+                <a class="btn btn-warning" href="@Url.Action("Search", "Project")" role="button">Browse projects</a>
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -76,7 +77,7 @@
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-4">
-        <h5 class="card-title mb-3 js-back-project-name">@Model.Project.Name </h5>
+        <h4 class="card-title mb-3 js-back-project-name">@Model.Project.Name </h4>
         <p>
             by <a href="@Url.Action("Details", "User", new { id = Model.Project.User.UserId })">
                 @Model.Project.User.FirstName @Model.Project.User.LastName
@@ -85,7 +86,7 @@
         <div class="progress mb-3" style="height:6px;">
             <div class="progress-bar bg-success" role="progressbar" style="width: @Model.Project.Percentage()" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <h5 class="card-title mt-3">@Model.Project.AmountGathered / @Model.Project.AmountRequired €</h5>
+        <h5 class="card-title mt-3">@Model.Project.AmountGathered € of @Model.Project.AmountRequired € required</h5>
         <p class="card-text mt-3">@Model.Project.NumberOfBackers Backers</p>
         <a href="@Url.Action("Search", "Project", new { category = Model.Project.Category})" class="text-dark mt-4"><u>@Model.Project.Category</u></a>
         <p class="card-text mt-3"><i><strong>Due to @Model.Project.DueTo.ToString("d")</strong></i></p>
