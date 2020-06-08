@@ -10,7 +10,7 @@
 </head>
 <body style="background-color: #7ccedc">
     <header id="js-header">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.jpg" style="width:110px; height:60px"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,7 +20,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item dropdown">
-                            <a id="usr" href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">User</a>
+                            <a id="usr" href="#" class="dropdown-toggle nav-link text-light" data-toggle="dropdown" role="button" aria-expanded="false">User</a>
                             <ul class="dropdown-menu dropdown-content" role="menu">
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogIn" data-target="#myLoginModal">Log In</a></li>
                                 <li class="nav-item"><a href="@Url.Action("Register", "User")" class="nav-link text-dark sign-up" style="display:none" id="jsSignUp">Sign Up</a></li>
@@ -30,7 +30,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" role="button" aria-expanded="false">Browse</a>
+                            <a href="#" class="dropdown-toggle nav-link text-light" data-toggle="dropdown" role="button" aria-expanded="false">Browse</a>
                             <ul class="dropdown-menu dropdown-content" role="menu">
                                 <li class="nav-item border-bottom nav-border cat1"><a href="@Url.Action("Search", "Project", new { category = 1})" class="nav-link text-dark" data-category-code="1">Arts</a></li>
                                 <li class="nav-item border-bottom nav-border cat2"><a href="@Url.Action("Search", "Project", new { category = 2})" class="nav-link text-dark" data-category-code="2">Comics & Illustration</a></li>
@@ -44,7 +44,7 @@
                         </li>
                         <li class="nav-item">
                             @*<a class="nav-link text-dark" id="js-createNewProject" asp-area="" asp-controller="" asp-action="">Create</a>*@
-                            <a href="#" id="js-createNewProject" class="nav-link text-dark" role="button">Create</a>
+                            <a href="#" id="js-createNewProject" class="nav-link text-light" role="button">Create</a>
                         </li>
 
                         @*<li class="nav-item">
@@ -124,9 +124,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" id="js-footer">
+    <footer class="border-top footer text-light" id="js-footer">
         <div class="container text-center">
-            &copy; 2020 - crowdFunding.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - crowdFunding.Web - <a class ="privacy" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

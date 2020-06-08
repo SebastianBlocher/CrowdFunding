@@ -423,6 +423,7 @@ body {
 
 .navbar {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    background-color: #246a76;    
 }
 
 .nav-border {
@@ -452,3 +453,11 @@ body {
         .dropdown-content a:hover {
             background-color: #289FCD;
         }
+
+#js-footer {
+    background-color: #246a76;
+}
+
+.privacy{
+    color: black;
+}
