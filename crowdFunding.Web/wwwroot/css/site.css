@@ -2,20 +2,20 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -28,47 +28,49 @@ a {
 -------------------------------------------------- */
 html {
     font-size: 14px;
-    
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;   
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 .mainViewer {
@@ -90,7 +92,7 @@ body {
     transition: all .6s;
 }
 
-.card_home{
+.card_home {
     height: 250px;
     width: 150px;
     /*background-color: blue;*/
@@ -145,26 +147,26 @@ body {
     float: right;
 }
 
-.search-container button {
-    float: right;
-    padding: 6px 10px;
-    margin-top: 8px;
-    margin-right: 16px;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-    border-radius: 25px;
-}
+    .search-container button {
+        float: right;
+        padding: 6px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        border-radius: 25px;
+    }
 
-.search-container button:hover {
-    background: #ccc;
-}
+        .search-container button:hover {
+            background: #ccc;
+        }
 
 .navbar-nav li {
     color: #738182;
 }
 
-.project-images{
+.project-images {
     margin-top: 50px;
 }
 
@@ -172,22 +174,23 @@ body {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
-    height: 0;    
+    height: 0;
 }
 
-.iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;    
-}
+    .iframe-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
 .card-body-project {
-    padding: 0rem;    
+    padding: 0rem;
 }
 
 .heading {
-    color: white;    
+    color: white;
     text-align: center;
     margin: auto;
     margin-left: 177px;
@@ -199,6 +202,7 @@ body {
     font-size: 1.45em;
     background: #34495E;
 }
+
 .reward-package {
     color: white;
     background: #228B22;
@@ -213,45 +217,46 @@ body {
     color: black;
 }
 
-.not-found-message{
-    margin-top:50px;   
+.not-found-message {
+    margin-top: 50px;
 }
 
 .modal-footer {
-    background: #34495E;    
+    background: #34495E;
 }
 
-.card-title-user{
-    text-align:center;
-    margin-top:50px;
-    margin-bottom:25px;
+.card-title-user {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
 }
+
 .normal-type {
     font-size: 0.85em;
     color: #34495E
 }
 
-.profile_bio{
-    text-align:center;
-    margin-top:60px;
-    margin-bottom:70px;
+.profile_bio {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 70px;
 }
 
-.about{
-    margin-right:30px;
+.about {
+    margin-right: 30px;
 }
 
 .backed_nav {
     margin-right: 30px;
 }
 
-.user_nav{
+.user_nav {
     color: white !important;
 }
 
 .user_description {
     color: #95959E;
-    padding-left:15px;   
+    padding-left: 15px;
 }
 
 .user_desc {
@@ -295,20 +300,20 @@ body {
 #not-found-img {
     width: 500px !important;
     height: 350px !important;
-    padding-left:15px;
-    padding-right:15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-.btn-warning{
-    color:blue;
+.btn-warning {
+    color: blue;
 }
 
 .alert-warning {
     color: #df4040;
 }
 
-.box{
-    margin-top : 80px;
+.box {
+    margin-top: 80px;
 }
 
 .see-rewards {
@@ -319,12 +324,12 @@ body {
 .spinner-text {
     font-size: 30px;
     color: darkgreen;
-    text-align:center;
-    margin-top:30px;
+    text-align: center;
+    margin-top: 30px;
 }
 
-.project-photos{
-    margin-bottom:20px
+.project-photos {
+    margin-bottom: 20px
 }
 
 .table td {
@@ -358,7 +363,7 @@ body {
     margin-left: 15px;
 }
 
-.form-text{
+.form-text {
     margin-left: 2px;
 }
 
@@ -378,14 +383,14 @@ body {
 .create-project-form {
     margin-bottom: 16px;
     margin-left: 16px;
-    padding: 9px;    
+    padding: 9px;
 }
 
-.js-projectcreate-projectname{
+.js-projectcreate-projectname {
     margin-bottom: 8px;
 }
 
-#js-projectcreate-dueto{
+#js-projectcreate-dueto {
     padding-right: 2px !important;
 }
 
@@ -398,24 +403,52 @@ body {
     margin-right: 100px;
     margin-bottom: 30px;
 }
-.by{
-    font-size:8px;
+
+.by {
+    font-size: 8px;
 }
 
-.no-projects{
-    margin-top: 40px; 
+.no-projects {
+    margin-top: 40px;
     padding-left: 10px;
 }
 
 .align-some-text {
-    text-align: center;    
+    text-align: center;
 }
 
-.create-project-button{
-    margin-top: 8px;    
+.create-project-button {
+    margin-top: 8px;
 }
 
 .navbar {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 }
 
+.nav-border {
+    color: blue;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #289FCD;
+        }
