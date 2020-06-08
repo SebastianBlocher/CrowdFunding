@@ -492,6 +492,9 @@ backProjectButton.on('click', () => {
             successModal.data('hideInterval', setTimeout(function () {
                 successModal.modal('hide');
             }, 3000));
+            setTimeout(function () {
+                location.reload();
+            }, 3000);
         }).fail(_failureResponse => {
             failureModal.modal('show');
             failureModal.data('hideInterval', setTimeout(function () {
