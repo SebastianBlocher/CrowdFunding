@@ -90,7 +90,7 @@ namespace crowdFunding.Web.Controllers
         [HttpPatch("update")]
          public IActionResult Update([FromBody]UpdateProjectOptions options)
         {
-            var result = projectService.UpdateProject(options);
+            jsonvar result = projectService.UpdateProject(options);
 
             if (!result.Success)
             {

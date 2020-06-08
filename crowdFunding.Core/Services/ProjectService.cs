@@ -94,7 +94,8 @@ namespace crowdFunding.Core.Services
                 Category = options.Category,
                 AmountRequired = options.AmountRequired.Value,
                 DueTo = options.DueTo,
-                User = user
+                User = user,
+               
             }; 
 
             foreach (var photo in options.Photos)
