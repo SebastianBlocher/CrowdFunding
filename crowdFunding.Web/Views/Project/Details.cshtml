@@ -98,7 +98,7 @@
             <p class="card-text">@Model.Project.Description</p>
             @foreach (var p in Model.Project.Posts)
             {
-                <p class="card-text mt-3"><u>@p.CreatedOn.ToString("d")</u></p>
+                <p class="card-text mt-3"><u>Status posted on @p.CreatedOn.ToString("d")</u></p>
                 <p class="card-text mt-1">@p.Post</p>
             }
             @foreach (var p in Model.Project.Photos)

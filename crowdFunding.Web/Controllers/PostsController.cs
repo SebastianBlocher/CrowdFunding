@@ -26,6 +26,12 @@ namespace crowdFunding.Web.Controllers
         [HttpPost("create")]
         public IActionResult Create([FromBody] CreatePostOptions options)
         {
+            if (options == null)
+            {
+                return StatusCode(400,
+                    "Bad Request");
+            }
+            
             var result = postService.CreatePost(options.ProjectId, options);
 
             if (!result.Success)

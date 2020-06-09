@@ -20,13 +20,12 @@
             {
                 <div class="card card_home mt-4 shadow mb-5 bg-white rounded" style="padding-top:5px;">
                     <div class="inHeader">                        
-                        <img class="card-img-top img-fluid project_photo border-bottom" src="@p.Photos.ElementAt(0).Url"
-                             alt="Image can not be displayed" width="400" height="250">                        
+                        <img class="card-img-top img-fluid project_photo trending-photos border-bottom" src="@p.Photos.ElementAt(0).Url"
+                             alt="Image can not be displayed" width="100" height="100">                        
                     </div>
                     <div class="card-body">                   
-                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
-                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })" class="stretched-link"></a>
-                        <p class="card-text mt-2">@p.Description</p>
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.ConcatName()</a>
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })" class="stretched-link"></a>                       
                     </div>
                     <div class="card-footer by">                        
                         by

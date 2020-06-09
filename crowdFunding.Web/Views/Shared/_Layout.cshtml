@@ -3,16 +3,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - crowdFunding.Web</title>
+    <title>@ViewData["Title"] - FundMe!</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/fontawesome/css/all.min.css" />
+
 </head>
 <body style="background-color: #7ccedc">
     <header id="js-header">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.jpg" style="width:110px; height:60px"></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" style="width:60px; height:60px"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,7 +28,7 @@
                                 <li class="nav-item border-bottom nav-border"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsMyProfile">My Profile</a></li>
                                 <li class="nav-item border-bottom nav-border"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsEditProfile">Edit Profile</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link text-dark sign-up" style="display:none" id="jsLogOut">Log Out</a></li>
-                            </ul>
+                            </ul>                           
                         </li>
                         <li class="nav-item dropdown">
                             <a href="#" class="dropdown-toggle nav-link text-light" data-toggle="dropdown" role="button" aria-expanded="false">Browse</a>
@@ -121,7 +122,7 @@
 
     <footer class="border-top footer text-light" id="js-footer">
         <div class="container text-center">
-            &copy; 2020 - crowdFunding.Web - <a class ="privacy" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - FundMe! - <a class ="privacy" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

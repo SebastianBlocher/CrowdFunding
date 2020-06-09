@@ -438,6 +438,12 @@ addRewardsButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
+        rew1 = '';
+        rew2 = '';
+        rew3 = '';
+        rew4 = '';
+        rew5 = '';
+
         $('#reward1').val('');
         $('#reward2').val('');
         $('#reward3').val('');
@@ -448,7 +454,7 @@ addRewardsButton.on('click', () => {
         $('#rewardAmount').val('');
 
         $('#modalCreateRewardPackages').modal('hide');
-
+        location.reload();
         
     }).fail(_failureResponse => {
 
@@ -576,7 +582,7 @@ disableProjectButton.on('click', () => {
        
 
 
-        var url = "/Home/Index/";
+        var url = "/User/MyProfile/" + parseInt(localStorage.getItem('userId'))
         window.location.href = url;
 
     }).fail(failureResponse => {

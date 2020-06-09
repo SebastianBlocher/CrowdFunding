@@ -469,3 +469,7 @@ body {
 .border-bottom{
     color: blue;
 }
+
+.trending-photos {   
+    height: 92px !important;
+}

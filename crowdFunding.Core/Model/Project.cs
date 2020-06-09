@@ -38,5 +38,17 @@ namespace crowdFunding.Core.Model
             return percentage.ToString("0.00")+"%";
    
         }
+
+        public string ConcatName()
+        {
+            if (Name.Length >= 36)
+            {
+                return Name.Substring(0, 23) + "...";
+            }
+            else
+            {
+                return Name;
+            }
+        }
     }
 }
