@@ -133,7 +133,7 @@ namespace crowdFunding.Core.Services
             }
 
             return context
-                     .Set<User>().Where(x => x.UserId == id);
+                .Set<User>().Where(x => x.UserId == id);
         }
 
         public IQueryable<User> SearchUsers(SearchUserOptions options)
@@ -144,18 +144,9 @@ namespace crowdFunding.Core.Services
             }
 
             var query = context
-                        .Set<User>()
-                        .AsQueryable();
+                .Set<User>()
+                .AsQueryable();
 
-            if (options.AmountFrom != null)
-            {
-                query = query.Where(x => x.Amount >= options.AmountFrom);
-            }
-
-            if (options.AmountTo != null)
-            {
-                query = query.Where(x => x.Amount <= options.AmountTo);
-            }
 
             if (!string.IsNullOrWhiteSpace(options.Country))
             {

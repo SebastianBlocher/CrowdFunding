@@ -405,7 +405,7 @@ body {
 }
 
 .by {
-    font-size: 8px;
+    font-size: 11px;
 }
 
 .no-projects {
@@ -460,4 +460,12 @@ body {
 
 .privacy{
     color: black;
+}
+
+.project_photo {   
+    padding-bottom: 5px;
+}
+
+.border-bottom{
+    color: blue;
 }

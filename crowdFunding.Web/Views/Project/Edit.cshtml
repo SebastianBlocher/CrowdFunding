@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>                        
+                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>
                     </div>
                 </div>
             </div>
@@ -84,21 +84,11 @@
     </div>
 
     <div class="form-group">
-        <label for="url">Enter a url for the photo</label>
-
-    </div>
-    @*<div class="form-group">
-        <label for="dueto">Due Date:</label>
-        <input type="date" id="rewardName"placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
-    </div>*@
-
-    <div class="form-group">
         <label for="url">Add a Photo:</label>
 
         <input type="url" class="create-project-form" name="url" id="js-projectedit-photos"
                placeholder="https://example.com"
-               pattern="https://.*" size="30"
-               >
+               pattern="https://.*" size="30">
     </div>
 
     <div class="form-group">
@@ -106,8 +96,7 @@
 
         <input type="url" class="create-project-form" name="url" id="js-projectedit-videos"
                placeholder="https://example.com"
-               pattern="https://.*" size="30"
-               >
+               pattern="https://.*" size="30">
     </div>
 
     <div class="form-group">
@@ -123,7 +112,6 @@
         </div>
         <input type="text" class="js-projectedit-amountrequired form-control" aria-label="Amount Required" value="@Model.AmountRequired">
         <div class="input-group-append">
-            @*<span class="input-group-text">.00</span>*@
         </div>
     </div>
 
@@ -137,16 +125,10 @@
         Update
     </button>
 
+    <button type="button" class="btn btn-danger float-right mt-3" id="jsDisableProject" style="margin-left:50px">
+        Delete&nbsp;&nbsp;<span><i class="fa fa-trash" aria-hidden="true"></i></span>
+    </button>
 
-
-    @* DISABLE PROJECT *@
-    <div>
-        <button type="button" class="btn btn-danger float-right mt-3" id="jsDisableProject" style="margin-left:50px">
-            Disable Project!
-        </button>
-        <!-- Modal -->
-        
-    </div>
 
     <div class="alert alert-success js-projectedit-success-alert" role="alert">
         Project was successfully update!

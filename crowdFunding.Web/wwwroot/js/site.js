@@ -401,6 +401,14 @@ addRewardsButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
+        $('#reward1').val('');
+        $('#reward2').val('');
+        $('#reward3').val('');
+        $('#reward4').val('');
+        $('#reward5').val('');
+        $('#rewardName').val('');
+        $('#rewardDescription').val('');
+        $('#rewardAmount').val('');
         $('#modalCreateRewardPackages').modal('hide');
     }).fail(_failureResponse => {
 
@@ -411,15 +419,15 @@ addRewardsButton.on('click', () => {
 });
 
 // ----- Create project----//
-let createSuccesAlert = $('.js-create-success-alert');
-createSuccesAlert.hide();
+let createSuccessAlert = $('.js-create-success-alert');
+createSuccessAlert.hide();
 
 let createFailedAlert = $('.js-create-failed-alert');
 createFailedAlert.hide();
 
 let projectCreateButton = $('.js-projectcreate-submit-button');
 projectCreateButton.on('click', () => {
-    createSuccesAlert.hide();
+    createSuccessAlert.hide();
     createFailedAlert.hide();
 
     let userid = localStorage.getItem("userId");
@@ -454,7 +462,7 @@ projectCreateButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
-        createSuccesAlert.show().delay(2000);
+        createSuccessAlert.show().delay(2000);
         createSuccessAlert.fadeOut();
     }).fail(_failureResponse => {
         createFailedAlert.show().delay(2000);
@@ -626,6 +634,3 @@ createdListButton.on('click', () => {
 })
 
 //----------------------------------//
-
-
-
