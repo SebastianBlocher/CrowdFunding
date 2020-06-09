@@ -337,6 +337,43 @@ else {
 }
 
 //**************************************************
+//Post Status Update
+//**************************************************
+let addStatusUpdateButton = $('#addStatusUpdateButton');
+addStatusUpdateButton.on('click', () => {
+    $('#modalCreateStatusUpdate').modal('show');
+});
+
+let addStatusButton = $('#addStatusButton');
+addStatusButton.on('click', () => {
+    let statusUpdate = $('#statusUpdate');
+    let projectid = $('#prid').val();
+
+    let data = {
+        projectId: projectid,
+        post: statusUpdate.val()
+    };
+    debugger;
+    $.ajax({
+        type: 'POST',
+        url: '/post/create',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    }).done(_project => {
+
+        $('#statusUpdate').val('');
+
+        $('#modalCreateStatusUpdate').modal('hide');
+
+    }).fail(_failureResponse => {
+
+    });
+
+    $('#modalCreateStatusUpdate').modal('hide');
+});
+
+//**************************************************
 //Add Reward Pagkages with Rewards - name description amount
 //**************************************************
 var rewardOptions = [];
