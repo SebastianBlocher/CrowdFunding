@@ -23,10 +23,10 @@ namespace crowdFunding.Web.Controllers
             postService = postService_;
         }
 
-        [HttpPost]
-        public IActionResult Create(int id, [FromBody] CreatePostOptions options)
+        [HttpPost("create")]
+        public IActionResult Create([FromBody] CreatePostOptions options)
         {
-            var result = postService.CreatePost(id, options);
+            var result = postService.CreatePost(options.ProjectId, options);
 
             if (!result.Success)
             {
