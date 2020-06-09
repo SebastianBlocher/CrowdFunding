@@ -401,7 +401,18 @@ addRewardsButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
+        $('#reward1').val('');
+        $('#reward2').val('');
+        $('#reward3').val('');
+        $('#reward4').val('');
+        $('#reward5').val('');
+        $('#rewardName').val('');
+        $('#rewardDescription').val('');
+        $('#rewardAmount').val('');
+
         $('#modalCreateRewardPackages').modal('hide');
+
+        
     }).fail(_failureResponse => {
 
     });
