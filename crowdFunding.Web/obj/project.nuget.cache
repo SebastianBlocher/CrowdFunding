@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8eoB5OUn8kxHNbOZ80hw9fy+dethWBy5gHLk1OyxD6/YbTsmCypb9seE9TOHlH3NYLURVz4Q0kkcmq+R75PaSQ==",
+  "dgSpecHash": "ONM7RaEahC0Rei4Wq/ynMx6fyOI3e6m2QVVARVdkMErNwgD+u22lbstJUvRJNMV6xJVL6yGwK66I9ejXsSIFVQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\sebab\\source\\repos\\athens-pf-team5\\crowdFunding.Web\\crowdFunding.Web.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,7 @@
     "C:\\Users\\sebab\\.nuget\\packages\\microsoft.entityframeworkcore.design\\3.1.4\\microsoft.entityframeworkcore.design.3.1.4.nupkg.sha512",
     "C:\\Users\\sebab\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.4\\microsoft.entityframeworkcore.relational.3.1.4.nupkg.sha512",
     "C:\\Users\\sebab\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.4\\microsoft.entityframeworkcore.sqlserver.3.1.4.nupkg.sha512",
+    "C:\\Users\\sebab\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\3.1.4\\microsoft.entityframeworkcore.tools.3.1.4.nupkg.sha512",
     "C:\\Users\\sebab\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.4\\microsoft.extensions.caching.abstractions.3.1.4.nupkg.sha512",
     "C:\\Users\\sebab\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.4\\microsoft.extensions.caching.memory.3.1.4.nupkg.sha512",
     "C:\\Users\\sebab\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.4\\microsoft.extensions.configuration.3.1.4.nupkg.sha512",
