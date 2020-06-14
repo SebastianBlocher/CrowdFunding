@@ -2,7 +2,9 @@
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using crowdFunding.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace crowdFunding.Web.Controllers
@@ -16,14 +18,14 @@ namespace crowdFunding.Web.Controllers
             return View();
         }
 
-        private IUserService userService;
+        private IUserService userService;        
 
         public UserController(IUserService userService_)
         {            
-            userService = userService_;
+            userService = userService_;            
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Create([FromBody]CreateUserOptions options)
         {
             var result = userService.CreateUser(options);
@@ -37,17 +39,64 @@ namespace crowdFunding.Web.Controllers
             return Json(result.Data);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetUser(int? id)
+        [HttpGet("register")]
+        public IActionResult Register()
         {
-            var user = userService.GetById(id).SingleOrDefault();
-            
-            if (user == null)
+            return View();
+        }
+
+        [HttpGet("edit/{id}")]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
             {
-                return NotFound();
+                return View(null);
             }
 
-            return Json(user);
+            var user = userService.GetById(id).SingleOrDefault();
+
+            return View(user);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return View(null);
+            }
+
+            var viewModel = new UserViewModel()
+            {
+                User = userService.GetById(id)
+                .Include(u => u.BackedProjectsList)                
+                .Include(u => u.CreatedProjectsList)
+                .ThenInclude(u => u.Photos) 
+                .SingleOrDefault()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet("MyProfile/{id}")]
+        public IActionResult MyProfile(int? id)
+        {
+            if (id == null)
+            {
+                return View(null);
+            }
+
+            var viewModel = new UserViewModel()
+            {
+                User = userService
+                    .GetById(id)
+                    .Include(y => y.BackedProjectsList)
+                    .Include(x => x.CreatedProjectsList)
+                        .ThenInclude(p => p.Photos)
+                    .SingleOrDefault(),
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet("search")]
@@ -70,11 +119,11 @@ namespace crowdFunding.Web.Controllers
             return Json(users);
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult Update(int id,
+        [HttpPatch("update")]
+        public IActionResult Update(
             [FromBody]UpdateUserOptions options)
         {
-            var result = userService.UpdateUser(id,
+            var result = userService.UpdateUser(options.UserId,
                options);
 
             if (!result.Success)
@@ -95,6 +144,26 @@ namespace crowdFunding.Web.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody]SearchUserOptions options)
+        {
+            if (string.IsNullOrWhiteSpace(options.FirstName) || string.IsNullOrWhiteSpace(options.Email))
+            {
+                return BadRequest();
+            }
+
+            var user = userService
+                .SearchUsers(options)
+                .SingleOrDefault();
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            return Json(user);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Remove([FromForm]int? id)
+        public IActionResult Remove(int? id)
         {
             var isRewardRemoved = rewardService.RemoveReward(id);
 

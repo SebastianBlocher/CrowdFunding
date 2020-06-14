@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using crowdFunding.Core.Services.Interfaces;
 
 namespace crowdFunding.Web
 {

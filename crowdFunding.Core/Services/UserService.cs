@@ -44,12 +44,6 @@ namespace crowdFunding.Core.Services
                      StatusCode.BadRequest, "Null or empty Email");
             }
 
-            if (string.IsNullOrWhiteSpace(options.Description))
-            {
-                return Result<User>.ActionFailed(
-                       StatusCode.BadRequest, "Null or empty Description");
-            }
-
             if (string.IsNullOrWhiteSpace(options.Country))
             {
                 return Result<User>.ActionFailed(
@@ -98,6 +92,9 @@ namespace crowdFunding.Core.Services
 
             var user = GetById(id)
                         .Include(c => c.CreatedProjectsList)
+                            .ThenInclude(p => p.Photos)
+                        .Include(c => c.CreatedProjectsList)
+                            .ThenInclude(v=>v.Videos)
                         .SingleOrDefault();
 
             if (user == null)
@@ -106,9 +103,22 @@ namespace crowdFunding.Core.Services
             }
 
             user.IsActive = false;
+            user.FirstName = "";
+            user.Email = "";
 
-            if (user.CreatedProjectsList != null)
+            if (user.CreatedProjectsList != null && user.CreatedProjectsList.Count!=0)
             {
+                foreach (var pr in user.CreatedProjectsList)
+                {
+                    if (pr.Photos != null && pr.Photos.Count != 0)
+                    {
+                        pr.Photos.Clear();
+                    }
+                    if (pr.Videos != null && pr.Videos.Count != 0)
+                    {
+                        pr.Videos.Clear();
+                    }
+                }
                 user.CreatedProjectsList.Clear();
             }
 

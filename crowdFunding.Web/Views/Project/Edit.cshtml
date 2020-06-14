@@ -1,0 +1,164 @@
+﻿@using crowdFunding.Core.Model
+@model Project
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">
+        Project could not be found!
+    </div>
+
+    return;
+}
+
+<form method="post" class="js-project-edit-form">
+
+    <h5 class="project-header">Edit your project</h5>
+
+    <div class="form-group">
+        <label for="Project Title">Project Title</label>
+        <input class="js-projectedit-projectname form-control" id="ProjectTitle" placeholder=" Change your project's title" value="@Model.Name">
+
+    </div>
+
+    <div class="form-group">
+        <label class="form-font" for="dueto">Due Date:</label>
+        <input class="create-project-form" type="date" id="js-projectedit-dueto" placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
+    </div>
+
+
+    <div class="modal" id="modalCreateRewardPackages" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add your reward package.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="Project Title">Name</label>
+                    <input class="rewardAmount form-control" id="rewardName">
+                    <label for="Project Title">Description</label>
+                    <input class="rewardAmount form-control" id="rewardDescription">
+                    <label for="Project Title">Amount</label>
+                    <input class="rewardAmount form-control" id="rewardAmount">
+                    <div class="form-group">
+                        <p>Use as many of the 5 available rewards as you like.</p>
+                        <label for="Project Title">Reward 1</label>
+                        <input class="rewardAmount form-control" id="reward1">
+                        <label for="Project Title">Reward 2</label>
+                        <input class="rewardAmount form-control" id="reward2">
+                        <label for="Project Title">Reward 3</label>
+                        <input class="rewardAmount form-control" id="reward3">
+                        <label for="Project Title">Reward 4</label>
+                        <input class="rewardAmount form-control" id="reward4">
+                        <label for="Project Title">Reward 5</label>
+                        <input class="rewardAmount form-control" id="reward5">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-font" for="category">Category:</label>
+        <select class="js-projectedit-category create-project-form" placeholder="Category:">
+            <option selected="selected">@Model.Category</option>
+            <option value="1">Arts</option>
+            <option value="2">Comics & Illustration</option>
+            <option value="3">Design & Tech</option>
+            <option value="4">Film</option>
+            <option value="5">Food & Craft</option>
+            <option value="6">Games</option>
+            <option value="7">Music</option>
+            <option value="8">Publishing</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="url">Enter a url for the photo</label>
+
+    </div>
+    @*<div class="form-group">
+        <label for="dueto">Due Date:</label>
+        <input type="date" id="rewardName"placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
+    </div>*@
+
+    <div class="form-group">
+        <label for="url">Add a Photo:</label>
+
+        <input type="url" class="create-project-form" name="url" id="js-projectedit-photos"
+               placeholder="https://example.com"
+               pattern="https://.*" size="30"
+               >
+    </div>
+
+    <div class="form-group">
+        <label for="url">Add a Video:</label>
+
+        <input type="url" class="create-project-form" name="url" id="js-projectedit-videos"
+               placeholder="https://example.com"
+               pattern="https://.*" size="30"
+               >
+    </div>
+
+    <div class="form-group">
+        <label class="form-font" for="Description">Project Description</label>
+        <textarea class="js-projectedit-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3">@Model.Description</textarea>
+
+    </div>
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">€</span>
+        </div>
+        <input type="text" class="js-projectedit-amountrequired form-control" aria-label="Amount Required" value="@Model.AmountRequired">
+        <div class="input-group-append">
+            @*<span class="input-group-text">.00</span>*@
+        </div>
+    </div>
+
+    <button id="addRewardPackageButton" type="button" class="btn see-rewards rewards mb-3" data-target="modalCreateRewardPackages">
+        Add Reward Package
+    </button>
+
+    <br>
+
+    <button type="button" class="js-projectedit-submit-button mb-3 mt-3 btn btn-primary">
+        Update
+    </button>
+
+
+
+    @* DISABLE PROJECT *@
+    <div>
+        <button type="button" class="btn btn-danger float-right mt-3" id="jsDisableProject" style="margin-left:50px">
+            Disable Project!
+        </button>
+        <!-- Modal -->
+        
+    </div>
+
+    <div class="alert alert-success js-projectedit-success-alert" role="alert">
+        Project was successfully update!
+    </div>
+
+    <div class="alert alert-danger js-projectedit-fail-alert" role="alert">
+        Project could not be updated!
+    </div>
+
+    <div class="form-group" style="visibility:hidden">
+
+        <input class="js-projectedit-projectname form-control" id="prid" value="@Model.ProjectId">
+
+    </div>
+</form>

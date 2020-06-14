@@ -2,7 +2,9 @@
 using crowdFunding.Core.Services.Options.Create;
 using crowdFunding.Core.Services.Options.Search;
 using crowdFunding.Core.Services.Options.Update;
+using crowdFunding.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Linq;
 
 namespace crowdFunding.Web.Controllers
@@ -11,19 +13,42 @@ namespace crowdFunding.Web.Controllers
     public class ProjectController : Controller
     {
         private IProjectService projectService;
+        private IRewardService rewardService;
+        public IRewardPackageService rewardPackageService;
+        public IUserService userService;
 
-        [HttpGet("index")]
+        public ProjectController(IProjectService projectService_,
+            IRewardService rewardService_,
+            IRewardPackageService rewardPackageService_,
+            IUserService userService_)
+        {
+            projectService = projectService_;
+            rewardPackageService = rewardPackageService_;
+            rewardService = rewardService_;
+            userService = userService_;
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        public ProjectController(IProjectService projectService_)
+        [HttpGet("register")]
+        public IActionResult Register()
         {
-            projectService = projectService_;
+            return View();
         }
 
-        [HttpPost]
+        [HttpGet("edit/{id}")]
+        public IActionResult Edit(int? id)
+        {
+            var project = projectService.GetProjectById(id);
+
+            return View(project);
+        }
+
+        [HttpPost("create")]
         public IActionResult Create([FromBody]CreateProjectOptions options)
         {
             var result = projectService.CreateProject(options);
@@ -38,42 +63,34 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetProject(int? id)
+        public IActionResult Details(int? id)
         {
-            var project = projectService.GetProjectById(id);
-            if (project == null)
+            var viewModel = new ProjectViewModel()
             {
-                return NotFound();
-            }
-            return Json(project);
+                Project = projectService.GetProjectById(id)
+            };            
+
+            return View(viewModel);           
         }
 
         [HttpGet("search")]
-        public IActionResult Search([FromBody]SearchProjectOptions options)
+        public IActionResult Search(SearchProjectOptions options)
         {
-            var project = projectService
+            var viewModel = new ProjectSearchViewModel()
+            {
+                ProjectList = projectService
                 .SearchProject(options)
-                .ToList();
+                .ToList()  
+            };
 
-            if (project == null)
-            {
-                return BadRequest();
-            }
-
-            if(project.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Json(project);
+            return View(viewModel);
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult Update(int id,
-            [FromBody]UpdateProjectOptions options)
+        //[HttpPatch("{id}/edit")]
+        [HttpPatch("update")]
+         public IActionResult Update([FromBody]UpdateProjectOptions options)
         {
-            var result = projectService.UpdateProject(id,
-               options);
+            var result = projectService.UpdateProject(options);
 
             if (!result.Success)
             {
@@ -81,9 +98,26 @@ namespace crowdFunding.Web.Controllers
                     result.ErrorText);
             }
 
-            return Json(result.Data); ;
+            return Json(result.Data); 
         }
-        //[HttpDelete("{delete}")]
-        //trending
+
+        [HttpDelete("delete")]
+        public IActionResult Remove(int? id)
+        {
+            var isProjectRemoved = projectService.DeleteProject(id);
+
+            if (isProjectRemoved == false)
+            {
+                return BadRequest();
+            }
+
+            return Json(isProjectRemoved);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

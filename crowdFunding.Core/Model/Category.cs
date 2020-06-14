@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace crowdFunding.Core.Model
+﻿namespace crowdFunding.Core.Model
 {
+
     public enum Category
     {
+        
+        Default = 0,
         Arts = 1,
-        ComicsIllustration = 2,
-        DesignTech = 3,
+        Comics_Illustration = 2,
+        Design_Tech = 3,
         Film = 4,
         Food_Craft = 5,
         Games = 6,
@@ -16,3 +15,6 @@ namespace crowdFunding.Core.Model
         Publishing = 8
     }
 }
+
+
+

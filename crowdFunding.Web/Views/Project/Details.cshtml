@@ -1,0 +1,188 @@
+﻿@model ProjectViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@if (Model.Project == null)
+{
+    <div class="row text-center">
+        <div class="col-md-3"></div>
+        <div class="box">
+            <div class="content-project">
+                <div class="not-found-image">
+                    <img src="https://www.cdgi.com/wp-content/uploads/2019/05/404-Pages-1112x556.jpg" width="500" height="350" id="not-found-img" class="img-fluid" alt="Image can not be displayed">
+                </div>
+                <div class="alert alert-warning not-found-message text-center">
+                    We can't find the page you are looking for, <br>
+                    but we have many other projects you can browse
+                </div>
+                <a class="btn btn-warning" href="@Url.Action("Index", "Home")" role="button">Take me home</a>
+                <a class="btn btn-warning" href="@Url.Action("Search", "Project")" role="button">Browse projects</a>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+    return;
+}
+
+@*Create Project - not logged in modal popup*@
+<div class="modal fade" tabindex="-1" role="dialog" id="myCreateLoginModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#7ccedc">
+                <h5 class="modal-title">Cannot create your ideas if you are not logged in!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>If you are already a user, please Login.</a>
+            </div>
+            <div class="modal-footer" style="background-color:#7ccedc">
+                <a href="@Url.Action("Index", "Home")" type="button" class="btn btn-primary" style="margin-right:200px">Home</a>
+                <a href="@Url.Action("Register", "User")" type="button" class="btn btn-primary">Sign Up</a>
+                <a class="btn btn-primary" type="button" data-dismiss="modal" data-toggle="modal" href="#myLoginModal">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="alert alert-success js-back-success-alert" role="alert">
+            Project has been backed successfully!
+        </div>
+    </div>
+</div>
+
+<div id="failureModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="alert alert-danger js-back-failed-alert" role="alert">
+            Failed to back project!
+        </div>
+    </div>
+</div>
+
+<p style="visibility: hidden" id="js-back-projectId">
+    @Model.Project.ProjectId
+</p>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="iframe-container">
+            <iframe width='500' height='400' src='@Model.Project.Videos.ElementAt(0).Url' frameborder="0"></iframe>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <h4 class="card-title mb-3 js-back-project-name">@Model.Project.Name </h4>
+        <p>
+            by <a href="@Url.Action("Details", "User", new { id = Model.Project.User.UserId })">
+                @Model.Project.User.FirstName @Model.Project.User.LastName
+            </a>
+        </p>
+        <div class="progress mb-3" style="height:6px;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: @Model.Project.Percentage()" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <h5 class="card-title mt-3">@Model.Project.AmountGathered € of @Model.Project.AmountRequired € required</h5>
+        <p class="card-text mt-3">@Model.Project.NumberOfBackers Backers</p>
+        <a href="@Url.Action("Search", "Project", new { category = Model.Project.Category})" class="text-dark mt-4"><u>@Model.Project.Category</u></a>
+        <p class="card-text mt-3"><i><strong>Due to @Model.Project.DueTo.ToString("d")</strong></i></p>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-6">
+        <div class="card-body-project">
+            <p class="card-text">@Model.Project.Description</p>
+            @foreach (var p in Model.Project.Posts)
+            {
+                <p class="card-text mt-3"><u>@p.CreatedOn.ToString("d")</u></p>
+                <p class="card-text mt-1">@p.Post</p>
+            }
+            @foreach (var p in Model.Project.Photos)
+            {
+                <div class="project-photos">
+                    <img src="@p.Url" width="450" height="300" class="img-fluid" alt="Image can not be displayed">
+                </div>
+            }
+
+            @for (int i = 1; i < Model.Project.Videos.Count(); i++)
+            {
+                <div class="iframe-container mt-5">
+                    <iframe width='500' height='400' src='@Model.Project.Videos.ElementAt(i).Url' frameborder="0"></iframe>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <h5 class="card-header reward-package mt-3">Reward Packages</h5>
+        @if (@Model.Project.RewardPackages.Count == 0)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success mt-5 style=" width: 3rem; height: 3rem;"" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <p class="spinner-text">In Progress...</p>
+        }
+        else
+        {
+            @foreach (var rp in Model.Project.RewardPackages)
+            {
+                <div class="card mb-2 shadow p-3 mb-5 bg-white rounded">
+                    <h5 class="card-header reward-packages">@rp.Name</h5>
+                    <div class="card-body">
+                        <h5 class="card-title js-back-project-amount-@rp.RewardPackageId">@rp.Amount €</h5>
+                        <p class="card-text">@rp.Description</p>
+
+                        <button type="button" class="btn see-rewards mb-3"
+                                data-toggle="modal" data-target="#myModal">
+                            Checkout Rewards
+                        </button>
+
+                        <div class="modal fade right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             aria-hidden="true" data-backdrop="true">
+                            <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <p class="heading">Rewards</p>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" class="white-text">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <p class="text-center">
+                                                    <img src="https://www.iconsdb.com/icons/preview/navy-blue/gift-xxl.png"
+                                                         width="50" height="50">
+                                                </p>
+                                            </div>
+                                            <div class="col-9">
+                                                @foreach (var p in rp.Rewards)
+                                                {
+                                                    <p>@p.Name</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer flex-center">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <button type="button" class="js-back-project-button btn btn-primary btn-md mt-2" id="@rp.RewardPackageId">
+                            Buy Package
+                        </button>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

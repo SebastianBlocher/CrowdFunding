@@ -19,15 +19,16 @@ a {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    
 }
 @media (min-width: 768px) {
   html {
@@ -59,8 +60,8 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;   
 }
 .footer {
   position: absolute;
@@ -69,3 +70,352 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.mainViewer {
+    max-width: 570px;
+    width: 570px;
+    height: 250px;
+    margin: auto;
+    background-color: #7ccedc;
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    height: 100%;
+    min-width: calc(190px *5);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: all .6s;
+}
+
+.card_home{
+    height: 250px;
+    width: 150px;
+    /*background-color: blue;*/
+    margin-left: 20px;
+    margin-right: 20px;
+    /*display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;*/
+}
+
+.inHeader {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.pos {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.trending {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trendingH {
+    color: #506263;
+}
+
+.container input[type=search] {
+    padding: 6px;
+    padding-left: 16px;
+    margin-top: 8px;
+    margin-right: 8px;
+    font-size: 17px;
+    border: 1px solid #738182;
+    border-radius: 25px;
+}
+
+.search-container {
+    float: right;
+}
+
+.search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.search-container button:hover {
+    background: #ccc;
+}
+
+.navbar-nav li {
+    color: #738182;
+}
+
+.project-images{
+    margin-top: 50px;
+}
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;    
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;    
+}
+.card-body-project {
+    padding: 0rem;    
+}
+
+.heading {
+    color: white;    
+    text-align: center;
+    margin: auto;
+    margin-left: 177px;
+}
+
+.modal-header {
+    color: white;
+    text-align: center;
+    font-size: 1.45em;
+    background: #34495E;
+}
+.reward-package {
+    color: white;
+    background: #228B22;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.reward-packages {
+    background: #A9A9A9;
+    color: black;
+}
+
+.not-found-message{
+    margin-top:50px;   
+}
+
+.modal-footer {
+    background: #34495E;    
+}
+
+.card-title-user{
+    text-align:center;
+    margin-top:50px;
+    margin-bottom:25px;
+}
+.normal-type {
+    font-size: 0.85em;
+    color: #34495E
+}
+
+.profile_bio{
+    text-align:center;
+    margin-top:60px;
+    margin-bottom:70px;
+}
+
+.about{
+    margin-right:30px;
+}
+
+.backed_nav {
+    margin-right: 30px;
+}
+
+.user_nav{
+    color: white !important;
+}
+
+.user_description {
+    color: #95959E;
+    padding-left:15px;   
+}
+
+.user_desc {
+    padding-left: 15px;
+}
+
+#js-created-list-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+}
+
+#js-backed-list-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+}
+
+.user_row {
+    border-style: double !important;
+    border-color: #95959E !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+@media screen and (max-width: 767px) {
+    .mobile-space {
+        margin-left: 155px;
+    }
+}
+
+#not-found-img {
+    width: 500px !important;
+    height: 350px !important;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.btn-warning{
+    color:blue;
+}
+
+.alert-warning {
+    color: #df4040;
+}
+
+.box{
+    margin-top : 80px;
+}
+
+.see-rewards {
+    background: #246a76;
+    color: white;
+}
+
+.spinner-text {
+    font-size: 30px;
+    color: darkgreen;
+    text-align:center;
+    margin-top:30px;
+}
+
+.project-photos{
+    margin-bottom:20px
+}
+
+.table td {
+    text-align: center;
+    background: #246a76;
+    color: white;
+}
+
+.td-custom {
+    background: #1d97a1 !important;
+    color: white;
+}
+
+.table th {
+    text-align: center;
+    background: #246a76;
+    color: white;
+}
+
+.th-custom {
+    background: #1d97a1 !important;
+    color: white;
+}
+
+.user-table {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.js-useredit-button {
+    margin-left: 15px;
+}
+
+.form-text{
+    margin-left: 2px;
+}
+
+.small, small {
+    font-size: 91%;
+}
+
+.form-control {
+    margin-bottom: 16px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.form-font {
+    font-size: 1.15rem;
+}
+
+.create-project-form {
+    margin-bottom: 16px;
+    margin-left: 16px;
+    padding: 9px;    
+}
+
+.js-projectcreate-projectname{
+    margin-bottom: 8px;
+}
+
+#js-projectcreate-dueto{
+    padding-right: 2px !important;
+}
+
+.project-header {
+    text-align: center;
+    color: white;
+    background: #246a76;
+    padding: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 30px;
+}
+.by{
+    font-size:8px;
+}
+
+.no-projects{
+    margin-top: 40px; 
+    padding-left: 10px;
+}
+
+.align-some-text {
+    text-align: center;    
+}
+
+.create-project-button{
+    margin-top: 8px;    
+}
+
+.navbar {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+

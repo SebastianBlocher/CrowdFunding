@@ -22,12 +22,10 @@ namespace crowdFunding.Web.Controllers
             backedProjectsService = backedProjectsService_;
         }
 
-        [HttpPost]
-        public IActionResult Create(int userId,
-            int projectId,
-            [FromBody]CreateBackedProjectOptions options)
+        [HttpPost("create")]
+        public IActionResult Create([FromBody]CreateBackedProjectOptions options)
         {
-            var result = backedProjectsService.CreateBackedProject(userId, projectId, options);
+            var result = backedProjectsService.CreateBackedProject(options);
 
             if (!result.Success)
             {
@@ -36,26 +34,6 @@ namespace crowdFunding.Web.Controllers
             }
 
             return Json(result.Data);
-        }
-
-        [HttpGet]
-        public IActionResult Search([FromBody]SearchBackedProjectsOptions options)
-        {
-            var backedProject = backedProjectsService
-                .SearchBackedProjects(options)
-                .ToList();
-
-            if (backedProject == null) 
-            {
-                return BadRequest();
-            }
-
-            if(backedProject.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Json(backedProject);
         }
     }
 }
