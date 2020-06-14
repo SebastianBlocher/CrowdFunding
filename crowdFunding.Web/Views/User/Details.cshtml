@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-@if (Model.User == null)
+@if (Model.User == null || Model.User.IsActive == false)
 {
     <div class="row text-center">
         <div class="col-md-3"></div>
@@ -113,11 +113,11 @@
 
     <div class="row user_row mt-3" id="js-created-list-row">
 
-        @if (Model.User.BackedProjectsList.Count == 0)
+        @if (Model.User.CreatedProjectsList.Count == 0)
         {
             <div class="col-md-3"></div>
             <div class="align-some-text">
-                <h4 class="no-projects">@Model.User.FirstName @Model.User.LastName hasn't backed any projects yet!</h4>                
+                <h4 class="no-projects">@Model.User.FirstName @Model.User.LastName hasn't created any projects yet!</h4>                
             </div>
         }
         else
