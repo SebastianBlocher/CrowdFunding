@@ -202,7 +202,6 @@ userEditButton.on('click', () => {
 });
 
 
-
 //**************************************************
 //Create User JS
 //**************************************************
@@ -314,6 +313,7 @@ searchButton.on('click', () => {
     window.location.href = url;
 });
 
+
 //**************************************************
 //User in Navbar
 //**************************************************
@@ -335,6 +335,43 @@ else {
     logIn.show();
     signUp.show();
 }
+
+//**************************************************
+//Post Status Update
+//**************************************************
+let addStatusUpdateButton = $('#addStatusUpdateButton');
+addStatusUpdateButton.on('click', () => {
+    $('#modalCreateStatusUpdate').modal('show');
+});
+
+let addStatusButton = $('#addStatusButton');
+addStatusButton.on('click', () => {
+    let statusUpdate = $('#statusUpdate');
+    let projectid = $('#prid').val();
+
+    let data = {
+        projectId: projectid,
+        post: statusUpdate.val()
+    };
+    debugger;
+    $.ajax({
+        type: 'POST',
+        url: '/post/create',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    }).done(_project => {
+
+        $('#statusUpdate').val('');
+
+        $('#modalCreateStatusUpdate').modal('hide');
+
+    }).fail(_failureResponse => {
+
+    });
+
+    $('#modalCreateStatusUpdate').modal('hide');
+});
 
 //**************************************************
 //Add Reward Pagkages with Rewards - name description amount
@@ -401,7 +438,24 @@ addRewardsButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
+        rew1 = '';
+        rew2 = '';
+        rew3 = '';
+        rew4 = '';
+        rew5 = '';
+
+        $('#reward1').val('');
+        $('#reward2').val('');
+        $('#reward3').val('');
+        $('#reward4').val('');
+        $('#reward5').val('');
+        $('#rewardName').val('');
+        $('#rewardDescription').val('');
+        $('#rewardAmount').val('');
+
         $('#modalCreateRewardPackages').modal('hide');
+        location.reload();
+        
     }).fail(_failureResponse => {
 
     });
@@ -411,15 +465,15 @@ addRewardsButton.on('click', () => {
 });
 
 // ----- Create project----//
-let createSuccesAlert = $('.js-create-success-alert');
-createSuccesAlert.hide();
+let createSuccessAlert = $('.js-create-success-alert');
+createSuccessAlert.hide();
 
 let createFailedAlert = $('.js-create-failed-alert');
 createFailedAlert.hide();
 
 let projectCreateButton = $('.js-projectcreate-submit-button');
 projectCreateButton.on('click', () => {
-    createSuccesAlert.hide();
+    createSuccessAlert.hide();
     createFailedAlert.hide();
 
     let userid = localStorage.getItem("userId");
@@ -454,7 +508,7 @@ projectCreateButton.on('click', () => {
         data: JSON.stringify(data),
         dataType: 'json'
     }).done(_project => {
-        createSuccesAlert.show().delay(2000);
+        createSuccessAlert.show().delay(2000);
         createSuccessAlert.fadeOut();
     }).fail(_failureResponse => {
         createFailedAlert.show().delay(2000);
@@ -528,7 +582,7 @@ disableProjectButton.on('click', () => {
        
 
 
-        var url = "/Home/Index/";
+        var url = "/User/MyProfile/" + parseInt(localStorage.getItem('userId'))
         window.location.href = url;
 
     }).fail(failureResponse => {
@@ -626,6 +680,3 @@ createdListButton.on('click', () => {
 })
 
 //----------------------------------//
-
-
-

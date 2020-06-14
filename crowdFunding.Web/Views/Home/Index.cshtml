@@ -9,7 +9,7 @@
     <img src="~/images/outsideofthebox.jpg" alt="company logo">
 </div>
 
-<h2 class="trendingH">Trending Projects</h2>
+<h3 class="trendingH project-header">Trending</h3>
 <div class="trending">
 
     <a class="clickable" id="btnLeft"><i class="fas fa-angle-left"></i></a>
@@ -19,28 +19,19 @@
             @foreach (var p in Model)
             {
                 <div class="card card_home mt-4 shadow mb-5 bg-white rounded" style="padding-top:5px;">
-                    <div class="inHeader">
-                        @*<img class="card-img-top" src="~/images/cat1.jpg" alt="Card image cap">*@
-                        <img class="card-img-top img-fluid project_photo" src="@p.Photos.ElementAt(0).Url"
-                             alt="Image can not be displayed" width="400" height="250">
-                        <div class="pos">
-                            @p.Name
-                        </div>
+                    <div class="inHeader">                        
+                        <img class="card-img-top img-fluid project_photo trending-photos border-bottom" src="@p.Photos.ElementAt(0).Url"
+                             alt="Image can not be displayed" width="100" height="100">                        
                     </div>
-                    <div class="card-body">
-                        @*<p class="card-text">@p.Description</p>*@
-                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })" class="stretched-link"></a>
-                        <p class="card-text mt-2">@p.Description</p>
+                    <div class="card-body">                   
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.ConcatName()</a>
+                        <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })" class="stretched-link"></a>                       
                     </div>
-                    <div class="card-footer by">
-                        @*<a href="#" class="btn btn-primary btn-sm">Details</a>*@
+                    <div class="card-footer by">                        
                         by
                         <a href="@Url.Action("Details", "User", new { id = p.UserId })">
                             @p.User.FirstName @p.User.LastName
-                        </a>
-                        @*<li class="list-group-item">@p.AmountGathered €</li>
-                            <li class="list-group-item">@p.Percentage() funded</li>*@
-
+                        </a>                       
                     </div>
                 </div>
             }
@@ -49,10 +40,3 @@
 
     <a class="clickable" id="btnRight"><i class="fas fa-angle-right"></i></a>
 </div>
-
-
-
-
-
-
-

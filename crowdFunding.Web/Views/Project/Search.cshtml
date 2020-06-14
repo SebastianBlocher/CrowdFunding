@@ -17,6 +17,7 @@
                     Why not change some things around or broaden your search?
                 </div>
                 <a class="btn btn-warning" href="@Url.Action("Index", "Home")" role="button">Take me home</a>
+                <a class="btn btn-warning" href="@Url.Action("Search", "Project")" role="button">Browse projects</a>
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -49,8 +50,7 @@
                         <li class="list-group-item">@p.AmountGathered €</li>
                         <li class="list-group-item">@p.Percentage() funded</li>
                         <li class="list-group-item"><a href="@Url.Action("Search", "Project", new { category = p.Category})" class="text-dark mt-4"><u>@p.Category</u></a></li>
-                    </ul>
-                   
+                    </ul>                   
                 </div>
             </div>
         </div>

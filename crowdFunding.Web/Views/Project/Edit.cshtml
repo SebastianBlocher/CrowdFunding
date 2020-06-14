@@ -61,8 +61,28 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>                        
+                        <button type="button" id="addRewardsButton" class="btn btn-primary">Add</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalCreateStatusUpdate" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a status update.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-font" for="Status">New Status</label>
+                    <textarea class="js-statusUpdate form-control" id="statusUpdate" placeholder="Post your update.." rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="addStatusButton" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
@@ -84,21 +104,11 @@
     </div>
 
     <div class="form-group">
-        <label for="url">Enter a url for the photo</label>
-
-    </div>
-    @*<div class="form-group">
-        <label for="dueto">Due Date:</label>
-        <input type="date" id="rewardName"placeholder="Due Date" value="@Model.DueTo.ToString("yyyy-MM-dd")">
-    </div>*@
-
-    <div class="form-group">
         <label for="url">Add a Photo:</label>
 
         <input type="url" class="create-project-form" name="url" id="js-projectedit-photos"
                placeholder="https://example.com"
-               pattern="https://.*" size="30"
-               >
+               pattern="https://.*" size="30">
     </div>
 
     <div class="form-group">
@@ -106,14 +116,12 @@
 
         <input type="url" class="create-project-form" name="url" id="js-projectedit-videos"
                placeholder="https://example.com"
-               pattern="https://.*" size="30"
-               >
+               pattern="https://.*" size="30">
     </div>
 
     <div class="form-group">
         <label class="form-font" for="Description">Project Description</label>
         <textarea class="js-projectedit-description form-control" id="ProjectDesc" placeholder="Write your description here..." rows="3">@Model.Description</textarea>
-
     </div>
 
 
@@ -123,12 +131,14 @@
         </div>
         <input type="text" class="js-projectedit-amountrequired form-control" aria-label="Amount Required" value="@Model.AmountRequired">
         <div class="input-group-append">
-            @*<span class="input-group-text">.00</span>*@
         </div>
     </div>
 
     <button id="addRewardPackageButton" type="button" class="btn see-rewards rewards mb-3" data-target="modalCreateRewardPackages">
         Add Reward Package
+    </button>
+    <button id="addStatusUpdateButton" type="button" class="btn see-rewards rewards mb-3" data-target="modalCreateStatusUpdate">
+        Post Status Update
     </button>
 
     <br>
@@ -137,19 +147,13 @@
         Update
     </button>
 
+    <button type="button" class="btn btn-danger float-right mt-3" id="jsDisableProject" style="margin-left:50px">
+        Delete&nbsp;&nbsp;<span><i class="fa fa-trash" aria-hidden="true"></i></span>
+    </button>
 
-
-    @* DISABLE PROJECT *@
-    <div>
-        <button type="button" class="btn btn-danger float-right mt-3" id="jsDisableProject" style="margin-left:50px">
-            Disable Project!
-        </button>
-        <!-- Modal -->
-        
-    </div>
 
     <div class="alert alert-success js-projectedit-success-alert" role="alert">
-        Project was successfully update!
+        Project was successfully updated!
     </div>
 
     <div class="alert alert-danger js-projectedit-fail-alert" role="alert">

@@ -98,7 +98,7 @@
             <p class="card-text">@Model.Project.Description</p>
             @foreach (var p in Model.Project.Posts)
             {
-                <p class="card-text mt-3"><u>@p.CreatedOn.ToString("d")</u></p>
+                <p class="card-text mt-3"><u>Status posted on @p.CreatedOn.ToString("d")</u></p>
                 <p class="card-text mt-1">@p.Post</p>
             }
             @foreach (var p in Model.Project.Photos)
@@ -140,11 +140,11 @@
                         <p class="card-text">@rp.Description</p>
 
                         <button type="button" class="btn see-rewards mb-3"
-                                data-toggle="modal" data-target="#myModal">
-                            Checkout Rewards
+                                data-toggle="modal" data-target="#myModal-@rp.RewardPackageId">
+                            Check out Rewards
                         </button>
 
-                        <div class="modal fade right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        <div class="modal fade right" id="myModal-@rp.RewardPackageId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                              aria-hidden="true" data-backdrop="true">
                             <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
                                 <div class="modal-content">
