@@ -76,14 +76,15 @@ namespace crowdFunding.Web.Controllers
         [HttpDelete("{id}/delete")]
         public IActionResult Delete(int? id)
         {
-            var isPhotoRemoved = photoService.DeletePhoto(id);
+            var result = photoService.DeletePhoto(id);
 
-            if (isPhotoRemoved == false)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                   result.ErrorText);
             }
 
-            return Json(isPhotoRemoved);
+            return Json(result.Data);
         }
     }
 }

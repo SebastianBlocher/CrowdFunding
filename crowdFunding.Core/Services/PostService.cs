@@ -72,11 +72,12 @@ namespace crowdFunding.Core.Services
             return Result<Posts>.ActionSuccessful(post);
         }
 
-        public bool DeletePost(int? postId)
+        public Result<bool> DeletePost(int? postId)
         {
             if (postId == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                   StatusCode.BadRequest, "Null options");
             }
 
             var post = SearchPost(new SearchPostOptions()
@@ -86,17 +87,32 @@ namespace crowdFunding.Core.Services
 
             if (post == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid Post");
             }
 
             context_.Remove(post);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return true;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return false;
+            if (rows <= 0)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Post could not be deleted");
+            }
+
+            return Result<bool>.ActionSuccessful(true);
         }
 
         public IQueryable<Posts> SearchPost(

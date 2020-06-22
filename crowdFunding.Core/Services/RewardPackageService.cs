@@ -228,36 +228,54 @@ namespace crowdFunding.Core.Services
             return rewardPackage;
         }
 
-        public bool RemoveRewardPackage(int? rewardPackageId)
+        public Result<bool> RemoveRewardPackage(int? rewardPackageId)
         {
             if (rewardPackageId == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                   StatusCode.BadRequest, "Null options");
             }
 
             var rewardPackage = GetRewardPackageById(rewardPackageId);
 
             if (rewardPackage == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                   StatusCode.BadRequest, "Invalid Reward Package");
             }
 
             foreach (var reward in rewardPackage.Rewards.ToList())
             {
-                if (!rewardService_.RemoveReward(reward.RewardId))
+                if (!rewardService_.RemoveReward(reward.RewardId).Data)
                 {
-                    return false;
+                   return Result<bool>.ActionFailed(
+                       StatusCode.InternalServerError,
+                       "Reward Package could not be deleted");
                 }
             }
 
             context_.Remove(rewardPackage);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return true;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return false;
+            if (rows <= 0)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward Package could not be deleted");
+            }
+
+            return Result<bool>.ActionSuccessful(true);
         }
     }
 }

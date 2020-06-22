@@ -8,7 +8,7 @@ namespace crowdFunding.Core.Services.Interfaces
     public interface IVideoService
     {
         Result<Video> CreateVideo(int projectId, CreateVideoOptions options);
-        bool DeleteVideo(int? videoId);
+        Result<bool> DeleteVideo(int? videoId);
         IQueryable<Video> SearchVideo(SearchVideoOptions options);
     }
 }

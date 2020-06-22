@@ -69,14 +69,15 @@ namespace crowdFunding.Web.Controllers
         [HttpDelete("{id}")]
         public IActionResult Remove(int? id)
         {
-            var isRewardPackageRemoved = rewardPackageService.RemoveRewardPackage(id);
+            var result = rewardPackageService.RemoveRewardPackage(id);
 
-            if (isRewardPackageRemoved == false)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                  result.ErrorText);
             }
 
-            return Json(isRewardPackageRemoved);
+            return Json(result.Data);
         }
 
         [HttpGet("search")]

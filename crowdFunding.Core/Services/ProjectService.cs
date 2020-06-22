@@ -16,13 +16,25 @@ namespace crowdFunding.Core.Services
         private CrowdFundingDbContext context_;
         private IUserService userService_;
         private IRewardPackageService rewardPackageService_;
+        private IVideoService videoService_;
+        private IPhotoService photoService_;
+        private IPostService postService_;
 
 
-        public ProjectService(CrowdFundingDbContext context, IUserService userService, IRewardPackageService rewardPackageService)
+        public ProjectService(CrowdFundingDbContext context,
+            IUserService userService,
+            IRewardPackageService rewardPackageService,
+            IVideoService videoService,
+            IPhotoService photoService,
+            IPostService postService)
+
         {
             context_ = context;
             userService_ = userService;
             rewardPackageService_ = rewardPackageService;
+            videoService_ = videoService;
+            photoService_ = photoService;
+            postService_ = postService;
         }
 
        
@@ -330,12 +342,36 @@ namespace crowdFunding.Core.Services
 
             foreach (var rewardPackage in project.RewardPackages.ToList())
             {
-                if (!rewardPackageService_.RemoveRewardPackage(rewardPackage.RewardPackageId))
+                if (!rewardPackageService_.RemoveRewardPackage(rewardPackage.RewardPackageId).Data)
                 {
                     return false;
                 }
             }
-            
+
+            foreach (var photo in project.Photos.ToList())
+            {
+                if (!photoService_.DeletePhoto(photo.PhotoId).Data)
+                {
+                    return false;
+                }
+            }
+
+            foreach (var post in project.Posts.ToList())
+            {
+                if (!postService_.DeletePost(post.PostsId).Data)
+                {
+                    return false;
+                }
+            }
+
+            foreach (var video in project.Videos.ToList())
+            {
+                if (!videoService_.DeleteVideo(video.VideoId).Data)
+                {
+                    return false;
+                }
+            }
+
             context_.Remove(project);
 
             if (context_.SaveChanges() > 0)

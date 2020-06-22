@@ -38,16 +38,17 @@ namespace crowdFunding.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromForm]int? id)
+        public IActionResult GetById(int? id)
         {
             var reward = rewardService.GetRewardById(id);
 
-            if (reward == null)
+            if (!reward.Success)
             {
-                return NotFound();
+                return StatusCode((int)reward.ErrorCode,
+                 reward.ErrorText);
             }
 
-            return Json(reward);
+            return Json(reward.Data);
         }
 
         [HttpPatch("{id}")]
@@ -69,14 +70,15 @@ namespace crowdFunding.Web.Controllers
         [HttpDelete("{id}")]
         public IActionResult Remove(int? id)
         {
-            var isRewardRemoved = rewardService.RemoveReward(id);
+            var result = rewardService.RemoveReward(id);
 
-            if (isRewardRemoved == false)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                   result.ErrorText);
             }
-
-            return Json(isRewardRemoved);
+            
+            return Json(result.Data);
         }
 
         [HttpGet("search")]

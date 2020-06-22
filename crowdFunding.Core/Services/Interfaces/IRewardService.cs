@@ -12,7 +12,7 @@ namespace crowdFunding.Core.Services.Interfaces
         Result<Reward> AddRewardToList(CreateRewardOptions options);
         IQueryable<Reward> SearchReward(SearchRewardOptions options);
         Result<Reward> UpdateReward(int rewardId, UpdateRewardOptions options);
-        Reward GetRewardById(int? rewardId);
-        bool RemoveReward(int? rewardId);
+        Result<Reward> GetRewardById(int? rewardId);
+        Result<bool> RemoveReward(int? rewardId);
     }
 }

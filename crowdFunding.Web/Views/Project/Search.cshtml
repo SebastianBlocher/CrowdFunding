@@ -40,7 +40,7 @@
                     <!-- Title -->
                     <a href="@Url.Action("Details", "Project", new { id = p.ProjectId })">@p.Name</a>
                     <!-- Text -->
-                    <p class="card-text mt-2">@p.Description</p>
+                    <p class="card-text mt-2">@p.ConcatDescription()</p>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             by <a href="@Url.Action("Details", "User", new { id = p.UserId })">

@@ -12,6 +12,6 @@ namespace crowdFunding.Core.Services.Interfaces
         IQueryable<RewardPackage> SearchRewardPackage(SearchRewardPackageOptions options);
         Result<RewardPackage> UpdateRewardPackage(int rewardPackageId, UpdateRewardPackageOptions options);
         RewardPackage GetRewardPackageById(int? rewardPackageId);
-        bool RemoveRewardPackage(int? rewardPackageId);
+        Result<bool> RemoveRewardPackage(int? rewardPackageId);
     }
 }

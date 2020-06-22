@@ -40,7 +40,7 @@ namespace crowdFunding.Core.Model
         }
 
         public string ConcatName()
-        {
+        {           
             if (Name.Length >= 36)
             {
                 return Name.Substring(0, 23) + "...";
@@ -50,5 +50,17 @@ namespace crowdFunding.Core.Model
                 return Name;
             }
         }
+
+        public string ConcatDescription()
+        {
+            if (Description.Length >= 520)
+            {
+                return Description.Substring(0, 517) + "...";
+            }
+            else
+            {
+                return Description;
+            }
+        }         
     }
 }

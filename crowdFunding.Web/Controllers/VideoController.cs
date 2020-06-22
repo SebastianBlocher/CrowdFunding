@@ -48,6 +48,7 @@ namespace crowdFunding.Web.Controllers
             {
                 return NotFound();
             }
+
             return View(video);
         }
 
@@ -74,14 +75,15 @@ namespace crowdFunding.Web.Controllers
         [HttpDelete("{id}/delete")]
         public IActionResult Delete(int? id)
         {
-            var isVideoRemoved = videoService.DeleteVideo(id);
+            var result = videoService.DeleteVideo(id);
 
-            if (isVideoRemoved == false)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                   result.ErrorText);
             }
 
-            return Json(isVideoRemoved);
+            return Json(result.Data);
         }
     }
 }

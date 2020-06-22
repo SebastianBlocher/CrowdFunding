@@ -9,7 +9,7 @@ namespace crowdFunding.Core.Services.Interfaces
     public interface IPostService
     {
         Result<Posts> CreatePost(int projectId, CreatePostOptions options);
-        bool DeletePost(int? postId);
+        Result<bool> DeletePost(int? postId);
         IQueryable<Posts> SearchPost(SearchPostOptions options);
         Result<Posts> UpdatePost(int postId, UpdatePostOptions options);
     }

@@ -116,11 +116,12 @@ namespace crowdFunding.Core.Services
 
             return Result<Reward>.ActionSuccessful(reward);
         }
-        public Reward GetRewardById(int? rewardId)
+        public Result<Reward> GetRewardById(int? rewardId)
         {
             if (rewardId == null)
             {
-                return null;
+               return Result<Reward>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
             }
 
             var reward = SearchReward(new SearchRewardOptions()
@@ -128,31 +129,56 @@ namespace crowdFunding.Core.Services
                 RewardId = rewardId
             }).SingleOrDefault();
 
-            return reward;
+            if (reward == null)
+            {
+                return Result<Reward>.ActionFailed(
+                  StatusCode.NotFound, "Reward was not found");
+            }
+            else
+            {
+                return Result<Reward>.ActionSuccessful(reward);
+            }           
         }
 
-        public bool RemoveReward(int? rewardId)
-        {
+        public Result<bool> RemoveReward(int? rewardId)
+        {        
+
             if (rewardId == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                   StatusCode.BadRequest, "Null options");
             }
 
-            var reward = GetRewardById(rewardId);
+            var reward = GetRewardById(rewardId).Data;
 
             if (reward == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid Reward");
             }
 
             context_.Remove(reward);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return true;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return false;
+            if (rows <= 0)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Reward could not be deleted");
+            }
+
+            return Result<bool>.ActionSuccessful(true);
         }
 
         public IQueryable<Reward> SearchReward(

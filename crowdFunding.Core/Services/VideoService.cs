@@ -71,11 +71,12 @@ namespace crowdFunding.Core.Services
             return Result<Video>.ActionSuccessful(video);
         }
 
-        public bool DeleteVideo(int? videoId)
+        public Result<bool> DeleteVideo(int? videoId)
         {
             if (videoId == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                   StatusCode.BadRequest, "Null options");
             }
 
             var video = SearchVideo(new SearchVideoOptions()
@@ -85,17 +86,32 @@ namespace crowdFunding.Core.Services
 
             if (video == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid Video");
             }
 
             context_.Remove(video);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return true;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return false;
+            if (rows <= 0)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Video could not be deleted");
+            }
+
+            return Result<bool>.ActionSuccessful(true);
         }
 
         public IQueryable<Video> SearchVideo(

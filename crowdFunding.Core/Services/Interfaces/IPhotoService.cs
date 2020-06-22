@@ -8,7 +8,7 @@ namespace crowdFunding.Core.Services.Interfaces
     public interface IPhotoService
     {
         Result<Photo> CreatePhoto(int projectId, CreatePhotoOptions options);
-        bool DeletePhoto(int? photoId);
+        Result<bool> DeletePhoto(int? photoId);
         IQueryable<Photo> SearchPhoto(SearchPhotoOptions options);
     }
 }

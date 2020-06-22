@@ -77,14 +77,15 @@ namespace crowdFunding.Web.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int? id)
         {
-            var isPostRemoved = postService.DeletePost(id);
+            var result = postService.DeletePost(id);
 
-            if (isPostRemoved == false)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                   result.ErrorText);
             }
 
-            return Json(isPostRemoved);
+            return Json(result.Data);
         }
 
         [HttpGet("{id}/search")]

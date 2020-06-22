@@ -71,11 +71,12 @@ namespace crowdFunding.Core.Services
             return Result<Photo>.ActionSuccessful(photo);
         }
 
-        public bool DeletePhoto(int? photoId)
+        public Result<bool> DeletePhoto(int? photoId)
         {
             if (photoId == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                   StatusCode.BadRequest, "Null options");
             }
 
             var photo = SearchPhoto(new SearchPhotoOptions()
@@ -85,17 +86,32 @@ namespace crowdFunding.Core.Services
 
             if (photo == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid Photo");
             }
 
             context_.Remove(photo);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return true;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return false;
+            if (rows <= 0)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Photo could not be deleted");
+            }
+
+            return Result<bool>.ActionSuccessful(true);
         }
 
         public IQueryable<Photo> SearchPhoto(

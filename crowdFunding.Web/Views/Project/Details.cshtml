@@ -120,69 +120,105 @@
     <div class="col-md-2"></div>
     <div class="col-md-4">
         <h5 class="card-header reward-package mt-3">Reward Packages</h5>
-        @if (@Model.Project.RewardPackages.Count == 0)
-        {
-            <div class="d-flex justify-content-center">
-                <div class="spinner-border text-success mt-5 style=" width: 3rem; height: 3rem;"" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-            <p class="spinner-text">In Progress...</p>
-        }
-        else
-        {
-            @foreach (var rp in Model.Project.RewardPackages)
-            {
-                <div class="card mb-2 shadow p-3 mb-5 bg-white rounded">
-                    <h5 class="card-header reward-packages">@rp.Name</h5>
-                    <div class="card-body">
-                        <h5 class="card-title js-back-project-amount-@rp.RewardPackageId">@rp.Amount €</h5>
-                        <p class="card-text">@rp.Description</p>
 
-                        <button type="button" class="btn see-rewards mb-3"
-                                data-toggle="modal" data-target="#myModal-@rp.RewardPackageId">
-                            Check out Rewards
-                        </button>
+        <div class="card mb-2 shadow p-3 mb-5 bg-white rounded">
+            <h5 class="card-header reward-packages">Pledge without a reward</h5>
+            <div class="card-body">
 
-                        <div class="modal fade right" id="myModal-@rp.RewardPackageId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                             aria-hidden="true" data-backdrop="true">
-                            <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <p class="heading">Rewards</p>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" class="white-text">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <p class="text-center">
-                                                    <img src="https://www.iconsdb.com/icons/preview/navy-blue/gift-xxl.png"
-                                                         width="50" height="50">
-                                                </p>
-                                            </div>
-                                            <div class="col-9">
-                                                @foreach (var p in rp.Rewards)
-                                                {
-                                                    <p>@p.Name</p>
-                                                }
+                <div class="modal fade right" id="pledgeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true" data-backdrop="true">
+                    <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p>Back this project because you believe in it!</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <form method="post" class="js-pledge-form">
+
+                                        <div class="form-group">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">€</span>
+                                                </div>
+                                                <input type="text" class="js-projectedit-amountrequired form-control" aria-label="Amount Required" value="Model.AmountRequired">
+                                                <div class="input-group-append">
+                                                </div>
                                             </div>
                                         </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-footer flex-center">
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <button type="button" class="js-back-project-button btn btn-primary btn-md mt-2" id="pledgeButton"
+                        data-toggle="modal" data-target="#pledgeModal">
+                    Back this Project
+                </button>
+            </div>
+        </div>
+
+        @foreach (var rp in Model.Project.RewardPackages)
+        {
+            <div class="card mb-2 shadow p-3 mb-5 bg-white rounded">
+                <h5 class="card-header reward-packages">@rp.Name</h5>
+                <div class="card-body">
+                    <h5 class="card-title js-back-project-amount-@rp.RewardPackageId">@rp.Amount €</h5>
+                    <p class="card-text">@rp.Description</p>
+
+                    <button type="button" class="btn see-rewards mb-3"
+                            data-toggle="modal" data-target="#myModal-@rp.RewardPackageId">
+                        Check out Rewards
+                    </button>
+
+                    <div class="modal fade right" id="myModal-@rp.RewardPackageId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true" data-backdrop="true">
+                        <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <p class="heading">Rewards</p>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" class="white-text">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p class="text-center">
+                                                <img src="https://www.iconsdb.com/icons/preview/navy-blue/gift-xxl.png"
+                                                     width="50" height="50">
+                                            </p>
+                                        </div>
+                                        <div class="col-9">
+                                            @foreach (var p in rp.Rewards)
+                                            {
+                                                <p>@p.Name</p>
+                                            }
+                                        </div>
                                     </div>
-                                    <div class="modal-footer flex-center">
-                                        <br>
-                                    </div>
+                                </div>
+                                <div class="modal-footer flex-center">
+                                    <br>
                                 </div>
                             </div>
                         </div>
-                        <br />
-                        <button type="button" class="js-back-project-button btn btn-primary btn-md mt-2" id="@rp.RewardPackageId">
-                            Buy Package
-                        </button>
                     </div>
+                    <br />
+                    <button type="button" class="js-back-project-button btn btn-primary btn-md mt-2" id="@rp.RewardPackageId">
+                        Buy Package
+                    </button>
                 </div>
-            }
+            </div>
         }
+
     </div>
 </div>
