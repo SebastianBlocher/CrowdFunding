@@ -104,14 +104,15 @@ namespace crowdFunding.Web.Controllers
         [HttpDelete("delete")]
         public IActionResult Remove(int? id)
         {
-            var isProjectRemoved = projectService.DeleteProject(id);
+            var result = projectService.DeleteProject(id);
 
-            if (isProjectRemoved == false)
+            if (!result.Success)
             {
-                return BadRequest();
+                return StatusCode((int)result.ErrorCode,
+                   result.ErrorText);
             }
 
-            return Json(isProjectRemoved);
+            return Json(result.Data);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

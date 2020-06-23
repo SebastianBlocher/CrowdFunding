@@ -208,8 +208,7 @@ namespace crowdFunding.Core.Services
             return project;
         }
 
-        public Result<Project> UpdateProject(
-            UpdateProjectOptions options)
+        public Result<Project> UpdateProject(UpdateProjectOptions options)
         {
             var result = new Result<Project>();
 
@@ -326,25 +325,29 @@ namespace crowdFunding.Core.Services
             return trendingProjects;
         }
 
-        public bool DeleteProject(int? id)
+        public Result<bool> DeleteProject(int? id)
         {
             if (id == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                    StatusCode.BadRequest, "Null options");
             }
 
             var project = GetProjectById(id);              
 
             if (project == null)
             {
-                return false;
+                return Result<bool>.ActionFailed(
+                    StatusCode.BadRequest, "Invalid Project");
             }
 
             foreach (var rewardPackage in project.RewardPackages.ToList())
             {
                 if (!rewardPackageService_.RemoveRewardPackage(rewardPackage.RewardPackageId).Data)
                 {
-                    return false;
+                    return Result<bool>.ActionFailed(
+                        StatusCode.InternalServerError,
+                        "Project could not be deleted");
                 }
             }
 
@@ -352,7 +355,9 @@ namespace crowdFunding.Core.Services
             {
                 if (!photoService_.DeletePhoto(photo.PhotoId).Data)
                 {
-                    return false;
+                    return Result<bool>.ActionFailed(
+                        StatusCode.InternalServerError,
+                        "Project could not be deleted");
                 }
             }
 
@@ -360,7 +365,9 @@ namespace crowdFunding.Core.Services
             {
                 if (!postService_.DeletePost(post.PostsId).Data)
                 {
-                    return false;
+                    return Result<bool>.ActionFailed(
+                        StatusCode.InternalServerError,
+                        "Project could not be deleted");
                 }
             }
 
@@ -368,18 +375,34 @@ namespace crowdFunding.Core.Services
             {
                 if (!videoService_.DeleteVideo(video.VideoId).Data)
                 {
-                    return false;
+                    return Result<bool>.ActionFailed(
+                        StatusCode.InternalServerError,
+                        "Project could not be deleted");
                 }
             }
 
             context_.Remove(project);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return true;
+                rows = context_.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError, ex.ToString());
             }
 
-            return false;
+            if (rows <= 0)
+            {
+                return Result<bool>.ActionFailed(
+                    StatusCode.InternalServerError,
+                    "Project could not be deleted");
+            }
+
+            return Result<bool>.ActionSuccessful(true);
         }
     }
 

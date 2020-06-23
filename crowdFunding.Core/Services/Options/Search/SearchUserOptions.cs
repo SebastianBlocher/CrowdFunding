@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace crowdFunding.Core.Services.Options.Search
+﻿namespace crowdFunding.Core.Services.Options.Search
 {
     public class SearchUserOptions
     {
@@ -9,9 +7,5 @@ namespace crowdFunding.Core.Services.Options.Search
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Country { get; set; }
-        public DateTime? CreateOnFrom { get; set; }
-        public DateTime? CreateOnTo { get; set; }
-        public decimal? AmountFrom { get; set; }
-        public decimal? AmountTo { get; set; }
     }
 }

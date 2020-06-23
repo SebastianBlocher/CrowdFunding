@@ -181,8 +181,7 @@ namespace crowdFunding.Core.Services
             return Result<bool>.ActionSuccessful(true);
         }
 
-        public IQueryable<Reward> SearchReward(
-            SearchRewardOptions options)
+        public IQueryable<Reward> SearchReward(SearchRewardOptions options)
         {
             if (options == null)
             {
@@ -208,9 +207,7 @@ namespace crowdFunding.Core.Services
             return query;
         }
 
-        public Result<Reward> UpdateReward(
-        int rewardId,
-        UpdateRewardOptions options)
+        public Result<Reward> UpdateReward(int rewardId, UpdateRewardOptions options)
         {
             var result = new Result<Reward>();
 

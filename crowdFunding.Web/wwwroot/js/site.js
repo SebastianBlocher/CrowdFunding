@@ -486,6 +486,7 @@ projectCreateButton.on('click', () => {
 
     let photos = $('#js-projectcreate-photos').val();
     let videos = $('#js-projectcreate-videos').val();
+    let avatar = $('#js-user-avatar').val();
 
 
 
@@ -498,7 +499,7 @@ projectCreateButton.on('click', () => {
         dueTo: dueto,
         photos: [(photos)],
         videos: [(videos)],
-
+        avatar: avatar
     };
 
     $.ajax({
@@ -578,9 +579,6 @@ disableProjectButton.on('click', () => {
         type: 'DELETE',
         url: '/project/delete?id=' +parseInt(projectid.val())
     }).done(project => {
-
-       
-
 
         var url = "/User/MyProfile/" + parseInt(localStorage.getItem('userId'))
         window.location.href = url;

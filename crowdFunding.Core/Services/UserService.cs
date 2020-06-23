@@ -57,6 +57,7 @@ namespace crowdFunding.Core.Services
                 Email = options.Email,
                 Country = options.Country,
                 Description = options.Description,
+                Avatar = options.Avatar
             };
 
             context.Add(user);
@@ -91,11 +92,11 @@ namespace crowdFunding.Core.Services
             }
 
             var user = GetById(id)
-                        .Include(c => c.CreatedProjectsList)
-                            .ThenInclude(p => p.Photos)
-                        .Include(c => c.CreatedProjectsList)
-                            .ThenInclude(v=>v.Videos)
-                        .SingleOrDefault();
+                .Include(c => c.CreatedProjectsList)                    
+                    .ThenInclude(p => p.Photos)
+                .Include(c => c.CreatedProjectsList)
+                    .ThenInclude(v => v.Videos)
+                .SingleOrDefault();
 
             if (user == null)
             {
@@ -106,7 +107,7 @@ namespace crowdFunding.Core.Services
             user.FirstName = "";
             user.Email = "";
 
-            if (user.CreatedProjectsList != null && user.CreatedProjectsList.Count!=0)
+            if (user.CreatedProjectsList != null && user.CreatedProjectsList.Count != 0)
             {
                 foreach (var pr in user.CreatedProjectsList)
                 {
@@ -119,6 +120,7 @@ namespace crowdFunding.Core.Services
                         pr.Videos.Clear();
                     }
                 }
+
                 user.CreatedProjectsList.Clear();
             }
 
@@ -147,20 +149,9 @@ namespace crowdFunding.Core.Services
                 .Set<User>()
                 .AsQueryable();
 
-
             if (!string.IsNullOrWhiteSpace(options.Country))
             {
                 query = query.Where(x => x.Country == options.Country);
-            }
-
-            if (options.CreateOnFrom != null)
-            {
-                query = query.Where(x => x.CreatedOn >= options.CreateOnFrom);
-            }
-
-            if (options.CreateOnTo != null)
-            {
-                query = query.Where(x => x.CreatedOn >= options.CreateOnTo);
             }
 
             if (!string.IsNullOrWhiteSpace(options.Email))
@@ -227,6 +218,11 @@ namespace crowdFunding.Core.Services
             if (!string.IsNullOrWhiteSpace(options.Description))
             {
                 user.Description = options.Description;
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.Avatar))
+            {
+                user.Avatar = options.Avatar;
             }
 
             if (!string.IsNullOrWhiteSpace(options.Email))
