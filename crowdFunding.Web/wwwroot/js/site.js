@@ -221,13 +221,15 @@ userCreateButton.on('click', () => {
     let email = $('.js-usercreate-email');
     let country = $('.js-usercreate-country');
     let description = $('.js-usercreate-description');
+    let avatar = $('#js-user-avatar');
 
     let data = {
         firstname: firstname.val(),
         lastname: lastname.val(),
         email: email.val(),
         country: country.val(),
-        description: description.val()
+        description: description.val(),
+        avatar: avatar.val()
     }
     $.ajax({
         type: 'POST',
@@ -256,8 +258,6 @@ userCreateButton.on('click', () => {
         userCreateFailedAlert.fadeOut();
     })
 });
-
-
 
 
 var btnL = document.getElementById("btnLeft");
@@ -485,9 +485,7 @@ projectCreateButton.on('click', () => {
     let dueto = new Date($('#js-projectcreate-dueto').val());
 
     let photos = $('#js-projectcreate-photos').val();
-    let videos = $('#js-projectcreate-videos').val();
-    let avatar = $('#js-user-avatar').val();
-
+    let videos = $('#js-projectcreate-videos').val();    
 
 
     let data = {
@@ -498,8 +496,7 @@ projectCreateButton.on('click', () => {
         amountRequired: parseFloat(amountrequired.val()),
         dueTo: dueto,
         photos: [(photos)],
-        videos: [(videos)],
-        avatar: avatar
+        videos: [(videos)]        
     };
 
     $.ajax({

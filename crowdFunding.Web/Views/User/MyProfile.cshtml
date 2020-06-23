@@ -30,10 +30,17 @@
     <div class="col-4"></div>
     <div class="profile_bio center mb6">
         <h2 class="mb3">@Model.User.FirstName @Model.User.LastName</h2>
-        @*<i class="fas fa-user fa-4x mb-3" style="color: #2B14A6;"></i>*@
-        <div class="avatar">
-            <img src="@Model.User.Avatar" width="250" height="100" class="img-fluid" alt="Image can not be displayed">
-        </div>
+        @if (string.IsNullOrWhiteSpace(Model.User.Avatar))
+        {
+            <i class="fas fa-user fa-4x mb-3 mt-3" style="color: #2B14A6;"></i>
+        }
+        else
+        {
+            <div class="avatar mt-3 mb-3">
+                <img src="@Model.User.Avatar" width="250" height="100" class="img-fluid" alt="Image can not be displayed">
+            </div>
+        }
+
         <p class="normal-type mb1">
             <span class="backed">
                 Backed @Model.User.BackedProjectsList.Count projects

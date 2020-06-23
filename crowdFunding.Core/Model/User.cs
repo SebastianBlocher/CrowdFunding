@@ -22,7 +22,7 @@ namespace crowdFunding.Core.Model
             CreatedOn = DateTimeOffset.Now;
             IsActive = true;
             CreatedProjectsList = new List<Project>();
-            BackedProjectsList = new List<BackedProjects>();
+            BackedProjectsList = new List<BackedProjects>();            
         }
     }
 }
